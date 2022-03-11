@@ -419,7 +419,7 @@ namespace ChameleonSysExEd
             d1Time = (byte)(newD1Time / 4);
             d1TimeHighByte = (byte)((newD1Time / 4) >> 7);
         }
-        public byte D2Time { get => (byte)(((d2TimeHighByte << 7) + d2Time) * 4); set => SetD2Time(value); }
+        public short D2Time { get => (byte)(((d2TimeHighByte << 7) + d2Time) * 4); set => SetD2Time(value); }
         public byte D1OutLevel { get => (byte)(d1OutLevel - 63); set => d1OutLevel = (byte)(value + 63); }
         public byte D1Regen { get => (byte)(d1Regen - 63); set => d1Regen = (byte)(value + 63); }
         public byte D2Regen { get => (byte)(d2Regen - 63); set => d2Regen = (byte)(value + 63); }
