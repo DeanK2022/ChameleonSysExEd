@@ -53,7 +53,8 @@ namespace ChameleonSysExEd
             {
                 get
                 {
-                    IntPtr bc = (IntPtr)base.composite; return (*(TChameleonCompositeLowGainChorus*)bc);
+                    IntPtr bc = (IntPtr)base.composite;
+                    return (*(TChameleonCompositeLowGainChorus*)bc);
                 }
 
             }
@@ -301,17 +302,24 @@ namespace ChameleonSysExEd
         public byte Z2;
         public byte TremoloDepth;
         public byte Z3;
-        public byte TremoloRate;
-        public byte TremoloRateHigh;
+        private byte tremoloRate;
+        private byte tremoloRateHigh;
         public byte TremoloShape;
         public byte Z5;
+
+        public short TremoloRate { get => (short)((tremoloRateHigh << 7) + tremoloRate); set => SetRate(value); }
+        private void SetRate (short value)
+        {
+            tremoloRate = (byte)value;
+            tremoloRateHigh = (byte)(value >> 7);
+        }
         public ChameleonTremolo(TChameleonTremolo tc)
         {
             TremoloInOut = tc.TremoloInOut;
             TremoloLocation = tc.TremoloLocation;
             TremoloDepth = tc.TremoloDepth;
-            TremoloRate = tc.TremoloRate;
-            TremoloRateHigh = tc.TremoloRateHigh;
+            tremoloRate = tc.TremoloRate;
+            tremoloRateHigh = tc.TremoloRateHigh; 
             TremoloShape = tc.TremoloShape;
         }
     }
@@ -580,7 +588,6 @@ namespace ChameleonSysExEd
             Speed = tc.Speed;
         }
     }
-
     public class ChameleonSysExComplete
     {
         public byte Status;
@@ -840,6 +847,356 @@ namespace ChameleonSysExEd
             return true;
 
 
+        }
+        unsafe public void SetControllerAssignment(TChameleonControllerAssignment* dest, ChameleonControllerAssignment src, byte idx)
+        {
+            dest->Number = idx;
+            dest->Z1 = 0;
+            dest->Param    =  src.Param;
+            dest->Z2 = 0;
+            dest->UpperLimit = src.UpperLimit;
+            dest->Z3 = 0;
+            dest->LowerLimit = src.LowerLimit;
+            dest->Z4 = 0;
+        }
+        unsafe public void SetChorus(TChameleonChorus* dst, ChameleonChorus src)
+        {
+            dst->ChorusInOut = src.ChorusInOut;
+            dst->Z1 = 0;
+            dst->Chorus1Level = src.Chorus1Level;
+            dst->Z2 = 0;
+            dst->Chorus1Pan = src.Chorus1Pan;
+            dst->Z3 = 0;
+            dst->Chorus1Depth = src.Chorus1Depth;
+            dst->Z4 = 0;
+            dst->Chorus1Rate = (byte)src.Chorus1Rate;
+            dst->Chorus1RateHighByte = (byte)(src.Chorus1Rate >> 7);
+            dst->Chorus1Delay = src.Chorus1Delay;
+            dst->Z6 = 0;
+            dst->Chorus2Level = src.Chorus2Level;
+            dst->Z7 = 0;
+            dst->Chorus2Pan = src.Chorus2Pan;
+            dst->Z8 = 0;
+            dst->Chorus2Depth = src.Chorus2Depth;
+            dst->Z9 = 0;
+            dst->Chorus2Rate = (byte)src.Chorus2Rate;
+            dst->Chorus2RateHighByte = (byte)(src.Chorus2Rate >>7);
+            dst->Chorus2Delay = src.Chorus2Delay;
+            dst->Z11 = 0;
+        }
+        unsafe public void SetFlanger(         TChameleonFlanger*dst, ChameleonFlanger src) 
+        { 
+            dst->FlangeInOut =src.FlangeInOut;
+            dst->Z0 = 0;
+            dst->Level1= src.Level1;
+            dst->Z1 = 0;
+            dst->Pan1= src.Pan1;
+            dst->Z2 = 0;
+            dst->Depth1     =    src.Depth1;
+            dst->Z3 = 0;
+            dst->Rate1Low    = (byte)src.Rate1;
+            dst->Rate1High   = (byte)(src.Rate1>>7);
+            dst->Level2      =   src.Level2;
+            dst->Z5 = 0;
+            dst->Pan2       =    src.Pan2;
+            dst->Z6 = 0;
+            dst->Depth2 = src.Depth2;
+            dst->Z7 = 0;
+            dst->Rate2Low   =    (byte)src.Rate2;
+            dst->Rate2High  = (byte)(src.Rate2>>7);
+            dst->Regeneration = src.Regeneration;
+            dst->Z8 = 0;
+
+        }   
+        unsafe public void SetPhaser( TChameleonPhaser *dst, ChameleonPhaser src   )
+        {
+            dst->PhaserInOut = src.PhaserInOut;
+            dst->Z1 = 0;
+            dst->Depth = src.Depth;
+            dst->Z2 = 0;
+            dst->Rate = src.Rate;
+            dst->Z3 = 0;
+            dst->Resonance = src.Resonance;
+            dst->Z4 = 0;
+            dst->Stage = src.Stage;
+            dst->Z5 = 0;
+        }  
+        unsafe public void SetPitchShift( TChameleonPitchShift *dst, ChameleonPitchShift src                )
+        {
+            dst->PitchShiftInOut = src.PitchShiftInOut;
+            dst->Z0 = 0;
+            dst->Level = src.Level;
+            dst->Z1 = 0;
+            dst->Pan = src.Pan;
+            dst->Z2 = 0;
+            dst->Pitch = (byte)src.Pitch;
+            dst->PitchHigh = (byte)(src.Pitch >> 7);
+            dst->FineTune = src.FineTune;
+            dst->Z4 = 0;
+            dst->Speed = src.Speed;
+            dst->Z5 = 0;
+        }
+        unsafe public void SetTremolo(         TChameleonTremolo *dst, ChameleonTremolo src)
+        {
+            dst->TremoloInOut = src.TremoloInOut;
+            dst->Z1 = 0;
+            dst->TremoloLocation = src.TremoloLocation;
+            dst->Z2 = 0;
+            dst->TremoloDepth = src.TremoloDepth;
+            dst->Z3 = 0;
+            dst->TremoloRate = (byte)src.TremoloRate;
+            dst->TremoloRateHigh = (byte)(src.TremoloRate >>7);
+            dst->TremoloShape = src.TremoloShape;
+            dst->Z5 = 0;
+
+        }
+        unsafe public void SetWah(             TChameleonWah *dst, ChameleonWah src) 
+        {
+            dst->WahInOut = src.WahInOut;
+            dst->Freq     =src.Freq;
+        }
+        unsafe public void SetDelay(           TChameleonDelay *dst, ChameleonDelay src) 
+        {
+            dst->DelayState = src.DelayState;
+            dst->Z1 = 0;
+            dst->MuteType = src.MuteType;
+            dst->Z2 = 0;
+            dst->SourceMix = src.SourceMix;
+            dst->Z3 = 0;
+            dst->Source2 = src.Source2;
+            dst->Z4 = 0;
+            dst->HighFreqDamp = src.HighFreqDamp;
+            dst->Z5 = 0;
+            dst->D1OutLevel = src.D1OutLevel;
+            dst->Z6 = 0;
+            dst->D1Pan = src.D1Pan;
+            dst->Z7 = 0;
+            dst->D1Time = (byte)src.D1Time;
+            dst->D1TimeHighByte = (byte)(src.D1Time >> 7);
+            dst->D1Regen = src.D1Regen;
+            dst->Z9 = 0;
+            dst->D2OutLevel = src.D2OutLevel;
+            dst->Z10 = 0;
+            dst->D2Pan = src.D2Pan;
+            dst->Z11 = 0;
+            dst->D2Time = (byte)src.D2Time;
+            dst->D2TimeHighByte = (byte)(src.D2Time>>7);
+            dst->D2Regen = src.D2Regen;
+            dst->Z13 = 0; 
+
+        }
+        unsafe public void SetReverb(          TChameleonReverb *dst, ChameleonReverb src) 
+        {
+            dst->ReverbState =src.ReverbState;
+            dst->Z14 = 0;
+            dst->ReverbMix = src.ReverbMix;
+            dst->Z15 = 0;
+            dst->ReverbDecay = src.ReverbDecay;
+            dst->Z16 = 0;
+            dst->ReverbHighFreqDamp = src.ReverbHighFreqDamp;
+            dst->Z17 = 0;
+        }
+        unsafe public byte[] StructureToByteArray(TChameleonCompositeAllStructsUnion* obj)
+        {
+            int len = Marshal.SizeOf(*obj);
+
+            byte[] arr = new byte[len];
+
+            IntPtr ptr = Marshal.AllocHGlobal(len);
+
+            Marshal.StructureToPtr(*obj, ptr, true);
+
+            Marshal.Copy(ptr, arr, 0, len);
+
+            Marshal.FreeHGlobal(ptr);
+
+            return arr;
+        }
+        public byte[] ToByteArray()
+        {
+            unsafe
+            {
+                TChameleonCompositeAllStructsUnion asu;
+                asu.HighGainHeader.Status = Status;
+                asu.HighGainHeader.ManufCode = ManufCode;
+                asu.HighGainHeader.DeviceID = DeviceID;
+                asu.HighGainHeader.ModelID = ModelID;
+
+                asu.HighGainHeader.Control.Code1 = Control.Code1;
+                asu.HighGainHeader.Control.Code2 = Control.Code2;
+                asu.HighGainHeader.Control.ConfigMode = Control.ConfigMode;
+                asu.HighGainHeader.Control.Z1 = 0;
+
+                asu.HighGainHeader.Mixer.MasterVolume = Mixer.MasterVolume;
+                asu.HighGainHeader.Mixer.Z1 = 0;
+                asu.HighGainHeader.Mixer.LeftLevel = Mixer.LeftLevel;
+                asu.HighGainHeader.Mixer.Z2 = 0;
+                asu.HighGainHeader.Mixer.RightLevel = Mixer.RightLevel;
+                asu.HighGainHeader.Mixer.Z3 = 0;
+                asu.HighGainHeader.Mixer.MixDir = Mixer.MixDir;
+                asu.HighGainHeader.Mixer.Z4 = 0;
+                asu.HighGainHeader.Mixer.Pan = Mixer.Pan;
+                asu.HighGainHeader.Mixer.Z5 = 0;
+                asu.HighGainHeader.Mixer.DelayLevel = Mixer.DelayLevel;
+                asu.HighGainHeader.Mixer.Z6 = 0;
+                asu.HighGainHeader.Mixer.ReverbLevel = Mixer.ReverbLevel;
+                asu.HighGainHeader.Mixer.Z7 = 0;
+
+                asu.HighGainHeader.Hush.InOut = Hush.InOut; ;
+                asu.HighGainHeader.Hush.Z1 = 0;
+                asu.HighGainHeader.Hush.Threshold = Hush.Threshold;
+                asu.HighGainHeader.Hush.Z2 = 0;
+
+                asu.HighGainHeader.PreEQ.LowFreqLevel = PreEQ.LowFreqLevel;
+                asu.HighGainHeader.PreEQ.Z1 = 0;
+                asu.HighGainHeader.PreEQ.LowFreq = PreEQ.LowFreq;
+                asu.HighGainHeader.PreEQ.Z2 = 0;
+                asu.HighGainHeader.PreEQ.MidFreqLevel = PreEQ.MidFreqLevel;
+                asu.HighGainHeader.PreEQ.Z3 = 0;
+                asu.HighGainHeader.PreEQ.MidFreq = PreEQ.MidFreq;
+                asu.HighGainHeader.PreEQ.Z4 = 0;
+                asu.HighGainHeader.PreEQ.MidBand = PreEQ.MidBand;
+                asu.HighGainHeader.PreEQ.Z5 = 0;
+
+                asu.HighGainHeader.PostEQ.BassFreq = PostEQ.BassFreq;
+                asu.HighGainHeader.PostEQ.Z1 = 0;
+                asu.HighGainHeader.PostEQ.BassBand = PostEQ.BassBand;
+                asu.HighGainHeader.PostEQ.Z2 = 0;
+                asu.HighGainHeader.PostEQ.MidFreq = PostEQ.MidFreq;
+                asu.HighGainHeader.PostEQ.Z3 = 0;
+                asu.HighGainHeader.PostEQ.MidBand = PostEQ.MidBand;
+                asu.HighGainHeader.PostEQ.Z4 = 0;
+                asu.HighGainHeader.PostEQ.TrebleFreq = PostEQ.TrebleFreq;
+                asu.HighGainHeader.PostEQ.Z5 = 0;
+                asu.HighGainHeader.PostEQ.TrebleBand = PostEQ.TrebleBand;
+                asu.HighGainHeader.PostEQ.Z6 = 0;
+                asu.HighGainHeader.PostEQ.PresFreq = PostEQ.PresFreq;
+                asu.HighGainHeader.PostEQ.Z7 = 0;
+                asu.HighGainHeader.PostEQ.PresBand = PostEQ.PresBand;
+                asu.HighGainHeader.PostEQ.Z8 = 0;
+
+                asu.HighGainHeader.SpeakerSim.SpeakerSim = SpeakerSim.SpeakerSim;
+                asu.HighGainHeader.SpeakerSim.Z1 = 0;
+                asu.HighGainHeader.SpeakerSim.SpeakerType = SpeakerSim.SpeakerType;
+                asu.HighGainHeader.SpeakerSim.Z2 = 0;
+                asu.HighGainHeader.SpeakerSim.MicPlace = SpeakerSim.MicPlace;
+                asu.HighGainHeader.SpeakerSim.Z3 = 0;
+                asu.HighGainHeader.SpeakerSim.Reactance = SpeakerSim.Reactance;
+                asu.HighGainHeader.SpeakerSim.Z4 = 0;
+
+
+                for (int i = 0; i < Title.Length; i++)
+                    asu.TailEnd.Title[i] = (byte)Title[i];
+
+
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment1, ControllerAssignment1, 1);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment2, ControllerAssignment2, 2);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment3, ControllerAssignment3, 3);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment4, ControllerAssignment4, 4);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment5, ControllerAssignment5, 5);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment6, ControllerAssignment6, 6);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment7, ControllerAssignment7, 7);
+                SetControllerAssignment(&asu.TailEnd.ControllerAssignment8, ControllerAssignment8, 8);
+
+                asu.TailEnd.TapDelay.TapDelayD1Multiplyer = TapDelay.TapDelayD1Multiplyer;
+                asu.TailEnd.TapDelay.Z1 = 0;
+                asu.TailEnd.TapDelay.TapDelayD2Multiplyer = TapDelay.TapDelayD2Multiplyer;
+                asu.TailEnd.TapDelay.Z2 = 0;
+
+                asu.TailEnd.CheckSum = CheckSum; // TO DO - complete this 
+
+                if (asu.HighGainHeader.Control.ConfigMode > 5) // low gain
+                {
+                    asu.LowGainHeader.Compressor.InOut = Compressor.InOut;
+                    asu.LowGainHeader.Compressor.Z1 = 0;
+                    asu.LowGainHeader.Compressor.Threshold = Compressor.Threshold;
+                    asu.LowGainHeader.Compressor.Z2 = 0;
+                    asu.LowGainHeader.Compressor.Attack = Compressor.Attack;
+                    asu.LowGainHeader.Compressor.Z3 = 0;
+                    asu.LowGainHeader.Compressor.Release = Compressor.Release;
+                    asu.LowGainHeader.Compressor.Z4 = 0;
+                    asu.LowGainHeader.Gain.GainAmount = GainLow.GainAmount;
+
+                    asu.LowGainHeader.Gain.Z1 = 0;
+                    asu.LowGainHeader.Gain.GainType = GainLow.GainType;
+                    asu.LowGainHeader.Gain.Z2 = 0;
+                    asu.LowGainHeader.Gain.BassLevel = GainLow.BassLevel;
+                    asu.LowGainHeader.Gain.Z3 = 0;
+                    asu.LowGainHeader.Gain.MidLevel = GainLow.MidLevel;
+                    asu.LowGainHeader.Gain.Z4 = 0;
+                    asu.LowGainHeader.Gain.TrebleLevel = GainLow.TrebleLevel;
+                    asu.LowGainHeader.Gain.Z5 = 0;
+                    asu.LowGainHeader.Gain.Presence = GainLow.Presence;
+                    asu.LowGainHeader.Gain.Z6 = 0;
+
+                    if (ChamObjectHelpers.IsChorus(asu.HighGainHeader.Control.ConfigMode))
+                        SetChorus(&asu.LowGainChorus.Chorus,Chorus);
+
+                    if (ChamObjectHelpers.IsFlanger(asu.HighGainHeader.Control.ConfigMode))
+                        SetFlanger(&asu.LowGainFlanger.Flanger, Flanger);
+                   
+                    
+                    if (ChamObjectHelpers.IsPhaser(asu.HighGainHeader.Control.ConfigMode))
+                        SetPhaser(&asu.LowGainPhaser.Phaser, Phaser);
+
+                    
+                    if (ChamObjectHelpers.IsPitchShift(asu.HighGainHeader.Control.ConfigMode))
+                        SetPitchShift(&asu.LowGainPitchShift.PitchShift, PitchShift);
+
+                    if (ChamObjectHelpers.IsTremolo(asu.HighGainHeader.Control.ConfigMode))
+                        SetTremolo(&asu.LowGainTremolo.Tremolo, Tremolo);
+
+                    
+                    if (ChamObjectHelpers.IsWah(asu.HighGainHeader.Control.ConfigMode))
+                        SetWah(&asu.LowGainWah.Wah, Wah);
+
+                    SetDelay(&asu.LowGainChorus.Delay, Delay);
+                    SetReverb(&asu.LowGainChorus.Reverb, Reverb);
+                }
+                else
+                {
+
+                    asu.HighGainHeader.Gain.Z1 = 0;
+                    asu.HighGainHeader.Gain.Variac = GainHigh.Variac;
+                    asu.HighGainHeader.Gain.Z2 = 0;
+                    asu.HighGainHeader.Gain.BassLevel = GainHigh.BassLevel;
+                    asu.HighGainHeader.Gain.Z3 = 0;
+                    asu.HighGainHeader.Gain.MidLevel = GainHigh.MidLevel;
+                    asu.HighGainHeader.Gain.Z4 = 0;
+                    asu.HighGainHeader.Gain.TrebleLevel = GainHigh.TrebleLevel;
+                    asu.HighGainHeader.Gain.Z5 = 0;
+                    asu.HighGainHeader.Gain.Presence = GainHigh.Presence;
+                    asu.HighGainHeader.Gain.Z6 = 0;
+
+                    if (ChamObjectHelpers.IsChorus(asu.HighGainHeader.Control.ConfigMode))
+                        SetChorus(&asu.HighGainChorus.Chorus, Chorus);
+
+                    if (ChamObjectHelpers.IsFlanger(asu.HighGainHeader.Control.ConfigMode))
+                        SetFlanger(&asu.HighGainFlanger.Flanger, Flanger);
+
+                    if (ChamObjectHelpers.IsPhaser(asu.HighGainHeader.Control.ConfigMode))
+                        SetPhaser(&asu.HighGainPhaser.Phaser, Phaser);
+
+                    if (ChamObjectHelpers.IsPitchShift(asu.HighGainHeader.Control.ConfigMode))
+                        SetPitchShift(&asu.HighGainPitchShift.PitchShift, PitchShift);
+
+                    if (ChamObjectHelpers.IsTremolo(asu.HighGainHeader.Control.ConfigMode))
+                        SetTremolo(&asu.HighGainTremolo.Tremolo, Tremolo);
+
+                    if (ChamObjectHelpers.IsWah(asu.HighGainHeader.Control.ConfigMode))
+                        SetWah(&asu.HighGainWah.Wah, Wah);
+
+                    SetDelay(&asu.HighGainChorus.Delay, Delay);
+                    SetReverb(&asu.HighGainChorus.Reverb, Reverb);
+
+                }
+                IntPtr myPtr;
+                if (asu.HighGainHeader.Control.ConfigMode > 5)
+                    myPtr = (IntPtr)(&asu.LowGainHeader);
+
+
+                return StructureToByteArray(&asu);
+            }
         }
     }
 }

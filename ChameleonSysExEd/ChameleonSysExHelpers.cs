@@ -606,9 +606,9 @@ namespace ChameleonSysExHelpers
             handle.Free();//Give control of the buffer back to the GC 
             return loadedFile;
         }
+        
         public static int ToFileStream(FileStream fs, TChameleonCompositeHeaderHighGain tcc)
         {
-
             int bytesWritten = 0;
             return bytesWritten;
         }

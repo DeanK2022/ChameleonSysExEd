@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChameleonSysExEd;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -151,19 +152,19 @@ namespace ChamSysExFileStructs
                         "REV DECAY",            //UL ->  LL -> 
                         "REV HF DAMP",          //UL ->  LL -> 
                         "BYPASS"                //UL ->  LL -> 
-        };                                      
+        };
     }
 
-   
+
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonControl //@4-7 
-    { 
+    {
         public byte Code1;         //0x06        
         public byte Code2;         //0x28
         public byte ConfigMode;    //Index into lookup         
         public byte Z1;
-    };
+    }
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonMixer  //14 public bytes
     {
@@ -335,7 +336,7 @@ namespace ChamSysExFileStructs
     {
         public byte PhaserInOut;        //Depth (0-100)
         public byte Z1;
-        public byte Depth; 
+        public byte Depth;
         public byte Z2;
         public byte Rate;       //Rate (0-253)
         public byte Z3;
@@ -343,7 +344,7 @@ namespace ChamSysExFileStructs
         public byte Z4;
         public byte Stage;              //Stages (0-1) 4, 6
         public byte Z5;
-  }
+    }
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonDelay
     {
@@ -388,7 +389,7 @@ namespace ChamSysExFileStructs
         public byte Z17;
     }
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct TChameleonControllerAssignment 
+    public unsafe struct TChameleonControllerAssignment
     {
         public byte Number;
         public byte Z1;
@@ -408,32 +409,32 @@ namespace ChamSysExFileStructs
         public byte TapDelayD2Multiplyer;
         public byte Z2;
     }
-    [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct TChameleonFlangerLG
-    {
-        public byte FlangeInOut;          //Flange (0-1) Off, On
-        public byte Z0;
-        public byte Regeneration;          //-63 -> 0
-        public byte Z1;
-        public byte Level1;               //Level 1 (0-58)
-        public byte Z2;
-        public byte Pan1;                 //Pan 1 (0-100)
-        public byte Z3;
-        public byte Depth1;               //Depth 1 (0-100)
-        public byte Z4;
-        public byte Rate1Low;             //Rate 1 (0-253)
-        //public byte Rate1High;
-        public byte Level2;               //Level 2 (0-58)
-        public byte Z5;
-        public byte Pan2;                 //Pan 2 (0-100)this
-        public byte Z6;
-        public byte Depth2;               //Depth 2 (0-100)
-        public byte Z7;
-        public byte Rate2Low;             //Rate 2 (0-253)
-                                          //public byte Rate2High;
-        public byte Z8;//19
-        public byte Z9;//20
-    }
+    //[StructLayout(LayoutKind.Sequential)]
+    //public unsafe struct TChameleonFlangerLG
+    //{
+    //    public byte FlangeInOut;          //Flange (0-1) Off, On
+    //    public byte Z0;
+    //    public byte Regeneration;          //-63 -> 0
+    //    public byte Z1;
+    //    public byte Level1;               //Level 1 (0-58)
+    //    public byte Z2;
+    //    public byte Pan1;                 //Pan 1 (0-100)
+    //    public byte Z3;
+    //    public byte Depth1;               //Depth 1 (0-100)
+    //    public byte Z4;
+    //    public byte Rate1Low;             //Rate 1 (0-253)
+    //    //public byte Rate1High;
+    //    public byte Level2;               //Level 2 (0-58)
+    //    public byte Z5;
+    //    public byte Pan2;                 //Pan 2 (0-100)this
+    //    public byte Z6;
+    //    public byte Depth2;               //Depth 2 (0-100)
+    //    public byte Z7;
+    //    public byte Rate2Low;             //Rate 2 (0-253)
+    //                                      //public byte Rate2High;
+    //    public byte Z8;//19
+    //    public byte Z9;//20
+    //}
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonFlanger
     {
@@ -519,27 +520,27 @@ namespace ChamSysExFileStructs
         [System.Runtime.InteropServices.FieldOffset(0)]
         public TChameleonCompositeHeaderHighGain HighGain;
     }
-        [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonCompositeTailend
-    { 
+    {
         public fixed byte Header[156];      //@136-155 //BIG GAP HERE 
 
-    public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
-    public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
-    public TChameleonControllerAssignment ControllerAssignment2;
-    public TChameleonControllerAssignment ControllerAssignment3;
-    public TChameleonControllerAssignment ControllerAssignment4;
-    public TChameleonControllerAssignment ControllerAssignment5;
-    public TChameleonControllerAssignment ControllerAssignment6;
-    public TChameleonControllerAssignment ControllerAssignment7;
-    public TChameleonControllerAssignment ControllerAssignment8;
-    public TChameleonTapDelay TapDelay;        //@246 - 249
+        public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
+        public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
+        public TChameleonControllerAssignment ControllerAssignment2;
+        public TChameleonControllerAssignment ControllerAssignment3;
+        public TChameleonControllerAssignment ControllerAssignment4;
+        public TChameleonControllerAssignment ControllerAssignment5;
+        public TChameleonControllerAssignment ControllerAssignment6;
+        public TChameleonControllerAssignment ControllerAssignment7;
+        public TChameleonControllerAssignment ControllerAssignment8;
+        public TChameleonTapDelay TapDelay;        //@246 - 249
 
-    public byte CheckSum;             //@250 checksum (bytes 7-456 XOR)
-    public byte Eox;                //@251 0xF7
+        public byte CheckSum;             //@250 checksum (bytes 7-456 XOR)
+        public byte Eox;                //@251 0xF7
         //public byte Z0;                //252 00
     };                                               //The combined message structure (225 bytes)
-[StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonCompositeLowGainChorus
     {
         public byte Status;                        //0xF0(@0)
@@ -555,11 +556,11 @@ namespace ChamSysExFileStructs
         public TChameleonSpeakerSim SpeakerSim;    //@64-71
         public TChameleonCompressor Compressor;    //@72-79
         public TChameleonChorus Chorus;            //@80-97 tested
-            
-                //TChameleonFlange Flanger;           //@72-89  //80-97 low gain
-                //TChameleonPhaser Phaser;            //@72-81
-                //TChameleonPitchShift PitchShift;    //@72-83
-                //TChameleonTremolo Tremolo;          //@72-81 //80-88 low gain
+
+        //TChameleonFlange Flanger;           //@72-89  //80-97 low gain
+        //TChameleonPhaser Phaser;            //@72-81
+        //TChameleonPitchShift PitchShift;    //@72-83
+        //TChameleonTremolo Tremolo;          //@72-81 //80-88 low gain
 
         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
@@ -578,9 +579,9 @@ namespace ChamSysExFileStructs
         public TChameleonTapDelay TapDelay;        //@246 - 249
 
         public byte CheckSum;             //@250 checksum (bytes 7-456 XOR)
-        public byte Eox;		        //@251 0xF7
-        //public byte Z0;                //252 00
-  };
+        public byte Eox;                //@251 0xF7
+                                        //public byte Z0;                //252 00
+    };
     //The combined message structure (225 bytes)
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TChameleonCompositeLowGainFlanger
@@ -640,12 +641,10 @@ namespace ChamSysExFileStructs
         public TChameleonPostEQ PostEQ;            //@48-63
         public TChameleonSpeakerSim SpeakerSim;    //@64-71
         public TChameleonCompressor Compressor;    //@72-79
-        //public TChameleonChorus Chorus;            //@80-97 tested
-
-        //TChameleonFlange Flanger;           //@72-89  //80-97 low gain
+       
+     
         public TChameleonPhaser Phaser;            //@72-81
-        //TChameleonPitchShift PitchShift;    //@72-83
-        //TChameleonTremolo Tremolo;          //@72-81 //80-88 low gain
+   
 
         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
@@ -884,7 +883,7 @@ namespace ChamSysExFileStructs
         public TChameleonPostEQ PostEQ;            //@48-63
         public TChameleonSpeakerSim SpeakerSim;    //@64-71
         public TChameleonFlanger Flanger;           //80-97 low gain
-         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
+        public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
         public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
@@ -1039,5 +1038,40 @@ namespace ChamSysExFileStructs
         public byte CheckSum;             //@250 checksum (bytes 7-456 XOR)
         public byte Eox;		        //@251 0xF7
         //public byte Z0;                //252 00
-    };
+    }
+    [System.Runtime.InteropServices.StructLayout(LayoutKind.Explicit)]
+    public unsafe struct TChameleonCompositeAllStructsUnion
+    {
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHeaderLowGain LowGainHeader;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHeaderHighGain HighGainHeader;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeTailend TailEnd;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeLowGainChorus LowGainChorus;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeLowGainFlanger LowGainFlanger;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeLowGainPhaser LowGainPhaser;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeLowGainPitchShift LowGainPitchShift;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeLowGainTremolo LowGainTremolo;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeLowGainWah LowGainWah;
+
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHighGainChorus HighGainChorus;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHighGainFlanger HighGainFlanger;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHighGainPhaser HighGainPhaser;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHighGainPitchShift HighGainPitchShift;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHighGainTremolo HighGainTremolo;
+        [System.Runtime.InteropServices.FieldOffset(0)]
+        public TChameleonCompositeHighGainWah HighGainWah;
+    }
 }

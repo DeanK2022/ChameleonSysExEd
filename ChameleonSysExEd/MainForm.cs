@@ -396,7 +396,8 @@ namespace ChameleonSysExEd
             //determine struct to use
             //TChameleonCompositeHeaderUnion tcu;
             ChameleonSysExComplete curSysx = UIToChameleonSysExComplete();
-            
+            byte[] toWrite = curSysx.ToByteArray();
+            File.WriteAllBytes(openFileDialogSysEx.FileName + "2", toWrite);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
