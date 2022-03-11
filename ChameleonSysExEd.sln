@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChameleonSysExEd", "ChameleonSysExEd\ChameleonSysExEd.csproj", "{FA22AD0C-1FB1-4423-81D7-3A7A547A0FF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DFBE2A4F-21F2-4C48-B7DB-EBF66EA87481}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA22AD0C-1FB1-4423-81D7-3A7A547A0FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA22AD0C-1FB1-4423-81D7-3A7A547A0FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA22AD0C-1FB1-4423-81D7-3A7A547A0FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA22AD0C-1FB1-4423-81D7-3A7A547A0FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E0DE59E-43C8-4A3B-8B76-E3E0508DC2EB}
+	EndGlobalSection
+EndGlobal
