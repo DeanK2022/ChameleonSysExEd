@@ -229,21 +229,21 @@ namespace ChameleonSysExEd
             curSysEx.Title = tbTitle.Text;
             curSysEx.Control.ConfigMode = (byte)cbConfiguration.SelectedIndex;
 
-            curSysEx.Mixer.ReverbLevel = (byte)nudMixerReverbLevel.Value;
-            curSysEx.Mixer.DelayLevel = (byte)nudMixerDelayLevel.Value;
+            curSysEx.Mixer.ReverbLevel = (sbyte)nudMixerReverbLevel.Value;
+            curSysEx.Mixer.DelayLevel = (sbyte)nudMixerDelayLevel.Value;
             curSysEx.Mixer.Pan = (byte)nudMixerPan.Value;
             curSysEx.Mixer.MixDir = (byte)nudMixerMixDir.Value;
-            curSysEx.Mixer.RightLevel = (byte)nudMixerRightLevel.Value;
-            curSysEx.Mixer.LeftLevel = (byte)nudMixerLeftLevel.Value;
+            curSysEx.Mixer.RightLevel = (sbyte)nudMixerRightLevel.Value;
+            curSysEx.Mixer.LeftLevel = (sbyte)nudMixerLeftLevel.Value;
             curSysEx.Mixer.MasterVolume = (byte)nudMixerMasterVolume.Value;
 
             curSysEx.Hush.InOut = (byte)cbHushInOut.SelectedIndex;
-            curSysEx.Hush.Threshold = (byte)nudHushThreshold.Value;
+            curSysEx.Hush.Threshold = (sbyte)nudHushThreshold.Value;
  
-            curSysEx.PreEQ.LowFreqLevel = (byte)nudPreEqLowFreqLevel.Value;
+            curSysEx.PreEQ.LowFreqLevel = (sbyte)nudPreEqLowFreqLevel.Value;
             curSysEx.PreEQ.LowFreq = (byte)cbPreEqLowFreq.SelectedIndex;
 
-            curSysEx.PreEQ.MidFreqLevel = (byte)nudPreEqMidFreqLevel.Value;
+            curSysEx.PreEQ.MidFreqLevel = (sbyte)nudPreEqMidFreqLevel.Value;
             curSysEx.PreEQ.MidFreq = (byte)cbPreEqMidFreq.SelectedIndex;
             curSysEx.PreEQ.MidBand = (byte)cbPreEqMidBand.SelectedIndex;
 
@@ -258,8 +258,8 @@ namespace ChameleonSysExEd
             curSysEx.PostEQ.TrebleFreq = (byte)cbPostEqTrebleFreq.SelectedIndex;
             curSysEx.PostEQ.TrebleBand = (byte)cbPostEqTrebleBand.SelectedIndex;
      
-            curSysEx.SpeakerSim.Reactance = (byte)nudSpkSimReactance.Value;
-            curSysEx.SpeakerSim.MicPlace = (byte)nudSpkSimMicPlace.Value;
+            curSysEx.SpeakerSim.Reactance = (sbyte)nudSpkSimReactance.Value;
+            curSysEx.SpeakerSim.MicPlace = (sbyte)nudSpkSimMicPlace.Value;
     
             curSysEx.Reverb.ReverbHighFreqDamp = (byte)nudReverbHighFreqDamp.Value;
             curSysEx.Reverb.ReverbDecay = (byte)nudReverbDecay.Value;
@@ -281,13 +281,13 @@ namespace ChameleonSysExEd
 
             curSysEx.Delay.D1Time = (short)nudDelay1Time.Value ;
             curSysEx.Delay.D1Pan = (byte)nudDelay1Pan.Value;
-            curSysEx.Delay.D1OutLevel = (byte)nudDelay1OutLevel.Value;
-            curSysEx.Delay.D1Regen = (byte)nudDelay1Regen.Value;
+            curSysEx.Delay.D1OutLevel = (sbyte)nudDelay1OutLevel.Value;
+            curSysEx.Delay.D1Regen = (sbyte)nudDelay1Regen.Value;
   
             curSysEx.Delay.D2Time	= (short)nudDelay2Time.Value ;
             curSysEx.Delay.D2Pan = (byte)nudDelay2Pan.Value;
-            curSysEx.Delay.D2OutLevel = (byte)nudDelay2OutLevel.Value;
-            curSysEx.Delay.D2Regen = (byte)nudDelay2Regen.Value;
+            curSysEx.Delay.D2OutLevel = (sbyte)nudDelay2OutLevel.Value;
+            curSysEx.Delay.D2Regen = (sbyte)nudDelay2Regen.Value;
 
             curSysEx.ControllerAssignment1.LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex -1);
             curSysEx.ControllerAssignment1.UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
@@ -295,24 +295,24 @@ namespace ChameleonSysExEd
             if (curSysEx.Control.ConfigMode > 5)  //low gain, compressor allowed
             {
                 curSysEx.Compressor.InOut = (byte)cbCompressorInOut.SelectedIndex;
-                curSysEx.Compressor.Threshold = (byte)nudCompressorThreshold.Value;
+                curSysEx.Compressor.Threshold = (sbyte)nudCompressorThreshold.Value;
                 curSysEx.Compressor.Attack = (byte)cbCompressorAttack.SelectedIndex;
                 curSysEx.Compressor.Release = (byte)cbCompressorRelease.SelectedIndex;
 
-                curSysEx.GainLow.Presence = (byte)nudGainPresence.Value;
-                curSysEx.GainLow.TrebleLevel = (byte)nudGainTrebleLevel.Value;
-                curSysEx.GainLow.MidLevel = (byte)nudGainMidLevel.Value;
-                curSysEx.GainLow.BassLevel = (byte)nudGainBassLevel.Value;
+                curSysEx.GainLow.Presence = (sbyte)nudGainPresence.Value;
+                curSysEx.GainLow.TrebleLevel = (sbyte)nudGainTrebleLevel.Value;
+                curSysEx.GainLow.MidLevel = (sbyte)nudGainMidLevel.Value;
+                curSysEx.GainLow.BassLevel = (sbyte)nudGainBassLevel.Value;
                 curSysEx.GainLow.GainType = (byte)cbGainType.SelectedIndex;
                 curSysEx.GainLow.GainAmount = (byte)nudGainAmount.Value;
 
             }
             else //high gain
             {
-                curSysEx.GainHigh.Presence = (byte)nudGainPresence.Value;
-                curSysEx.GainHigh.TrebleLevel = (byte)nudGainTrebleLevel.Value;
-                curSysEx.GainHigh.MidLevel = (byte)nudGainMidLevel.Value;
-                curSysEx.GainHigh.BassLevel = (byte)nudGainBassLevel.Value;
+                curSysEx.GainHigh.Presence = (sbyte)nudGainPresence.Value;
+                curSysEx.GainHigh.TrebleLevel = (sbyte)nudGainTrebleLevel.Value;
+                curSysEx.GainHigh.MidLevel = (sbyte)nudGainMidLevel.Value;
+                curSysEx.GainHigh.BassLevel = (sbyte)nudGainBassLevel.Value;
                 curSysEx.GainHigh.Variac = (byte)nudGainVariac.Value;
                 curSysEx.GainHigh.GainAmount = (byte)nudGainAmount.Value;
 
@@ -327,26 +327,26 @@ namespace ChameleonSysExEd
                 curSysEx.Chorus.Chorus1Delay = (byte)nudChorus1Delay.Value;
                 curSysEx.Chorus.Chorus1Depth = (byte)nudChorus1Depth.Value;
                 curSysEx.Chorus.Chorus1Pan   = (byte)nudChorus1Pan.Value;
-                curSysEx.Chorus.Chorus1Level = (byte)nudChorus1Level.Value;
+                curSysEx.Chorus.Chorus1Level = (sbyte)nudChorus1Level.Value;
                 curSysEx.Chorus.Chorus1Rate  = (short)nudChorus1Rate.Value;
 
                 curSysEx.Chorus.Chorus2Delay = (byte)nudChorus2Delay.Value;
                 curSysEx.Chorus.Chorus2Depth = (byte)nudChorus2Depth.Value;
                 curSysEx.Chorus.Chorus2Pan = (byte)nudChorus2Pan.Value;
-                curSysEx.Chorus.Chorus2Level = (byte)nudChorus2Level.Value;
+                curSysEx.Chorus.Chorus2Level = (sbyte)nudChorus2Level.Value;
                 curSysEx.Chorus.Chorus2Rate = (short)nudChorus2Rate.Value;
             }
 
             if (ChamObjectHelpers.IsFlanger(curSysEx.Control.ConfigMode))
             {
                 curSysEx.Flanger.FlangeInOut = (byte)cbFlangerInOut.SelectedIndex;
-                curSysEx.Flanger.Regeneration = (byte)nudFlangerRegeneration.Value;
+                curSysEx.Flanger.Regeneration = (sbyte)nudFlangerRegeneration.Value;
 
-                curSysEx.Flanger.Level1 = (byte)nudFlanger1Level.Value;
+                curSysEx.Flanger.Level1 = (sbyte)nudFlanger1Level.Value;
                 curSysEx.Flanger.Pan1 = (byte)nudFlanger1Pan.Value;
                 curSysEx.Flanger.Depth1 = (byte)nudFlanger1Depth.Value;
                 curSysEx.Flanger.Rate1 = (short)nudFlanger1Rate.Value;
-                curSysEx.Flanger.Level2 = (byte)nudFlanger2Level.Value;
+                curSysEx.Flanger.Level2 = (sbyte)nudFlanger2Level.Value;
                 curSysEx.Flanger.Pan2 = (byte)nudFlanger2Pan.Value;
                 curSysEx.Flanger.Depth2 = (byte)nudFlanger2Depth.Value;
                 curSysEx.Flanger.Rate2 = (short)nudFlanger2Rate.Value;
@@ -365,10 +365,10 @@ namespace ChameleonSysExEd
             if (ChamObjectHelpers.IsPitchShift(curSysEx.Control.ConfigMode))
             {
                 curSysEx.PitchShift.PitchShiftInOut = (byte)cbPitchShiftInOut.SelectedIndex;
-                curSysEx.PitchShift.Level = (byte)nudPitchShiftLevel.Value;
+                curSysEx.PitchShift.Level = (sbyte)nudPitchShiftLevel.Value;
                 curSysEx.PitchShift.Pan = (byte)nudPitchShiftPan.Value;
                 curSysEx.PitchShift.Pitch = (short)nudPitchShiftPitch.Value;
-                curSysEx.PitchShift.FineTune = (byte)nudPitchShiftFineTune.Value;
+                curSysEx.PitchShift.FineTune = (sbyte)nudPitchShiftFineTune.Value;
                 curSysEx.PitchShift.Speed = (byte)cbPitchShiftSpeed.SelectedIndex;
 
             };
