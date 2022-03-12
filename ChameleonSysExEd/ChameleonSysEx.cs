@@ -99,10 +99,10 @@ namespace ChameleonSysExEd
         //public byte Z6;
         private byte reverbLevel; //x00 is -63, x3f is 0, range 0 -> -63 
 
-        public byte DelayLevel { get => (byte)(delayLevel - 63); set => delayLevel = (byte)(value + 63); }
-        public byte ReverbLevel { get => (byte)(reverbLevel - 63); set => reverbLevel = (byte)(value + 63); }
-        public byte RightLevel { get => (byte)(rightLevel - 57); set => rightLevel = (byte)(value + 57); }
-        public byte LeftLevel { get => (byte)(leftLevel - 57); set => leftLevel = (byte)(value + 57); }
+        public sbyte DelayLevel { get => (sbyte)(delayLevel - 63); set => delayLevel = (byte)(value + 63); }
+        public sbyte ReverbLevel { get => (sbyte)(reverbLevel - 63); set => reverbLevel = (byte)(value + 63); }
+        public sbyte RightLevel { get => (sbyte)(rightLevel - 57); set => rightLevel = (byte)(value + 57); }
+        public sbyte LeftLevel { get => (sbyte)(leftLevel - 57); set => leftLevel = (byte)(value + 57); }
 
         //public byte Z7;
         public ChameleonMixer(TChameleonMixer tc)
@@ -113,7 +113,7 @@ namespace ChameleonSysExEd
             MixDir = tc.MixDir;
             Pan = tc.Pan;
             delayLevel = tc.DelayLevel;
-            ReverbLevel = tc.ReverbLevel;
+            reverbLevel = tc.ReverbLevel;
         }
     }
     public class ChameleonGainLow //@22-33    //12 public bytes
@@ -141,10 +141,10 @@ namespace ChameleonSysExEd
             presence = tc.Presence;
         }
 
-        public byte Presence { get => (byte)(presence - 15); set => presence = (byte)(value + 15); }
-        public byte BassLevel { get => (byte)(bassLevel - 15); set => bassLevel = (byte)(value + 15); }
-        public byte MidLevel { get => (byte)(midLevel - 15); set => midLevel = (byte)(value + 15); }
-        public byte TrebleLevel { get => (byte)(trebleLevel - 15); set => trebleLevel = (byte)(value + 15); }
+        public sbyte Presence { get => (sbyte)(presence - 15); set => presence = (byte)(value + 15); }
+        public sbyte BassLevel { get => (sbyte)(bassLevel - 15); set => bassLevel = (byte)(value + 15); }
+        public sbyte MidLevel { get => (sbyte)(midLevel - 15); set => midLevel = (byte)(value + 15); }
+        public sbyte TrebleLevel { get => (sbyte)(trebleLevel - 15); set => trebleLevel = (byte)(value + 15); }
     }
     public class ChameleonGainHigh
     {
@@ -167,10 +167,10 @@ namespace ChameleonSysExEd
 
         public byte Variac { get => (byte)(variac - 6); set => variac = (byte)(value + 6); }
         public byte GainAmount { get => (byte)(gainAmount - 12); set => gainAmount = (byte)(value + 12); }
-        public byte Presence { get => (byte)(presence - 15); set => presence = (byte)(value + 15); }
-        public byte TrebleLevel { get => (byte)(trebleLevel - 15); set => trebleLevel = (byte)(value + 15); }
-        public byte MidLevel { get => (byte)(midLevel - 15); set => midLevel = (byte)(value + 15); }
-        public byte BassLevel { get => (byte)(bassLevel - 15); set => bassLevel = (byte)(value + 15); }
+        public sbyte Presence { get => (sbyte)(presence - 15); set => presence = (byte)(value + 15); }
+        public sbyte TrebleLevel { get => (sbyte)(trebleLevel - 15); set => trebleLevel = (byte)(value + 15); }
+        public sbyte MidLevel { get => (sbyte)(midLevel - 15); set => midLevel = (byte)(value + 15); }
+        public sbyte BassLevel { get => (sbyte)(bassLevel - 15); set => bassLevel = (byte)(value + 15); }
 
     }
     public class ChameleonCompressor
@@ -179,7 +179,7 @@ namespace ChameleonSysExEd
         private byte threshold; //0 to -24 range
         public byte Attack; //lookup  0-7 => 1, 2, 3, 8, 16, 25, 50, 75
         public byte Release; //lookup  0- => 0.055, 0.15 0.25 ... 2.05
-        public byte Threshold { get => (byte)(threshold - 24); set => threshold = (byte)(value + 24); }
+        public sbyte Threshold { get => (sbyte)(threshold - 24); set => threshold = (byte)(value + 24); }
 
         public ChameleonCompressor(TChameleonCompressor tc)
         {
@@ -205,7 +205,7 @@ namespace ChameleonSysExEd
         public byte Z1;
         private byte threshold;// range -27 to -90, x3f to 0x00
         public byte Z2;
-        public byte Threshold { get => (byte)(threshold - 90); set => threshold = (byte)(value + 90); }
+        public sbyte Threshold { get => (sbyte)(threshold - 90); set => threshold = (byte)(value + 90); }
 
         public ChameleonHush(TChameleonHush tc)
         {
@@ -226,8 +226,8 @@ namespace ChameleonSysExEd
         //  public byte Z4;
         public byte MidBand;
 
-        public byte LowFreqLevel { get => (byte)(lowFreqLevel - 15); set => lowFreqLevel = (byte)(value + 15); }
-        public byte MidFreqLevel { get => (byte)(midFreqLevel - 15); set => midFreqLevel = (byte)(value + 15); }
+        public sbyte LowFreqLevel { get => (sbyte)(lowFreqLevel - 15); set => lowFreqLevel = (byte)(value + 15); }
+        public sbyte MidFreqLevel { get => (sbyte)(midFreqLevel - 15); set => midFreqLevel = (byte)(value + 15); }
 
         //  public byte Z5;
         public ChameleonPreEQ(TChameleonPreEQ tc)
@@ -282,8 +282,8 @@ namespace ChameleonSysExEd
         private byte reactance;
         public byte Z4;
 
-        public byte MicPlace { get => (byte)(micPlace - 15); set => micPlace = (byte)(value + 15); }
-        public byte Reactance { get => (byte)(reactance - 15); set => reactance = (byte)(value + 15); }
+        public sbyte MicPlace { get => (sbyte)(micPlace - 15); set => micPlace = (byte)(value + 15); }
+        public sbyte Reactance { get => (sbyte)(reactance - 15); set => reactance = (byte)(value + 15); }
 
         public ChameleonSpeakerSim(TChameleonSpeakerSim tc)
         {
@@ -339,8 +339,8 @@ namespace ChameleonSysExEd
         private byte chorus2RateHighByte;
         private byte chorus2Delay;
 
-        public byte Chorus1Level { get => (byte)(chorus1Level - 63); set => chorus1Level = (byte)(value + 63); }
-        public byte Chorus2Level { get => (byte)(chorus2Level - 63); set => chorus2Level = (byte)(value + 63); }
+        public sbyte Chorus1Level { get => (sbyte)(chorus1Level - 63); set => chorus1Level = (byte)(value + 63); }
+        public sbyte Chorus2Level { get => (sbyte)(chorus2Level - 63); set => chorus2Level = (byte)(value + 63); }
         public byte Chorus1Delay { get => (byte)(chorus1Delay + 2); set => chorus1Delay = (byte)(value - 2); }
         public byte Chorus2Delay { get => (byte)(chorus2Delay + 2); set => chorus2Delay = (byte)(value - 2); }
         public short Chorus2Rate { get => (short)((chorus2RateHighByte << 7) + chorus2Rate); set => SetChorus2Rate(value); }
@@ -428,10 +428,10 @@ namespace ChameleonSysExEd
             d1TimeHighByte = (byte)((newD1Time / 4) >> 7);
         }
         public short D2Time { get => (byte)(((d2TimeHighByte << 7) + d2Time) * 4); set => SetD2Time(value); }
-        public byte D1OutLevel { get => (byte)(d1OutLevel - 63); set => d1OutLevel = (byte)(value + 63); }
-        public byte D1Regen { get => (byte)(d1Regen - 63); set => d1Regen = (byte)(value + 63); }
-        public byte D2Regen { get => (byte)(d2Regen - 63); set => d2Regen = (byte)(value + 63); }
-        public byte D2OutLevel { get => (byte)(d2OutLevel - 63); set => d2OutLevel = (byte)(value + 63); }
+        public sbyte D1OutLevel { get => (sbyte)(d1OutLevel - 63); set => d1OutLevel = (byte)(value + 63); }
+        public sbyte D1Regen { get => (sbyte)(d1Regen - 63); set => d1Regen = (byte)(value + 63); }
+        public sbyte D2Regen { get => (sbyte)(d2Regen - 63); set => d2Regen = (byte)(value + 63); }
+        public sbyte D2OutLevel { get => (sbyte)(d2OutLevel - 63); set => d2OutLevel = (byte)(value + 63); }
 
         private void SetD2Time(short newD2Time)
         {
@@ -527,11 +527,11 @@ namespace ChameleonSysExEd
         private byte rate2Low;             //Rate 2 (0-253)
         private byte rate2High;
 
-        public byte Regeneration { get => (byte)(regeneration - 63); set => regeneration = (byte)(value + 63); }
+        public sbyte Regeneration { get => (sbyte)(regeneration - 63); set => regeneration = (byte)(value + 63); }
         public short Rate1 { get => (short)((rate1High << 7) + rate1Low); set => SetRate1(value); }
         public short Rate2 { get => (short)((rate2High << 7) + rate2Low); set => SetRate2(value); }
-        public byte Level1 { get => (byte)(level1 - 63); set => level1 = (byte)(value + 63); }
-        public byte Level2 { get => (byte)(level2 - 63); set => level2 = (byte)(value + 63); }
+        public sbyte Level1 { get => (sbyte)(level1 - 63); set => level1 = (byte)(value + 63); }
+        public sbyte Level2 { get => (sbyte)(level2 - 63); set => level2 = (byte)(value + 63); }
         private void SetRate1(short newRate)
         {
             rate1Low = (byte)newRate;
@@ -569,8 +569,8 @@ namespace ChameleonSysExEd
         private byte fineTune;               //Level 1 (0-58)
         public byte Speed;
 
-        public byte Level { get => (byte)(level - 63); set => level = (byte)(value + 63); }
-        public byte FineTune { get => (byte)(fineTune - 20); set => fineTune = (byte)(value + 20); }
+        public sbyte Level { get => (sbyte)(level - 63); set => level = (byte)(value + 63); }
+        public sbyte FineTune { get => (sbyte)(fineTune - 20); set => fineTune = (byte)(value + 20); }
         public short Pitch { get => (short)(((pitchHigh << 7) + (pitch) - 120) * 20); set => SetPitch(value); }
         private void SetPitch(short newPitch)
         {

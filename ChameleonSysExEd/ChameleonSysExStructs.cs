@@ -491,7 +491,7 @@ namespace ChamSysExFileStructs
         public TChameleonPreEQ PreEQ;              //@38-47
         public TChameleonPostEQ PostEQ;            //@48-63
         public TChameleonSpeakerSim SpeakerSim;    //@64-71
-        public fixed byte TailEnd[179];//pad to 252
+        public fixed byte TailEnd[180];//pad to 252
     };
     [StructLayout(LayoutKind.Sequential)]
 
