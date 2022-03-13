@@ -76,6 +76,8 @@ namespace ChameleonSysExEd
 
         public ChameleonControl()
         {
+            Code1 = 6;
+            Code2 = 40; //0x28
         }
 
         //public byte Z1;
@@ -654,10 +656,11 @@ namespace ChameleonSysExEd
         public short D1Time { get => (short)(((d1TimeHighByte << 7) + d1Time) * 4); set => SetD1Time(value); }
         private void SetD1Time(short newD1Time)
         {
-            d1Time = (byte)(newD1Time / 4);
             d1TimeHighByte = (byte)((newD1Time / 4) >> 7);
+            d1Time = (byte)((newD1Time / 4) - (d1TimeHighByte<<7));
+        
         }
-        public short D2Time { get => (byte)(((d2TimeHighByte << 7) + d2Time) * 4); set => SetD2Time(value); }
+        public short D2Time { get => (short)(((d2TimeHighByte << 7) + d2Time) * 4); set => SetD2Time(value); }
         public sbyte D1OutLevel { get => (sbyte)(d1OutLevel - 63); set => d1OutLevel = (byte)(value + 63); }
         public sbyte D1Regen { get => (sbyte)(d1Regen - 63); set => d1Regen = (byte)(value + 63); }
         public sbyte D2Regen { get => (sbyte)(d2Regen - 63); set => d2Regen = (byte)(value + 63); }
@@ -665,8 +668,8 @@ namespace ChameleonSysExEd
 
         private void SetD2Time(short newD2Time)
         {
-            d2Time = (byte)(newD2Time / 4);
             d2TimeHighByte = (byte)((newD2Time / 4) >> 7);
+            d2Time = (byte)((newD2Time / 4) - (d2TimeHighByte << 7));
         }
 
         public ChameleonDelay(TChameleonDelay tc)
@@ -983,6 +986,13 @@ namespace ChameleonSysExEd
                                         //public byte Z0;                //252 00
         public ChameleonSysExComplete()
         {
+            Status =(byte)240; //F0
+            ManufCode =0;
+            DeviceID=0;
+            ModelID=41;//0x29
+
+
+
             Control = new ChameleonControl();
             Mixer = new ChameleonMixer();
             GainLow = new ChameleonGainLow();
@@ -1031,6 +1041,7 @@ namespace ChameleonSysExEd
         }
         public bool LoadFromFile(string fileName)
         {
+            Console.WriteLine("From File Load " + fileName);
             unsafe
             {
                 FileStream fs = new FileStream(fileName, FileMode.Open);
@@ -1267,9 +1278,11 @@ namespace ChameleonSysExEd
                 PostEQ.ToStruct(&asu.HighGainHeader.PostEQ);
                 SpeakerSim.ToStruct(&asu.HighGainHeader.SpeakerSim);
 
-                for (int i = 0; i < Title.Length; i++)
-                    asu.TailEnd.Title[i] = (byte)Title[i];
-
+                for (int i = 0; i < Title.Length; i += 2)
+                {
+                    asu.TailEnd.Title[i] = (byte)Title[i/2];
+                    asu.TailEnd.Title[i+1] = (byte)0;
+                }
                 ControllerAssignment1.ToStruct(&asu.TailEnd.ControllerAssignment1, 1);
                 ControllerAssignment2.ToStruct(&asu.TailEnd.ControllerAssignment2, 2);
                 ControllerAssignment3.ToStruct(&asu.TailEnd.ControllerAssignment3, 3);
@@ -1292,58 +1305,97 @@ namespace ChameleonSysExEd
                     GainLow.ToStruct(&asu.LowGainHeader.Gain);
 
                     if (ChamObjectHelpers.IsChorus(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Chorus.ToStruct(&asu.LowGainChorus.Chorus);
-
+                        Delay.ToStruct(&asu.LowGainChorus.Delay);
+                        Reverb.ToStruct(&asu.LowGainChorus.Reverb);
+                    }
                     if (ChamObjectHelpers.IsFlanger(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Flanger.ToStruct(&asu.LowGainFlanger.Flanger);
-
+                        Delay.ToStruct(&asu.LowGainFlanger.Delay);
+                        Reverb.ToStruct(&asu.LowGainFlanger.Reverb);
+                    }
                     if (ChamObjectHelpers.IsPhaser(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Phaser.ToStruct(&asu.LowGainPhaser.Phaser);
-
+                        Delay.ToStruct(&asu.LowGainPhaser.Delay);
+                        Reverb.ToStruct(&asu.LowGainPhaser.Reverb);
+                        Console.WriteLine("From ToByteArray");
+                        ChamObjectHelpers.DumpStructPhaser(*(TChameleonCompositeLowGainPhaser*)&asu);
+                        ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainPhaser*)&asu);
+                    }
                     if (ChamObjectHelpers.IsPitchShift(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         PitchShift.ToStruct(&asu.LowGainPitchShift.PitchShift);
-
+                        Delay.ToStruct(&asu.LowGainPitchShift.Delay);
+                        Reverb.ToStruct(&asu.LowGainPitchShift.Reverb);
+                    }
                     if (ChamObjectHelpers.IsTremolo(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Tremolo.ToStruct(&asu.LowGainTremolo.Tremolo);
-
+                        Delay.ToStruct(&asu.LowGainTremolo.Delay);
+                        Reverb.ToStruct(&asu.LowGainTremolo.Reverb);
+                    }
                     if (ChamObjectHelpers.IsWah(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Wah.ToStruct(&asu.LowGainWah.Wah);
+                        Delay.ToStruct(&asu.LowGainWah.Delay);
+                        Reverb.ToStruct(&asu.LowGainWah.Reverb);
+                    }
 
-                    Delay.ToStruct(&asu.LowGainChorus.Delay);
-                    Reverb.ToStruct(&asu.LowGainChorus.Reverb);
                 }
                 else
                 {
                     GainHigh.ToStruct(&asu.HighGainHeader.Gain);
 
                     if (ChamObjectHelpers.IsChorus(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Chorus.ToStruct(&asu.HighGainChorus.Chorus);
-
+                        Delay.ToStruct(&asu.HighGainChorus.Delay);
+                        Reverb.ToStruct(&asu.HighGainChorus.Reverb);
+                    }
                     if (ChamObjectHelpers.IsFlanger(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Flanger.ToStruct(&asu.HighGainFlanger.Flanger);
-
+                        Delay.ToStruct(&asu.HighGainFlanger.Delay);
+                        Reverb.ToStruct(&asu.HighGainFlanger.Reverb);
+                    }
                     if (ChamObjectHelpers.IsPhaser(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Phaser.ToStruct(&asu.HighGainPhaser.Phaser);
-
+                        Delay.ToStruct(&asu.HighGainPhaser.Delay);
+                        Reverb.ToStruct(&asu.HighGainPhaser.Reverb);
+                    }
                     if (ChamObjectHelpers.IsPitchShift(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         PitchShift.ToStruct(&asu.HighGainPitchShift.PitchShift);
-
+                        Delay.ToStruct(&asu.HighGainPitchShift.Delay);
+                        Reverb.ToStruct(&asu.HighGainPitchShift.Reverb);
+                    }
                     if (ChamObjectHelpers.IsTremolo(asu.HighGainHeader.Control.ConfigMode))
+                    {
                         Tremolo.ToStruct(&asu.HighGainTremolo.Tremolo);
-
+                        Delay.ToStruct(&asu.HighGainTremolo.Delay);
+                        Reverb.ToStruct(&asu.HighGainTremolo.Reverb);
+                    }
                     if (ChamObjectHelpers.IsWah(asu.HighGainHeader.Control.ConfigMode))
+                    {       
                         Wah.ToStruct(&asu.HighGainWah.Wah);
-
-                    Delay.ToStruct(&asu.HighGainChorus.Delay);
-                    Reverb.ToStruct(&asu.HighGainChorus.Reverb);
-
+                        Delay.ToStruct(&asu.HighGainWah.Delay);
+                        Reverb.ToStruct(&asu.HighGainWah.Reverb);
+                    }
+                    
                 }
                 IntPtr myPtr;
                 if (asu.HighGainHeader.Control.ConfigMode > 5)
                     myPtr = (IntPtr)(&asu.LowGainHeader);
 
 
-                return StructureToByteArray(&asu);
+                byte[] bytes= StructureToByteArray(&asu);
+                return bytes;
+ 
+
             }
         }
     }

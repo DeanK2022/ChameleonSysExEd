@@ -641,17 +641,14 @@ namespace ChamSysExFileStructs
         public TChameleonPostEQ PostEQ;            //@48-63
         public TChameleonSpeakerSim SpeakerSim;    //@64-71
         public TChameleonCompressor Compressor;    //@72-79
-       
-     
-        public TChameleonPhaser Phaser;            //@72-81
+        public TChameleonPhaser Phaser;            //@80-89
    
+        public TChameleonDelay Delay;              //@90-115
+        public TChameleonReverb Reverb;            //@116-123
 
-        public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
-        public TChameleonReverb Reverb;            //@128-135
+        public fixed byte BigGapInMiddle[20];      //@124-143 //BIG GAP HERE 
 
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
-
-        public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
+        public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@144-169
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
         public TChameleonControllerAssignment ControllerAssignment2;
         public TChameleonControllerAssignment ControllerAssignment3;

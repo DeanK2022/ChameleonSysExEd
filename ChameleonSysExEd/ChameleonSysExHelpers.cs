@@ -620,7 +620,7 @@ namespace ChameleonSysExHelpers
         public static long DumpDiff(byte* baseAddr, byte* secondAddr, byte* firstAddr, string secondName, string firstName)
         {
 
-            Console.WriteLine($"[base: {(long)baseAddr:X}] [base -> {firstName}: {(long)firstAddr - (long)baseAddr}] [{firstName} -> {secondName} {(long)secondAddr-(long)firstAddr}] [base -> {secondName} {(long)secondAddr - (long)baseAddr}] |{(long)firstAddr - (long)baseAddr}-{(long)secondAddr - (long)baseAddr -1}");
+            Console.WriteLine($"[base: {(long)baseAddr:X}] [base -> {firstName}: {(long)firstAddr - (long)baseAddr}] [{firstName} -> {secondName} {(long)secondAddr-(long)firstAddr}] [base -> {secondName} {(long)secondAddr - (long)baseAddr}] |{firstName} @{(long)firstAddr - (long)baseAddr}-{(long)secondAddr - (long)baseAddr -1}");
             return ((long)secondAddr - (long)firstAddr);
         }
         public static void DumpAddresses(TChameleonCompositeLowGainChorus tcc)
