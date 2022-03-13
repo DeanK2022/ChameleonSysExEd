@@ -81,6 +81,7 @@ namespace ChameleonSysExEd
                 nudSpkSimReactance.Value = mySysEx.SpeakerSim.Reactance;
                 nudSpkSimMicPlace.Value = mySysEx.SpeakerSim.MicPlace;
 
+                cbReverbState.SelectedIndex = mySysEx.Reverb.ReverbState;
                 nudReverbHighFreqDamp.Value = mySysEx.Reverb.ReverbHighFreqDamp;
                 nudReverbDecay.Value = mySysEx.Reverb.ReverbDecay;
                 nudReverbMix.Value = mySysEx.Reverb.ReverbMix;
@@ -220,7 +221,16 @@ namespace ChameleonSysExEd
                     cbPhaserStage.SelectedIndex = mySysEx.Phaser.Stage;
                     cbPhaserInOut.SelectedIndex = mySysEx.Phaser.PhaserInOut;
                 };
+                SetControllerAssignmentFromClass(0);
             }
+        }
+        private void SetControllerAssignmentFromClass(int controllerID)
+        {
+            cbControllerAssignment.SelectedIndex = controllerID;
+            cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerID].LowerLimit;
+            cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerID].UpperLimit;
+            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerID].Param;
+            cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerID].Number;
         }
         private ChameleonSysExComplete UIToChameleonSysExComplete ()
         {
@@ -260,7 +270,8 @@ namespace ChameleonSysExEd
      
             curSysEx.SpeakerSim.Reactance = (sbyte)nudSpkSimReactance.Value;
             curSysEx.SpeakerSim.MicPlace = (sbyte)nudSpkSimMicPlace.Value;
-    
+
+            curSysEx.Reverb.ReverbState = (byte)cbReverbState.SelectedIndex;
             curSysEx.Reverb.ReverbHighFreqDamp = (byte)nudReverbHighFreqDamp.Value;
             curSysEx.Reverb.ReverbDecay = (byte)nudReverbDecay.Value;
             curSysEx.Reverb.ReverbMix = (byte)nudReverbMix.Value;
@@ -403,6 +414,19 @@ namespace ChameleonSysExEd
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDdlg.ShowDialog();
+        }
+
+        private void cbControllerAssignment_Enter(object sender, EventArgs e)
+        {
+            sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit= (byte)cbControllerAssignmentLowerLimit.SelectedIndex ; 
+            sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit= (byte)cbControllerAssignmentUpperLimit.SelectedIndex ; 
+            sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Param= (byte)cbControllerAssignmentParam.SelectedIndex      ;
+            sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number= (byte)cbControllerAssignmentNumber.SelectedIndex; 
+        }
+
+        private void cbControllerAssignment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetControllerAssignmentFromClass(cbControllerAssignment.SelectedIndex);
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
         //{
