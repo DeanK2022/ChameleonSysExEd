@@ -843,8 +843,8 @@ namespace ChameleonSysExEd
         }
         private void SetRate2(short newRate)
         {
-            rate1Low = (byte)newRate;
-            rate1High = (byte)(newRate >> 7);
+            rate2Low = (byte)newRate;
+            rate2High = (byte)(newRate >> 7);
         }
         public ChameleonFlanger(TChameleonFlanger tc)
         {

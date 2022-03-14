@@ -234,9 +234,10 @@ namespace ChameleonSysExEd
         }
         private ChameleonSysExComplete UIToChameleonSysExComplete ()
         {
-            ChameleonSysExComplete curSysEx = new ChameleonSysExComplete();
-
-            curSysEx.Title = tbTitle.Text;
+            ChameleonSysExComplete curSysEx = new ChameleonSysExComplete
+            {
+                Title = tbTitle.Text
+            };
             curSysEx.Control.ConfigMode = (byte)cbConfiguration.SelectedIndex;
 
             curSysEx.Mixer.ReverbLevel = (sbyte)nudMixerReverbLevel.Value;
@@ -402,7 +403,7 @@ namespace ChameleonSysExEd
             };
             return curSysEx;
         }
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //determine struct to use
             //TChameleonCompositeHeaderUnion tcu;
@@ -411,12 +412,12 @@ namespace ChameleonSysExEd
             File.WriteAllBytes(openFileDialogSysEx.FileName + "2", toWrite);
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDdlg.ShowDialog();
         }
 
-        private void cbControllerAssignment_Enter(object sender, EventArgs e)
+        private void CbControllerAssignment_Enter(object sender, EventArgs e)
         {
             sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit= (byte)cbControllerAssignmentLowerLimit.SelectedIndex ; 
             sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit= (byte)cbControllerAssignmentUpperLimit.SelectedIndex ; 
@@ -424,7 +425,7 @@ namespace ChameleonSysExEd
             sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number= (byte)cbControllerAssignmentNumber.SelectedIndex; 
         }
 
-        private void cbControllerAssignment_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbControllerAssignment_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetControllerAssignmentFromClass(cbControllerAssignment.SelectedIndex);
         }

@@ -3674,76 +3674,62 @@ namespace ChameleonSysExEd
             // 
             this.cbControllerAssignmentParam.FormattingEnabled = true;
             this.cbControllerAssignmentParam.Items.AddRange(new object[] {
-            "OUTPUT\t\t\t",
-            "GLOBAL SPKR SIM\t",
-            "HUSH OFFSET\t\t",
-            "VOLUME\t\t\t",
-            "LEFT OUT LVL\t",
-            "RIGHT OUT LVL\t",
-            "MIX DIR\t\t\t",
-            "DIRECT PAN\t\t",
-            "SPKR SIM\t\t",
-            "DELAY LVL\t\t",
-            "REVERB LVL\t\t",
-            "PREAMP GAIN\t\t",
-            "VARIAC ADJUST\t",
-            "BASS\t\t\t",
-            "TREBLE\t\t\t",
-            "PRESENCE\t\t",
-            "W/P MIX DIR\t\t",
-            "CHANNEL\t\t\t",
-            "HUSH\t\t\t",
-            "EXP THRESH\t\t",
-            "SCOOP/BRIGHT\t",
-            "MASTER\t\t\t",
-            "MUTE\t\t\t",
-            "COMPRESSOR\t\t",
-            "COMP THRESH\t\t",
-            "COMP ATTACK\t\t",
-            "COMP RELEASE\t",
-            "SPKR TYPE\t\t",
-            "MIC POSITION\t",
-            "REACTANCE\t\t",
-            "WAH-WAH I/O\t\t",
-            "WAH FREQ\t\t",
-            "PHASER I/O\t\t",
-            "DEPTH\t\t\t",
-            "RATE\t\t\t",
-            "RESONANCE\t\t",
-            "STAGES\t\t\t",
-            "FLANGE I/O\t\t",
-            "LEVEL 1\t\t\t",
-            "PAN 1\t\t\t",
-            "DEPTH 1\t\t\t",
-            "RATE 1\t\t\t",
-            "DELAY 1\t\t\t",
-            "LEVEL 2\t\t\t",
-            "PAN 2\t\t\t",
-            "DEPTH 2\t\t\t",
-            "RATE 2\t\t\t",
-            "DELAY 2\t\t\t",
-            "RUN STAT\t\t",
-            "TREMOLO I/O\t\t",
-            "LEVEL\t\t\t",
-            "SHAPE\t\t\t",
-            "PITCH SHIFT I/O\t",
-            "PITCH\t\t\t",
-            "FINE\t\t\t",
-            "SPEED\t\t\t",
-            "CHORUS I/O\t\t",
-            "LOCATION\t\t",
-            "DELAY\t\t\t",
-            "MUTE TYPE\t\t",
-            "DLY HF DAMP\t\t",
-            "MIDI VOL\t\t",
-            "SOURCE MIX\t\t",
+            "OUTPUT",
+            "GLOBAL SPKR SIM",
+            "HUSH OFFSET",
+            "MUTE",
+            "VOLUME",
+            "LEFT OUT LVL",
+            "RIGHT OUT LVL",
+            "MIX DIR",
+            "DIRECT PAN",
+            "DELAY LVL",
+            "REVERB LVL",
+            "GAIN",
+            "DIST TYPE",
+            "POST BASS LVL",
+            "POST MID LVL",
+            "POST TREBLE LVL",
+            "POST PRESENCE LVL",
+            "HUSH I/O",
+            "EXP THRESH",
+            "PRE LF LVL",
+            "PRE LF FREQ",
+            "PRE MID LVL",
+            "PRE MID FREQ",
+            "PRE MID BW",
+            "POST BASS FREQ",
+            "POST BASS BW",
+            "POST MID FREQ",
+            "POST MID BW",
+            "POST TREBLE FREQ",
+            "POST TREBLE BW",
+            "POST PRESENCE FREQ",
+            "POST PRESENCE BW",
+            "SPKR SIM",
+            "SPKR TYPE",
+            "MIC POSITION",
+            "REACTANCE",
+            "COMPRESSOR I/O",
+            "COMP THRESH",
+            "COMP ATTACK",
+            "COMP RELEASE",
+            "PHASER I/O",
+            "DEPTH",
+            "RATE",
+            "RESONANCE",
+            "STAGES",
+            "DELAY",
+            "MUTE TYPE",
+            "SOURCE MIX",
             "SOURCE 2",
+            "DLY HF DAMP",
             "OUT LVL 1",
-            "DLY PAN 1",
+            "PAN 1",
             "DLY TIME 1",
             "REGEN 1",
             "OUT LVL 2",
-            "DLY PAN 2",
+            "PAN 2",
             "DLY TIME 2",
             "REGEN 2",
             "REV INPUT",
@@ -3904,8 +3890,8 @@ namespace ChameleonSysExEd
             this.cbControllerAssignment.Name = "cbControllerAssignment";
             this.cbControllerAssignment.Size = new System.Drawing.Size(59, 21);
             this.cbControllerAssignment.TabIndex = 11;
-            this.cbControllerAssignment.SelectedIndexChanged += new System.EventHandler(this.cbControllerAssignment_SelectedIndexChanged);
-            this.cbControllerAssignment.Enter += new System.EventHandler(this.cbControllerAssignment_Enter);
+            this.cbControllerAssignment.SelectedIndexChanged += new System.EventHandler(this.CbControllerAssignment_SelectedIndexChanged);
+            this.cbControllerAssignment.Enter += new System.EventHandler(this.CbControllerAssignment_Enter);
             // 
             // label69
             // 
@@ -4882,14 +4868,14 @@ namespace ChameleonSysExEd
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveAsToolStripMenuItem.Text = "&Save As";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
