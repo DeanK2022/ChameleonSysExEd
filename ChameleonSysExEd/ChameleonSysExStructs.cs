@@ -647,7 +647,7 @@ namespace ChamSysExFileStructs
         public TChameleonDelay Delay;              //@90-115
         public TChameleonReverb Reverb;            //@116-123
 
-        public fixed byte BigGapInMiddle[20];      //@124-143 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[32];      //@124-143 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@144-169
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245

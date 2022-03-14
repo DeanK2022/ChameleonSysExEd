@@ -5014,6 +5014,7 @@ namespace ChameleonSysExEd
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Chameleon SysEx Editor";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tcMainTab.ResumeLayout(false);
             this.tpMixerGain.ResumeLayout(false);
             this.gbCompressor.ResumeLayout(false);

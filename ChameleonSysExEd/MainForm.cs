@@ -16,9 +16,8 @@ namespace ChameleonSysExEd
 {
     public partial class MainForm : Form
     {
-        //
-        //public TChameleonCompositeLowGainChorus TChameleonCompositeObj;
         public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
+        private FormDirtyTracker _dirtyTracker;
         public MainForm()
         {
             InitializeComponent();
@@ -299,7 +298,13 @@ namespace ChameleonSysExEd
             curSysEx.Delay.D2Pan = (byte)nudDelay2Pan.Value;
             curSysEx.Delay.D2OutLevel = (sbyte)nudDelay2OutLevel.Value;
             curSysEx.Delay.D2Regen = (sbyte)nudDelay2Regen.Value;
-
+            for (int idx = 0;idx < Constants.MAX_CONTROLLER_COUNT;idx++)
+            {
+                curSysEx.ControllerAssignment[idx].LowerLimit = sysEx.ControllerAssignment[idx].LowerLimit;
+                curSysEx.ControllerAssignment[idx].UpperLimit = sysEx.ControllerAssignment[idx].UpperLimit;
+                curSysEx.ControllerAssignment[idx].Number = sysEx.ControllerAssignment[idx].Number;
+                curSysEx.ControllerAssignment[idx].Param = sysEx.ControllerAssignment[idx].Param;
+            }
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex -1);
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number = (byte)cbControllerAssignmentNumber.SelectedIndex;
@@ -410,6 +415,7 @@ namespace ChameleonSysExEd
             ChameleonSysExComplete curSysx = UIToChameleonSysExComplete();
             byte[] toWrite = curSysx.ToByteArray();
             File.WriteAllBytes(openFileDialogSysEx.FileName + "2", toWrite);
+            _dirtyTracker.SetAsClean();
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -432,7 +438,28 @@ namespace ChameleonSysExEd
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            if (!_dirtyTracker.IsDirty)
+                Application.Exit();
+            else
+            {
+                var confirmResult = MessageBox.Show("Are you sure to abandon changes?",
+                                     "Confirm application close.",
+                                     MessageBoxButtons.OKCancel);
+                if (confirmResult == DialogResult.OK)
+                {
+                    Application.Exit();
+                }
+                else
+                {
+                    // do nothing
+                }
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // instantiate a tracker to determine if values have changed in the form
+            _dirtyTracker = new FormDirtyTracker(this);
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
         //{

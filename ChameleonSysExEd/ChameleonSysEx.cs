@@ -1272,20 +1272,25 @@ namespace ChameleonSysExEd
                 PostEQ.ToStruct(&asu.HighGainHeader.PostEQ);
                 SpeakerSim.ToStruct(&asu.HighGainHeader.SpeakerSim);
 
+                for (int i = 0; i < Constants.TITLE_LEN_BYTE/2; i += 2)
+                {
+                    asu.TailEnd.Title[i] = (byte)32;
+                    asu.TailEnd.Title[i+1] = (byte)0;
+                }
                 for (int i = 0; i < Title.Length; i += 2)
                 {
                     asu.TailEnd.Title[i] = (byte)Title[i/2];
                     asu.TailEnd.Title[i+1] = (byte)0;
                 }
 
-                ControllerAssignment[0].ToStruct(&asu.TailEnd.ControllerAssignment8);
-                ControllerAssignment[1].ToStruct(&asu.TailEnd.ControllerAssignment1);
-                ControllerAssignment[2].ToStruct(&asu.TailEnd.ControllerAssignment2);
-                ControllerAssignment[3].ToStruct(&asu.TailEnd.ControllerAssignment3);
-                ControllerAssignment[4].ToStruct(&asu.TailEnd.ControllerAssignment4);
-                ControllerAssignment[5].ToStruct(&asu.TailEnd.ControllerAssignment5);
-                ControllerAssignment[6].ToStruct(&asu.TailEnd.ControllerAssignment6);
-                ControllerAssignment[7].ToStruct(&asu.TailEnd.ControllerAssignment7);
+                ControllerAssignment[0].ToStruct(&asu.TailEnd.ControllerAssignment1);
+                ControllerAssignment[1].ToStruct(&asu.TailEnd.ControllerAssignment2);
+                ControllerAssignment[2].ToStruct(&asu.TailEnd.ControllerAssignment3);
+                ControllerAssignment[3].ToStruct(&asu.TailEnd.ControllerAssignment4);
+                ControllerAssignment[4].ToStruct(&asu.TailEnd.ControllerAssignment5);
+                ControllerAssignment[5].ToStruct(&asu.TailEnd.ControllerAssignment6);
+                ControllerAssignment[6].ToStruct(&asu.TailEnd.ControllerAssignment7);
+                ControllerAssignment[7].ToStruct(&asu.TailEnd.ControllerAssignment8);
                 
 
                 asu.TailEnd.TapDelay.TapDelayD1Multiplyer = TapDelay.TapDelayD1Multiplyer;
