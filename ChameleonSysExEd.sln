@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChameleonSysExEd", "ChameleonSysExEd\ChameleonSysExEd.csproj", "{FA22AD0C-1FB1-4423-81D7-3A7A547A0FF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DFBE2A4F-21F2-4C48-B7DB-EBF66EA87481}"
+	ProjectSection(SolutionItems) = preProject
+		stringsout.txt = stringsout.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

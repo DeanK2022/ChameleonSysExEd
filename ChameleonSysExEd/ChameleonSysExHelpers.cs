@@ -109,6 +109,7 @@ namespace ChameleonSysExHelpers
                 if (byteArr[idx] !=0)
                     retStr += Convert.ToChar(byteArr[idx]);
             }
+            retStr.PadRight(cnt);
             return retStr;
         }
         unsafe public static string ConvertToString(byte byteVal)
