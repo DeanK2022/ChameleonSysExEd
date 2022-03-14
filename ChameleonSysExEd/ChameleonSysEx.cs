@@ -785,9 +785,9 @@ namespace ChameleonSysExEd
             UpperLimit = tc.UpperLimit;
             LowerLimit = tc.LowerLimit;
         }
-        unsafe public void ToStruct(TChameleonControllerAssignment* dest, byte idx)
+        unsafe public void ToStruct(TChameleonControllerAssignment* dest)
         {
-            dest->Number = idx;
+            dest->Number = Number;
             dest->Z1 = 0;
             dest->Param = Param;
             dest->Z2 = 0;
@@ -971,14 +971,14 @@ namespace ChameleonSysExEd
 
         public string Title;               //@156-181
         public ChameleonControllerAssignment[] ControllerAssignment;
-        public ChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
-        public ChameleonControllerAssignment ControllerAssignment2;
-        public ChameleonControllerAssignment ControllerAssignment3;
-        public ChameleonControllerAssignment ControllerAssignment4;
-        public ChameleonControllerAssignment ControllerAssignment5;
-        public ChameleonControllerAssignment ControllerAssignment6;
-        public ChameleonControllerAssignment ControllerAssignment7;
-        public ChameleonControllerAssignment ControllerAssignment8;
+        //public ChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
+        //public ChameleonControllerAssignment ControllerAssignment2;
+        //public ChameleonControllerAssignment ControllerAssignment3;
+        //public ChameleonControllerAssignment ControllerAssignment4;
+        //public ChameleonControllerAssignment ControllerAssignment5;
+        //public ChameleonControllerAssignment ControllerAssignment6;
+        //public ChameleonControllerAssignment ControllerAssignment7;
+        //public ChameleonControllerAssignment ControllerAssignment8;
         public ChameleonTapDelay TapDelay;        //@246 - 249
 
         public byte CheckSum;             //@250 checksum (bytes 7-456 XOR)
@@ -1014,14 +1014,16 @@ namespace ChameleonSysExEd
             Reverb = new ChameleonReverb();
 
             ControllerAssignment = new ChameleonControllerAssignment[8];
-            ControllerAssignment1 = new ChameleonControllerAssignment();
-            ControllerAssignment2 = new ChameleonControllerAssignment();
-            ControllerAssignment3 = new ChameleonControllerAssignment();
-            ControllerAssignment4 = new ChameleonControllerAssignment();
-            ControllerAssignment5 = new ChameleonControllerAssignment();
-            ControllerAssignment6 = new ChameleonControllerAssignment();
-            ControllerAssignment7 = new ChameleonControllerAssignment();
-            ControllerAssignment8 = new ChameleonControllerAssignment();
+            for (int idx =0; idx < Constants.MAX_CONTROLLER_COUNT;idx++)
+                ControllerAssignment[idx] = new ChameleonControllerAssignment();
+
+            //ControllerAssignment2 = new ChameleonControllerAssignment();
+            //ControllerAssignment3 = new ChameleonControllerAssignment();
+            //ControllerAssignment4 = new ChameleonControllerAssignment();
+            //ControllerAssignment5 = new ChameleonControllerAssignment();
+            //ControllerAssignment6 = new ChameleonControllerAssignment();
+            //ControllerAssignment7 = new ChameleonControllerAssignment();
+            //ControllerAssignment8 = new ChameleonControllerAssignment();
             TapDelay = new ChameleonTapDelay();
         }
         private TChameleonCompositeHeaderHighGain FromFileStream(FileStream fs)
@@ -1210,24 +1212,16 @@ namespace ChameleonSysExEd
                 //long startReverb = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
 
                 Title = ChamObjectHelpers.ConvertToString(tailend->Title, Constants.TITLE_LEN_BYTE);
-                ControllerAssignment1 = new ChameleonControllerAssignment(tailend->ControllerAssignment1);
-                ControllerAssignment2 = new ChameleonControllerAssignment(tailend->ControllerAssignment2);
-                ControllerAssignment3 = new ChameleonControllerAssignment(tailend->ControllerAssignment3);
-                ControllerAssignment4 = new ChameleonControllerAssignment(tailend->ControllerAssignment4);
-                ControllerAssignment5 = new ChameleonControllerAssignment(tailend->ControllerAssignment5);
-                ControllerAssignment6 = new ChameleonControllerAssignment(tailend->ControllerAssignment6);
-                ControllerAssignment7 = new ChameleonControllerAssignment(tailend->ControllerAssignment7);
-                ControllerAssignment8 = new ChameleonControllerAssignment(tailend->ControllerAssignment8);
 
-                ControllerAssignment = new ChameleonControllerAssignment[8];
-                ControllerAssignment[0] = ControllerAssignment1;
-                ControllerAssignment[1] = ControllerAssignment2;
-                ControllerAssignment[2] = ControllerAssignment3;
-                ControllerAssignment[3] = ControllerAssignment4;
-                ControllerAssignment[4] = ControllerAssignment5;
-                ControllerAssignment[5] = ControllerAssignment6;
-                ControllerAssignment[6] = ControllerAssignment7;
-                ControllerAssignment[7] = ControllerAssignment8;
+                ControllerAssignment = new ChameleonControllerAssignment[Constants.MAX_CONTROLLER_COUNT];
+                ControllerAssignment[0] = new ChameleonControllerAssignment(tailend->ControllerAssignment1);
+                ControllerAssignment[1] = new ChameleonControllerAssignment(tailend->ControllerAssignment2);
+                ControllerAssignment[2] = new ChameleonControllerAssignment(tailend->ControllerAssignment3);
+                ControllerAssignment[3] = new ChameleonControllerAssignment(tailend->ControllerAssignment4);
+                ControllerAssignment[4] = new ChameleonControllerAssignment(tailend->ControllerAssignment5);
+                ControllerAssignment[5] = new ChameleonControllerAssignment(tailend->ControllerAssignment6);
+                ControllerAssignment[6] = new ChameleonControllerAssignment(tailend->ControllerAssignment7);
+                ControllerAssignment[7] = new ChameleonControllerAssignment(tailend->ControllerAssignment8);
 
                 TapDelay = new ChameleonTapDelay(tailend->TapDelay);
 
@@ -1283,14 +1277,16 @@ namespace ChameleonSysExEd
                     asu.TailEnd.Title[i] = (byte)Title[i/2];
                     asu.TailEnd.Title[i+1] = (byte)0;
                 }
-                ControllerAssignment1.ToStruct(&asu.TailEnd.ControllerAssignment1, 1);
-                ControllerAssignment2.ToStruct(&asu.TailEnd.ControllerAssignment2, 2);
-                ControllerAssignment3.ToStruct(&asu.TailEnd.ControllerAssignment3, 3);
-                ControllerAssignment4.ToStruct(&asu.TailEnd.ControllerAssignment4, 4);
-                ControllerAssignment5.ToStruct(&asu.TailEnd.ControllerAssignment5, 5);
-                ControllerAssignment6.ToStruct(&asu.TailEnd.ControllerAssignment6, 6);
-                ControllerAssignment7.ToStruct(&asu.TailEnd.ControllerAssignment7, 7);
-                ControllerAssignment8.ToStruct(&asu.TailEnd.ControllerAssignment8, 8);
+
+                ControllerAssignment[0].ToStruct(&asu.TailEnd.ControllerAssignment8);
+                ControllerAssignment[1].ToStruct(&asu.TailEnd.ControllerAssignment1);
+                ControllerAssignment[2].ToStruct(&asu.TailEnd.ControllerAssignment2);
+                ControllerAssignment[3].ToStruct(&asu.TailEnd.ControllerAssignment3);
+                ControllerAssignment[4].ToStruct(&asu.TailEnd.ControllerAssignment4);
+                ControllerAssignment[5].ToStruct(&asu.TailEnd.ControllerAssignment5);
+                ControllerAssignment[6].ToStruct(&asu.TailEnd.ControllerAssignment6);
+                ControllerAssignment[7].ToStruct(&asu.TailEnd.ControllerAssignment7);
+                
 
                 asu.TailEnd.TapDelay.TapDelayD1Multiplyer = TapDelay.TapDelayD1Multiplyer;
                 asu.TailEnd.TapDelay.Z1 = 0;

@@ -288,7 +288,6 @@ namespace ChameleonSysExEd
             this.button1 = new System.Windows.Forms.Button();
             this.label67 = new System.Windows.Forms.Label();
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
-            this.cbRealTimeEditing = new System.Windows.Forms.CheckBox();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
             this.tcMainTab.SuspendLayout();
@@ -3677,7 +3676,6 @@ namespace ChameleonSysExEd
             "OUTPUT",
             "GLOBAL SPKR SIM",
             "HUSH OFFSET",
-            "MUTE",
             "VOLUME",
             "LEFT OUT LVL",
             "RIGHT OUT LVL",
@@ -4934,22 +4932,22 @@ namespace ChameleonSysExEd
             "High Gain, Tremol0, Delay, Reverb",
             "High Gain, Pitch Shift, Delay, Reverb",
             "Wah, High Gain, Delay, Reverb",
-            "Phase Shift, High Gain, Delay, Reverb",
+            "Phaser, High Gain, Delay, Reverb",
             "Low Gain, Chorus, Delay, Reverb",
             "Low Gain, Flanger, Delay, Reverb",
             "Low Gain, Tremolo, Delay, Reverb",
             "Low Gain, Pitch Shift, Delay, Reverb",
             "Wah, Low Gain, Chorus, Delay, Reverb",
-            "Phase Shift, Low Gain, Chorus, Delay, Reverb"});
-            this.cbConfiguration.Location = new System.Drawing.Point(433, 19);
+            "Phaser, Low Gain, Chorus, Delay, Reverb"});
+            this.cbConfiguration.Location = new System.Drawing.Point(406, 24);
             this.cbConfiguration.Name = "cbConfiguration";
-            this.cbConfiguration.Size = new System.Drawing.Size(216, 21);
+            this.cbConfiguration.Size = new System.Drawing.Size(243, 21);
             this.cbConfiguration.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(336, 24);
+            this.label2.Location = new System.Drawing.Point(328, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 1;
@@ -4972,6 +4970,7 @@ namespace ChameleonSysExEd
             this.button1.TabIndex = 4;
             this.button1.Text = "&Close";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label67
             // 
@@ -4989,16 +4988,6 @@ namespace ChameleonSysExEd
             this.nudCurPreset.Size = new System.Drawing.Size(59, 20);
             this.nudCurPreset.TabIndex = 9;
             // 
-            // cbRealTimeEditing
-            // 
-            this.cbRealTimeEditing.AutoSize = true;
-            this.cbRealTimeEditing.Location = new System.Drawing.Point(465, 428);
-            this.cbRealTimeEditing.Name = "cbRealTimeEditing";
-            this.cbRealTimeEditing.Size = new System.Drawing.Size(109, 17);
-            this.cbRealTimeEditing.TabIndex = 11;
-            this.cbRealTimeEditing.Text = "Real-Time Editing";
-            this.cbRealTimeEditing.UseVisualStyleBackColor = true;
-            // 
             // openFileDialogSysEx
             // 
             this.openFileDialogSysEx.DefaultExt = "*.syx";
@@ -5014,7 +5003,6 @@ namespace ChameleonSysExEd
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 475);
-            this.Controls.Add(this.cbRealTimeEditing);
             this.Controls.Add(this.label67);
             this.Controls.Add(this.nudCurPreset);
             this.Controls.Add(this.button1);
@@ -5022,6 +5010,7 @@ namespace ChameleonSysExEd
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tcMainTab);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Chameleon SysEx Editor";
@@ -5309,7 +5298,6 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.NumericUpDown nudCurPreset;
-        private System.Windows.Forms.CheckBox cbRealTimeEditing;
         private System.Windows.Forms.ComboBox cbCompressorRelease;
         private System.Windows.Forms.ComboBox cbCompressorAttack;
         private System.Windows.Forms.ComboBox cbCompressorInOut;

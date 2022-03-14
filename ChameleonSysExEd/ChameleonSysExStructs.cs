@@ -16,6 +16,7 @@ namespace ChamSysExFileStructs
         public const int WAH_LG_BIG_GAP_LEN = 40;
         public const int PHASER_LG_BIG_GAP_LEN = 40;
 
+        public const int MAX_CONTROLLER_COUNT = 8;
         //public const int TITLE_LEN_CHAR = 13;
         //public readonly List<string> ControllerAssignmentAdjustParams = new List<string>
         //{

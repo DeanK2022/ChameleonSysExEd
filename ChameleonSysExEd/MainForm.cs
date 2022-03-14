@@ -89,10 +89,11 @@ namespace ChameleonSysExEd
                 cbTapDelay2Multiplier.SelectedIndex = mySysEx.TapDelay.TapDelayD2Multiplyer;
 
                 cbTapDelay1Multiplier.SelectedIndex = mySysEx.TapDelay.TapDelayD2Multiplyer;
-
-                cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment1.Param;
-                cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment1.Number;
-                cbControllerAssignment.SelectedIndex = mySysEx.ControllerAssignment1.LowerLimit;
+                cbControllerAssignment.SelectedIndex = 1;
+                cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
+                cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
+                cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
+                cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment[0].UpperLimit;
 
                 cbDelaySource2.SelectedIndex = mySysEx.Delay.Source2;
                 cbDelayState.SelectedIndex = mySysEx.Delay.DelayState;
@@ -110,8 +111,10 @@ namespace ChameleonSysExEd
                 nudDelay2OutLevel.Value = mySysEx.Delay.D2OutLevel;
                 nudDelay2Regen.Value = mySysEx.Delay.D2Regen;
 
-                cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment1.LowerLimit + 1;
-                cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment1.UpperLimit;
+                cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
+                cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
+                cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
+                cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment[0].UpperLimit;
                 //nudCurPreset.Value = 
 
                 if (mySysEx.Control.ConfigMode > 5)  //low gain, compressor allowed
@@ -226,7 +229,7 @@ namespace ChameleonSysExEd
         }
         private void SetControllerAssignmentFromClass(int controllerID)
         {
-            cbControllerAssignment.SelectedIndex = controllerID;
+            cbControllerAssignment.SelectedIndex = controllerID ;
             cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerID].LowerLimit;
             cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerID].UpperLimit;
             cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerID].Param;
@@ -281,10 +284,6 @@ namespace ChameleonSysExEd
     
             curSysEx.TapDelay.TapDelayD1Multiplyer = (byte)cbTapDelay1Multiplier.SelectedIndex;
         
-            curSysEx.ControllerAssignment1.Param = (byte)cbControllerAssignmentParam.SelectedIndex;
-            curSysEx.ControllerAssignment1.Number = (byte)cbControllerAssignmentNumber.SelectedIndex;
-            curSysEx.ControllerAssignment1.LowerLimit = (byte)cbControllerAssignment.SelectedIndex;
-        
             curSysEx.Delay.Source2 = (byte)cbDelaySource2.SelectedIndex;
             curSysEx.Delay.DelayState = (byte)cbDelayState.SelectedIndex;
             curSysEx.Delay.MuteType = (byte)cbDelayMuteType.SelectedIndex;
@@ -301,8 +300,10 @@ namespace ChameleonSysExEd
             curSysEx.Delay.D2OutLevel = (sbyte)nudDelay2OutLevel.Value;
             curSysEx.Delay.D2Regen = (sbyte)nudDelay2Regen.Value;
 
-            curSysEx.ControllerAssignment1.LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex -1);
-            curSysEx.ControllerAssignment1.UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
+            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex -1);
+            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
+            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number = (byte)cbControllerAssignmentNumber.SelectedIndex;
+            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Param = (byte)cbControllerAssignmentParam.SelectedIndex;
 
             if (curSysEx.Control.ConfigMode > 5)  //low gain, compressor allowed
             {
@@ -317,7 +318,6 @@ namespace ChameleonSysExEd
                 curSysEx.GainLow.BassLevel = (sbyte)nudGainBassLevel.Value;
                 curSysEx.GainLow.GainType = (byte)cbGainType.SelectedIndex;
                 curSysEx.GainLow.GainAmount = (byte)nudGainAmount.Value;
-
             }
             else //high gain
             {
@@ -421,13 +421,18 @@ namespace ChameleonSysExEd
         {
             sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit= (byte)cbControllerAssignmentLowerLimit.SelectedIndex ; 
             sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit= (byte)cbControllerAssignmentUpperLimit.SelectedIndex ; 
-            sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Param= (byte)cbControllerAssignmentParam.SelectedIndex      ;
+            sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Param= (byte)cbControllerAssignmentParam.SelectedIndex;
             sysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number= (byte)cbControllerAssignmentNumber.SelectedIndex; 
         }
 
         private void CbControllerAssignment_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetControllerAssignmentFromClass(cbControllerAssignment.SelectedIndex);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
         //{
