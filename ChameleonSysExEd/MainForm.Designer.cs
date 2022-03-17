@@ -290,6 +290,8 @@ namespace ChameleonSysExEd
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
+            this.nudControllerAssignmentLowerLimit = new System.Windows.Forms.NumericUpDown();
+            this.nudControllerAssignmentUpperLimit = new System.Windows.Forms.NumericUpDown();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -380,6 +382,8 @@ namespace ChameleonSysExEd
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurPreset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMainTab
@@ -3122,6 +3126,8 @@ namespace ChameleonSysExEd
             // 
             // groupBox14
             // 
+            this.groupBox14.Controls.Add(this.nudControllerAssignmentLowerLimit);
+            this.groupBox14.Controls.Add(this.nudControllerAssignmentUpperLimit);
             this.groupBox14.Controls.Add(this.cbControllerAssignmentLowerLimit);
             this.groupBox14.Controls.Add(this.cbControllerAssignmentUpperLimit);
             this.groupBox14.Controls.Add(this.cbControllerAssignmentParam);
@@ -3739,6 +3745,7 @@ namespace ChameleonSysExEd
             this.cbControllerAssignmentParam.Name = "cbControllerAssignmentParam";
             this.cbControllerAssignmentParam.Size = new System.Drawing.Size(152, 21);
             this.cbControllerAssignmentParam.TabIndex = 13;
+            this.cbControllerAssignmentParam.SelectedIndexChanged += new System.EventHandler(this.cbControllerAssignmentParam_SelectedIndexChanged);
             // 
             // cbControllerAssignmentNumber
             // 
@@ -4998,6 +5005,45 @@ namespace ChameleonSysExEd
             this.saveFileDdlg.DefaultExt = "*.syx";
             this.saveFileDdlg.InitialDirectory = ".\\";
             // 
+            // nudControllerAssignmentLowerLimit
+            // 
+            this.nudControllerAssignmentLowerLimit.Location = new System.Drawing.Point(354, 97);
+            this.nudControllerAssignmentLowerLimit.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentLowerLimit.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.nudControllerAssignmentLowerLimit.Name = "nudControllerAssignmentLowerLimit";
+            this.nudControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 20);
+            this.nudControllerAssignmentLowerLimit.TabIndex = 21;
+            // 
+            // nudControllerAssignmentUpperLimit
+            // 
+            this.nudControllerAssignmentUpperLimit.Increment = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentUpperLimit.Location = new System.Drawing.Point(156, 96);
+            this.nudControllerAssignmentUpperLimit.Maximum = new decimal(new int[] {
+            1200,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentUpperLimit.Minimum = new decimal(new int[] {
+            2400,
+            0,
+            0,
+            -2147483648});
+            this.nudControllerAssignmentUpperLimit.Name = "nudControllerAssignmentUpperLimit";
+            this.nudControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 20);
+            this.nudControllerAssignmentUpperLimit.TabIndex = 20;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5124,6 +5170,8 @@ namespace ChameleonSysExEd
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurPreset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5392,6 +5440,8 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDdlg;
+        private System.Windows.Forms.NumericUpDown nudControllerAssignmentLowerLimit;
+        private System.Windows.Forms.NumericUpDown nudControllerAssignmentUpperLimit;
     }
 }
 

@@ -22,7 +22,8 @@ namespace ChameleonSysExEd
         public MainForm()
         {
             InitializeComponent();
-            ParamSetHelpers.HaveIGotEverything();
+            //ParamSetHelpers.HaveIGotEverything();
+            ParamSetHelpers.LoadParamSetItems(ControllerParamLookup);
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -481,6 +482,29 @@ namespace ChameleonSysExEd
         {
             // instantiate a tracker to determine if values have changed in the form
             _dirtyTracker = new FormDirtyTracker(this);
+        }
+
+        private void cbControllerAssignmentParam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sysEx.Control.ConfigMode > 5)//lowgain
+            {
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+            }
+            else
+            {
+                xxxx
+            }
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
         //{
