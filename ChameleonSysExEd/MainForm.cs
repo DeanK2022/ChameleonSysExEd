@@ -18,9 +18,11 @@ namespace ChameleonSysExEd
     {
         public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
         private FormDirtyTracker _dirtyTracker;
+        private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
         public MainForm()
         {
             InitializeComponent();
+            ParamSetHelpers.HaveIGotEverything();
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,6 +47,25 @@ namespace ChameleonSysExEd
         {
             unsafe
             {
+
+                int oo = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeAllStructsUnion));
+         
+                int oa = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderLowGain));
+                int os = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
+                int od = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeTailend));
+                int of = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainChorus));
+                int og = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainFlanger));
+                int oh = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainPhaser));
+                int oj = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainPitchShift));
+                int ok = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainTremolo));
+                int oq = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainWah));
+                int ow = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainChorus));
+                int oe = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainFlanger));
+                int or = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainPhaser));
+                int ot = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainPitchShift));
+                int oy = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainTremolo));
+                int ou = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainWah));
+
                 tbTitle.Text = mySysEx.Title;
                 cbConfiguration.SelectedIndex = mySysEx.Control.ConfigMode;
 
@@ -305,7 +326,7 @@ namespace ChameleonSysExEd
                 curSysEx.ControllerAssignment[idx].Number = sysEx.ControllerAssignment[idx].Number;
                 curSysEx.ControllerAssignment[idx].Param = sysEx.ControllerAssignment[idx].Param;
             }
-            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex -1);
+            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex);
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number = (byte)cbControllerAssignmentNumber.SelectedIndex;
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Param = (byte)cbControllerAssignmentParam.SelectedIndex;
@@ -330,7 +351,7 @@ namespace ChameleonSysExEd
                 curSysEx.GainHigh.TrebleLevel = (sbyte)nudGainTrebleLevel.Value;
                 curSysEx.GainHigh.MidLevel = (sbyte)nudGainMidLevel.Value;
                 curSysEx.GainHigh.BassLevel = (sbyte)nudGainBassLevel.Value;
-                curSysEx.GainHigh.Variac = (byte)nudGainVariac.Value;
+                curSysEx.GainHigh.Variac = (sbyte)nudGainVariac.Value;
                 curSysEx.GainHigh.GainAmount = (byte)nudGainAmount.Value;
 
             }

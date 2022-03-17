@@ -212,14 +212,14 @@ namespace ChameleonSysExEd
         public ChameleonGainHigh(TChameleonGainLow tc)
         {
             gainAmount = tc.GainAmount;
-            Variac = tc.GainType;
+            variac = tc.GainType;
             bassLevel = tc.BassLevel;
             midLevel = tc.MidLevel;
             trebleLevel = tc.TrebleLevel;
             presence = tc.Presence;
         }
 
-        public byte Variac { get => (byte)(variac - 6); set => variac = (byte)(value + 6); }
+        public sbyte Variac { get => (sbyte)(variac - 6); set => variac = (byte)(value + 6); }
         public byte GainAmount { get => (byte)(gainAmount - 12); set => gainAmount = (byte)(value + 12); }
         public sbyte Presence { get => (sbyte)(presence - 15); set => presence = (byte)(value + 15); }
         public sbyte TrebleLevel { get => (sbyte)(trebleLevel - 15); set => trebleLevel = (byte)(value + 15); }
@@ -227,6 +227,7 @@ namespace ChameleonSysExEd
         public sbyte BassLevel { get => (sbyte)(bassLevel - 15); set => bassLevel = (byte)(value + 15); }
         unsafe public void ToStruct(TChameleonGainHigh* dst)
         {
+            dst->GainAmount = gainAmount;
             dst->Z1 = 0;
             dst->Variac = variac;
             dst->Z2 = 0;
@@ -533,13 +534,15 @@ namespace ChameleonSysExEd
 
         private void SetChorus1Rate(short newChorusRate)
         {
-            chorus1Rate = (byte)newChorusRate;
             chorus1RateHighByte = (byte)(newChorusRate >> 7);
+            chorus1Rate = (byte)(newChorusRate - (chorus1RateHighByte<<7));
+            
         }
         private void SetChorus2Rate(short newChorusRate)
         {
-            chorus2Rate = (byte)newChorusRate;
             chorus2RateHighByte = (byte)(newChorusRate >> 7);
+            chorus2Rate = (byte)(newChorusRate - (chorus2RateHighByte << 7));
+
         }
         public ChameleonChorus(TChameleonChorus tc)
         {
@@ -574,7 +577,7 @@ namespace ChameleonSysExEd
             dst->Z4 = 0;
             dst->Chorus1Rate = chorus1Rate;
             dst->Chorus1RateHighByte = chorus1RateHighByte;
-            dst->Chorus1Delay = Chorus1Delay;
+            dst->Chorus1Delay = chorus1Delay;
             dst->Z6 = 0;
             dst->Chorus2Level = chorus2Level;
             dst->Z7 = 0;
@@ -584,7 +587,7 @@ namespace ChameleonSysExEd
             dst->Z9 = 0;
             dst->Chorus2Rate = chorus2Rate;
             dst->Chorus2RateHighByte = chorus2RateHighByte;
-            dst->Chorus2Delay = Chorus2Delay;
+            dst->Chorus2Delay = chorus2Delay;
             dst->Z11 = 0;
         }
     }
@@ -1025,6 +1028,7 @@ namespace ChameleonSysExEd
             //ControllerAssignment7 = new ChameleonControllerAssignment();
             //ControllerAssignment8 = new ChameleonControllerAssignment();
             TapDelay = new ChameleonTapDelay();
+            Eox = 0xf7;
         }
         private TChameleonCompositeHeaderHighGain FromFileStream(FileStream fs)
         {
@@ -1272,7 +1276,7 @@ namespace ChameleonSysExEd
                 PostEQ.ToStruct(&asu.HighGainHeader.PostEQ);
                 SpeakerSim.ToStruct(&asu.HighGainHeader.SpeakerSim);
 
-                for (int i = 0; i < Constants.TITLE_LEN_BYTE/2; i += 2)
+                for (int i = 0; i < Constants.TITLE_LEN_BYTE; i += 2)
                 {
                     asu.TailEnd.Title[i] = (byte)32;
                     asu.TailEnd.Title[i+1] = (byte)0;
@@ -1297,6 +1301,7 @@ namespace ChameleonSysExEd
                 asu.TailEnd.TapDelay.Z1 = 0;
                 asu.TailEnd.TapDelay.TapDelayD2Multiplyer = TapDelay.TapDelayD2Multiplyer;
                 asu.TailEnd.TapDelay.Z2 = 0;
+                asu.TailEnd.Eox = Eox;
 
                 asu.TailEnd.CheckSum = CheckSum; // TO DO - complete this 
 
@@ -1392,11 +1397,12 @@ namespace ChameleonSysExEd
                 if (asu.HighGainHeader.Control.ConfigMode > 5)
                     myPtr = (IntPtr)(&asu.LowGainHeader);
 
-
                 byte[] bytes= StructureToByteArray(&asu);
+                byte xorRunValue = 0;
+                for (int i = 0; i < 250; i++)
+                    xorRunValue = (byte)~(xorRunValue ^ bytes[i]);  //XNOR
+                bytes[250] = (byte)xorRunValue;
                 return bytes;
- 
-
             }
         }
     }

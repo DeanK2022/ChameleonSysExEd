@@ -67,6 +67,7 @@
     <Compile Include="ChameleonSysExStructs.cs" />
     <Compile Include="ChameleonSysExHelpers.cs" />
     <Compile Include="ChameleonSysEx.cs" />
+    <Compile Include="ParamSet.cs" />
     <Compile Include="FormDirtyTracker.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

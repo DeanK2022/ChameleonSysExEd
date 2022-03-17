@@ -13,7 +13,7 @@ namespace ChamSysExFileStructs
         public const int FLANGER_LG_BIG_GAP_LEN = 40;
         public const int TREMOLO_LG_BIG_GAP_LEN = 40;
         public const int PITCHSHIFT_LG_BIG_GAP_LEN = 40;
-        public const int WAH_LG_BIG_GAP_LEN = 40;
+        public const int WAH_LG_BIG_GAP_LEN = 38;
         public const int PHASER_LG_BIG_GAP_LEN = 40;
 
         public const int MAX_CONTROLLER_COUNT = 8;
@@ -609,7 +609,7 @@ namespace ChamSysExFileStructs
         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
 
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[22];      //@136-155 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
@@ -650,7 +650,7 @@ namespace ChamSysExFileStructs
         public fixed byte BigGapInMiddle[32];      //@124-143 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@144-169
-        public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
+        public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245 8 bytes each
         public TChameleonControllerAssignment ControllerAssignment2;
         public TChameleonControllerAssignment ControllerAssignment3;
         public TChameleonControllerAssignment ControllerAssignment4;
@@ -690,7 +690,7 @@ namespace ChamSysExFileStructs
         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
 
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[30];      //@136-155 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
@@ -733,7 +733,7 @@ namespace ChamSysExFileStructs
         public TChameleonDelay Delay;              //@94-127  
         public TChameleonReverb Reverb;            //@128-135
 
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[32];      //@136-155 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
@@ -849,7 +849,7 @@ namespace ChamSysExFileStructs
         public TChameleonChorus Chorus;            //@72-93 
         public TChameleonDelay Delay;              //@94-127 
         public TChameleonReverb Reverb;            //@128-135
-        public fixed byte BigGapInMiddle[Constants.CHORUS_LG_BIG_GAP_LEN];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[28];      //@136-155 //BIG GAP HERE 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
         public TChameleonControllerAssignment ControllerAssignment2;
@@ -883,7 +883,7 @@ namespace ChamSysExFileStructs
         public TChameleonFlanger Flanger;           //80-97 low gain
         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[30];      //@136-155 //BIG GAP HERE 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
         public TChameleonControllerAssignment ControllerAssignment2;
@@ -916,7 +916,7 @@ namespace ChamSysExFileStructs
         public TChameleonPhaser Phaser;            //@72-81
         public TChameleonDelay Delay;              //@94-127  //lg flange 100-125
         public TChameleonReverb Reverb;            //@128-135
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[40];      //@136-155 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
@@ -951,7 +951,7 @@ namespace ChamSysExFileStructs
         public TChameleonPitchShift PitchShift;    //@72-83
         public TChameleonDelay Delay;              //@84
         public TChameleonReverb Reverb;            //@128-135
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[38];      //@136-155 //BIG GAP HERE 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
         public TChameleonControllerAssignment ControllerAssignment2;
@@ -987,7 +987,7 @@ namespace ChamSysExFileStructs
         public TChameleonDelay Delay;              //@94-127  
         public TChameleonReverb Reverb;            //@128-135
 
-        public fixed byte BigGapInMiddle[20];      //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[40];      //@136-155 //BIG GAP HERE 
 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];               //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
@@ -1022,7 +1022,7 @@ namespace ChamSysExFileStructs
         public TChameleonWah Wah;                   //72-75
         public TChameleonDelay Delay;              //76-101 checked
         public TChameleonReverb Reverb;            //@128-135
-        public fixed byte BigGapInMiddle[Constants.WAH_LG_BIG_GAP_LEN];     //@136-155 //BIG GAP HERE 
+        public fixed byte BigGapInMiddle[46];     //@136-155 //BIG GAP HERE 
         public fixed byte Title[Constants.TITLE_LEN_BYTE];                  //@156-181
         public TChameleonControllerAssignment ControllerAssignment1;        //64 Bytes @182-245
         public TChameleonControllerAssignment ControllerAssignment2;
