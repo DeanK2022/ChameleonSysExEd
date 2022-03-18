@@ -189,6 +189,8 @@ namespace ChameleonSysExEd
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.nudControllerAssignmentLowerLimit = new System.Windows.Forms.NumericUpDown();
+            this.nudControllerAssignmentUpperLimit = new System.Windows.Forms.NumericUpDown();
             this.cbControllerAssignmentLowerLimit = new System.Windows.Forms.ComboBox();
             this.cbControllerAssignmentUpperLimit = new System.Windows.Forms.ComboBox();
             this.cbControllerAssignmentParam = new System.Windows.Forms.ComboBox();
@@ -290,8 +292,6 @@ namespace ChameleonSysExEd
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
-            this.nudControllerAssignmentLowerLimit = new System.Windows.Forms.NumericUpDown();
-            this.nudControllerAssignmentUpperLimit = new System.Windows.Forms.NumericUpDown();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -352,6 +352,8 @@ namespace ChameleonSysExEd
             this.tpControllerTapDelay.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).BeginInit();
             this.tpWahPitchShift.SuspendLayout();
             this.groupBox15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftFineTune)).BeginInit();
@@ -382,8 +384,6 @@ namespace ChameleonSysExEd
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurPreset)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMainTab
@@ -395,10 +395,10 @@ namespace ChameleonSysExEd
             this.tcMainTab.Controls.Add(this.tpHushEqualiser);
             this.tcMainTab.Controls.Add(this.tpSpeakerSimChorus);
             this.tcMainTab.Controls.Add(this.tpDelayReverb);
-            this.tcMainTab.Controls.Add(this.tpControllerTapDelay);
             this.tcMainTab.Controls.Add(this.tpWahPitchShift);
             this.tcMainTab.Controls.Add(this.tpFlangerTremolo);
             this.tcMainTab.Controls.Add(this.tpPhaser);
+            this.tcMainTab.Controls.Add(this.tpControllerTapDelay);
             this.tcMainTab.Location = new System.Drawing.Point(0, 90);
             this.tcMainTab.Name = "tcMainTab";
             this.tcMainTab.SelectedIndex = 0;
@@ -3145,6 +3145,45 @@ namespace ChameleonSysExEd
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Controller Assignment";
             // 
+            // nudControllerAssignmentLowerLimit
+            // 
+            this.nudControllerAssignmentLowerLimit.Location = new System.Drawing.Point(354, 97);
+            this.nudControllerAssignmentLowerLimit.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentLowerLimit.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.nudControllerAssignmentLowerLimit.Name = "nudControllerAssignmentLowerLimit";
+            this.nudControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 20);
+            this.nudControllerAssignmentLowerLimit.TabIndex = 21;
+            // 
+            // nudControllerAssignmentUpperLimit
+            // 
+            this.nudControllerAssignmentUpperLimit.Increment = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentUpperLimit.Location = new System.Drawing.Point(147, 96);
+            this.nudControllerAssignmentUpperLimit.Maximum = new decimal(new int[] {
+            1200,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentUpperLimit.Minimum = new decimal(new int[] {
+            2400,
+            0,
+            0,
+            -2147483648});
+            this.nudControllerAssignmentUpperLimit.Name = "nudControllerAssignmentUpperLimit";
+            this.nudControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 20);
+            this.nudControllerAssignmentUpperLimit.TabIndex = 20;
+            // 
             // cbControllerAssignmentLowerLimit
             // 
             this.cbControllerAssignmentLowerLimit.FormattingEnabled = true;
@@ -4950,6 +4989,7 @@ namespace ChameleonSysExEd
             this.cbConfiguration.Name = "cbConfiguration";
             this.cbConfiguration.Size = new System.Drawing.Size(243, 21);
             this.cbConfiguration.TabIndex = 2;
+            this.cbConfiguration.SelectedIndexChanged += new System.EventHandler(this.cbConfiguration_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -5004,45 +5044,6 @@ namespace ChameleonSysExEd
             // 
             this.saveFileDdlg.DefaultExt = "*.syx";
             this.saveFileDdlg.InitialDirectory = ".\\";
-            // 
-            // nudControllerAssignmentLowerLimit
-            // 
-            this.nudControllerAssignmentLowerLimit.Location = new System.Drawing.Point(354, 97);
-            this.nudControllerAssignmentLowerLimit.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudControllerAssignmentLowerLimit.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            -2147483648});
-            this.nudControllerAssignmentLowerLimit.Name = "nudControllerAssignmentLowerLimit";
-            this.nudControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 20);
-            this.nudControllerAssignmentLowerLimit.TabIndex = 21;
-            // 
-            // nudControllerAssignmentUpperLimit
-            // 
-            this.nudControllerAssignmentUpperLimit.Increment = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudControllerAssignmentUpperLimit.Location = new System.Drawing.Point(156, 96);
-            this.nudControllerAssignmentUpperLimit.Maximum = new decimal(new int[] {
-            1200,
-            0,
-            0,
-            0});
-            this.nudControllerAssignmentUpperLimit.Minimum = new decimal(new int[] {
-            2400,
-            0,
-            0,
-            -2147483648});
-            this.nudControllerAssignmentUpperLimit.Name = "nudControllerAssignmentUpperLimit";
-            this.nudControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 20);
-            this.nudControllerAssignmentUpperLimit.TabIndex = 20;
             // 
             // MainForm
             // 
@@ -5132,6 +5133,8 @@ namespace ChameleonSysExEd
             this.groupBox12.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).EndInit();
             this.tpWahPitchShift.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
@@ -5170,8 +5173,6 @@ namespace ChameleonSysExEd
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurPreset)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

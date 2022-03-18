@@ -14,8 +14,8 @@ namespace ChameleonSysExEd
     {
         //int paramID;
 
-        int limitMin;
-        int limitMax;
+        public int limitMin;
+        public int limitMax;
 
         public ParamSetItemNumeric(string paramName,
             int limitMin,
@@ -30,8 +30,8 @@ namespace ChameleonSysExEd
     }
     class ParamSetItemChoices : ParamSetItemBase
     {
-        string[] lowerLimitValues;
-        string[] upperLimitValues;
+        public string[] lowerLimitValues;
+        public string[] upperLimitValues;
 
         public ParamSetItemChoices(string paramName, string[] lowerLimitValues, string[] upperLimitValues)
         {

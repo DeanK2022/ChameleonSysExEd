@@ -486,24 +486,66 @@ namespace ChameleonSysExEd
 
         private void cbControllerAssignmentParam_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ParamSetItemBase paramSetItemBase = ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+            bool isNumericParam = (paramSetItemBase is ParamSetItemNumeric);
+
+            cbControllerAssignmentLowerLimit.Visible = !isNumericParam;
+            nudControllerAssignmentLowerLimit.Visible = isNumericParam;
+
+
+            cbControllerAssignmentUpperLimit.Visible = !isNumericParam;
+            nudControllerAssignmentUpperLimit.Visible = isNumericParam;
+
+            if (isNumericParam)
+            {
+                ParamSetItemNumeric paramSetItemNumeric = (ParamSetItemNumeric)paramSetItemBase;
+                nudControllerAssignmentLowerLimit.Minimum = paramSetItemNumeric.limitMin;
+                nudControllerAssignmentLowerLimit.Maximum = paramSetItemNumeric.limitMax;
+                nudControllerAssignmentUpperLimit.Minimum = paramSetItemNumeric.limitMin;
+                nudControllerAssignmentUpperLimit.Maximum = paramSetItemNumeric.limitMax;
+            }
+            else 
+            {
+                ParamSetItemChoices paramSetItemChoices = (ParamSetItemChoices)paramSetItemBase;
+                cbControllerAssignmentUpperLimit.Items.Clear();
+                cbControllerAssignmentUpperLimit.Items.AddRange(paramSetItemChoices.upperLimitValues);
+                cbControllerAssignmentLowerLimit.Items.Clear();
+                cbControllerAssignmentLowerLimit.Items.AddRange(paramSetItemChoices.lowerLimitValues);
+            }
+        }
+
+        private void cbConfiguration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbControllerAssignmentParam.Items.Clear();
             if (sysEx.Control.ConfigMode > 5)//lowgain
             {
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items = ParamSetHelpers.GetLGChorusParams();
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
             }
             else
             {
-                xxxx
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
             }
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
