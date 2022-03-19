@@ -1070,6 +1070,53 @@ namespace ChameleonSysExEd
                 PostEQ = new ChameleonPostEQ(tcch.PostEQ);
                 SpeakerSim = new ChameleonSpeakerSim(tcch.SpeakerSim);
                 IntPtr ptrToTCStruct = (IntPtr)(&tcch);
+
+                TChameleonCompositeAllStructsUnion *asu = (TChameleonCompositeAllStructsUnion *) &tcch;
+                byte[] bytes = StructureToByteArray(asu);
+                byte xorRunValue = 0;
+                for (int i = 0; i < 0xf4; i++)
+                    xorRunValue = (byte)~(xorRunValue ^ bytes[i]);  //XNOR
+                bytes[250] = (byte)xorRunValue;
+                bytes[250] = (byte)(xorRunValue & 0x7F);
+                xorRunValue = 0;
+                for (int i = 0; i < 0xf4; i++)
+                    xorRunValue = (byte)(xorRunValue ^ bytes[i]);  //XOR
+                
+                bytes[250] = (byte)(xorRunValue & 0x7F);
+
+                xorRunValue = 0;
+                for (int i = 0; i < 0xf4; i++)
+                    xorRunValue = (byte)(xorRunValue | bytes[i]);
+                bytes[250] = (byte)(xorRunValue & 0x7F);
+
+                ulong xorlRunValue = 0;
+                for (int i = 0; i < 0xf4; i++)
+                    xorlRunValue += bytes[i];  
+                byte remainder = (byte)(xorlRunValue % 128);
+                xorRunValue =(byte)( 128 - remainder);
+                xorRunValue = 0;
+                for (int i = 0; i < 0xf4; i++)
+                    xorRunValue = (byte)(xorRunValue ^ bytes[i]);  //XOR
+
+
+                byte bVar1 = 0;
+                int iVar7 = 0xf4;
+                int cnt = 0;
+                //do
+                // {
+                //    bVar1 = bVar1 ^ *pbVar6;
+                //    pbVar6 = pbVar6 + 1;
+                //    iVar7 = iVar7 + -1;
+                //} while (iVar7 != 0);
+
+                do
+                {
+                    bVar1 = (byte)(bVar1 ^ bytes[0xf4-iVar7]);
+                    cnt++;
+                    iVar7 = iVar7  -1;
+                } while (iVar7 != 0);
+                xorRunValue = bVar1;
+
                 if (tcch.Control.ConfigMode > 5)  //low gain, compressor allowed
                 {
                     GainLow = new ChameleonGainLow(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->GainLow);
