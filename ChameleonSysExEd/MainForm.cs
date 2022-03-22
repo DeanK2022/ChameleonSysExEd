@@ -110,11 +110,13 @@ namespace ChameleonSysExEd
                 cbTapDelay2Multiplier.SelectedIndex = mySysEx.TapDelay.TapDelayD2Multiplyer;
 
                 cbTapDelay1Multiplier.SelectedIndex = mySysEx.TapDelay.TapDelayD2Multiplyer;
+
                 cbControllerAssignment.SelectedIndex = 1;
-                cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
-                cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
-                cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
-                cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment[0].UpperLimit;
+                SetControllerAssignmentFromClass(1);
+                //cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
+                //cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
+                //cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
+                //cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment[0].UpperLimit;
 
                 cbDelaySource2.SelectedIndex = mySysEx.Delay.Source2;
                 cbDelayState.SelectedIndex = mySysEx.Delay.DelayState;
@@ -131,12 +133,6 @@ namespace ChameleonSysExEd
                 nudDelay2Pan.Value = mySysEx.Delay.D2Pan;
                 nudDelay2OutLevel.Value = mySysEx.Delay.D2OutLevel;
                 nudDelay2Regen.Value = mySysEx.Delay.D2Regen;
-
-                cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
-                cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
-                cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
-                cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment[0].UpperLimit;
-                //nudCurPreset.Value = 
 
                 if (mySysEx.Control.ConfigMode > 5)  //low gain, compressor allowed
                 {
@@ -248,13 +244,37 @@ namespace ChameleonSysExEd
                 SetControllerAssignmentFromClass(0);
             }
         }
-        private void SetControllerAssignmentFromClass(int controllerID)
+        private void SetControllerAssignmentFromClass(int controllerIdx)
         {
-            cbControllerAssignment.SelectedIndex = controllerID ;
-            cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerID].LowerLimit;
-            cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerID].UpperLimit;
-            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerID].Param;
-            cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerID].Number;
+            cbControllerAssignment.SelectedIndex = controllerIdx ;
+            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param;
+            cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Number;
+
+            if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemChoices)
+            {
+                ParamSetItemChoices psic = (ParamSetItemChoices)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+                cbControllerAssignmentLowerLimit.Items.Clear();
+                cbControllerAssignmentLowerLimit.Items.AddRange(psic.lowerLimitValues);
+                cbControllerAssignmentUpperLimit.Items.Clear();
+                cbControllerAssignmentUpperLimit.Items.AddRange(psic.upperLimitValues);
+                cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit;
+                cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
+            }
+
+            if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemNumeric)
+            {
+                ParamSetItemNumeric psin = (ParamSetItemNumeric)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+                nudControllerAssignmentLowerLimit.Maximum = psin.limitMax;
+                nudControllerAssignmentLowerLimit.Minimum = psin.limitMin;
+                nudControllerAssignmentUpperLimit.Maximum = psin.limitMax;
+                nudControllerAssignmentUpperLimit.Minimum = psin.limitMin;
+
+                nudControllerAssignmentLowerLimit.Value = sysEx.ControllerAssignment[controllerIdx].LowerLimit;
+                nudControllerAssignmentUpperLimit.Value = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
+            }
+
+
+
         }
         private ChameleonSysExComplete UIToChameleonSysExComplete ()
         {
