@@ -182,25 +182,6 @@ namespace ChameleonSysExEd
             this.label78 = new System.Windows.Forms.Label();
             this.nudDelay1Regen = new System.Windows.Forms.NumericUpDown();
             this.label79 = new System.Windows.Forms.Label();
-            this.tpControllerTapDelay = new System.Windows.Forms.TabPage();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.cbTapDelay2Multiplier = new System.Windows.Forms.ComboBox();
-            this.cbTapDelay1Multiplier = new System.Windows.Forms.ComboBox();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.nudControllerAssignmentLowerLimit = new System.Windows.Forms.NumericUpDown();
-            this.nudControllerAssignmentUpperLimit = new System.Windows.Forms.NumericUpDown();
-            this.cbControllerAssignmentLowerLimit = new System.Windows.Forms.ComboBox();
-            this.cbControllerAssignmentUpperLimit = new System.Windows.Forms.ComboBox();
-            this.cbControllerAssignmentParam = new System.Windows.Forms.ComboBox();
-            this.cbControllerAssignmentNumber = new System.Windows.Forms.ComboBox();
-            this.cbControllerAssignment = new System.Windows.Forms.ComboBox();
-            this.label69 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label73 = new System.Windows.Forms.Label();
             this.tpWahPitchShift = new System.Windows.Forms.TabPage();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.label90 = new System.Windows.Forms.Label();
@@ -269,6 +250,25 @@ namespace ChameleonSysExEd
             this.label112 = new System.Windows.Forms.Label();
             this.label113 = new System.Windows.Forms.Label();
             this.label114 = new System.Windows.Forms.Label();
+            this.tpControllerTapDelay = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.cbTapDelay2Multiplier = new System.Windows.Forms.ComboBox();
+            this.cbTapDelay1Multiplier = new System.Windows.Forms.ComboBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.nudControllerAssignmentLowerLimit = new System.Windows.Forms.NumericUpDown();
+            this.nudControllerAssignmentUpperLimit = new System.Windows.Forms.NumericUpDown();
+            this.cbControllerAssignmentLowerLimit = new System.Windows.Forms.ComboBox();
+            this.cbControllerAssignmentUpperLimit = new System.Windows.Forms.ComboBox();
+            this.cbControllerAssignmentParam = new System.Windows.Forms.ComboBox();
+            this.cbControllerAssignmentNumber = new System.Windows.Forms.ComboBox();
+            this.cbControllerAssignment = new System.Windows.Forms.ComboBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -349,11 +349,6 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1Pan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1OutLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1Regen)).BeginInit();
-            this.tpControllerTapDelay.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).BeginInit();
             this.tpWahPitchShift.SuspendLayout();
             this.groupBox15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftFineTune)).BeginInit();
@@ -380,6 +375,11 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserReson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserRate)).BeginInit();
+            this.tpControllerTapDelay.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -3052,936 +3052,6 @@ namespace ChameleonSysExEd
             this.label79.TabIndex = 30;
             this.label79.Text = "Delay State:";
             // 
-            // tpControllerTapDelay
-            // 
-            this.tpControllerTapDelay.Controls.Add(this.groupBox12);
-            this.tpControllerTapDelay.Controls.Add(this.groupBox14);
-            this.tpControllerTapDelay.Location = new System.Drawing.Point(4, 22);
-            this.tpControllerTapDelay.Name = "tpControllerTapDelay";
-            this.tpControllerTapDelay.Size = new System.Drawing.Size(661, 295);
-            this.tpControllerTapDelay.TabIndex = 4;
-            this.tpControllerTapDelay.Text = "Controller Assignment/Tap Delay";
-            this.tpControllerTapDelay.UseVisualStyleBackColor = true;
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.cbTapDelay2Multiplier);
-            this.groupBox12.Controls.Add(this.cbTapDelay1Multiplier);
-            this.groupBox12.Controls.Add(this.label58);
-            this.groupBox12.Controls.Add(this.label59);
-            this.groupBox12.Location = new System.Drawing.Point(1, 155);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(658, 54);
-            this.groupBox12.TabIndex = 20;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Tap Delay";
-            // 
-            // cbTapDelay2Multiplier
-            // 
-            this.cbTapDelay2Multiplier.FormattingEnabled = true;
-            this.cbTapDelay2Multiplier.Items.AddRange(new object[] {
-            "Sixteen",
-            "Eight",
-            "Triplet",
-            "Quarter",
-            "Half",
-            "Whole",
-            "None"});
-            this.cbTapDelay2Multiplier.Location = new System.Drawing.Point(295, 21);
-            this.cbTapDelay2Multiplier.Name = "cbTapDelay2Multiplier";
-            this.cbTapDelay2Multiplier.Size = new System.Drawing.Size(72, 21);
-            this.cbTapDelay2Multiplier.TabIndex = 16;
-            // 
-            // cbTapDelay1Multiplier
-            // 
-            this.cbTapDelay1Multiplier.FormattingEnabled = true;
-            this.cbTapDelay1Multiplier.Items.AddRange(new object[] {
-            "Sixteen",
-            "Eight",
-            "Triplet",
-            "Quarter",
-            "Half",
-            "Whole",
-            "None"});
-            this.cbTapDelay1Multiplier.Location = new System.Drawing.Point(88, 21);
-            this.cbTapDelay1Multiplier.Name = "cbTapDelay1Multiplier";
-            this.cbTapDelay1Multiplier.Size = new System.Drawing.Size(70, 21);
-            this.cbTapDelay1Multiplier.TabIndex = 15;
-            // 
-            // label58
-            // 
-            this.label58.Location = new System.Drawing.Point(227, 18);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(69, 32);
-            this.label58.TabIndex = 10;
-            this.label58.Text = "Delay 2 Multiplier:";
-            // 
-            // label59
-            // 
-            this.label59.Location = new System.Drawing.Point(12, 18);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(63, 33);
-            this.label59.TabIndex = 8;
-            this.label59.Text = "Delay 1 Multiplier:";
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.nudControllerAssignmentLowerLimit);
-            this.groupBox14.Controls.Add(this.nudControllerAssignmentUpperLimit);
-            this.groupBox14.Controls.Add(this.cbControllerAssignmentLowerLimit);
-            this.groupBox14.Controls.Add(this.cbControllerAssignmentUpperLimit);
-            this.groupBox14.Controls.Add(this.cbControllerAssignmentParam);
-            this.groupBox14.Controls.Add(this.cbControllerAssignmentNumber);
-            this.groupBox14.Controls.Add(this.cbControllerAssignment);
-            this.groupBox14.Controls.Add(this.label69);
-            this.groupBox14.Controls.Add(this.label70);
-            this.groupBox14.Controls.Add(this.label71);
-            this.groupBox14.Controls.Add(this.label72);
-            this.groupBox14.Controls.Add(this.label73);
-            this.groupBox14.Location = new System.Drawing.Point(7, 9);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(652, 140);
-            this.groupBox14.TabIndex = 19;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Controller Assignment";
-            // 
-            // nudControllerAssignmentLowerLimit
-            // 
-            this.nudControllerAssignmentLowerLimit.Location = new System.Drawing.Point(354, 97);
-            this.nudControllerAssignmentLowerLimit.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudControllerAssignmentLowerLimit.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            -2147483648});
-            this.nudControllerAssignmentLowerLimit.Name = "nudControllerAssignmentLowerLimit";
-            this.nudControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 20);
-            this.nudControllerAssignmentLowerLimit.TabIndex = 21;
-            // 
-            // nudControllerAssignmentUpperLimit
-            // 
-            this.nudControllerAssignmentUpperLimit.Increment = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudControllerAssignmentUpperLimit.Location = new System.Drawing.Point(147, 96);
-            this.nudControllerAssignmentUpperLimit.Maximum = new decimal(new int[] {
-            1200,
-            0,
-            0,
-            0});
-            this.nudControllerAssignmentUpperLimit.Minimum = new decimal(new int[] {
-            2400,
-            0,
-            0,
-            -2147483648});
-            this.nudControllerAssignmentUpperLimit.Name = "nudControllerAssignmentUpperLimit";
-            this.nudControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 20);
-            this.nudControllerAssignmentUpperLimit.TabIndex = 20;
-            // 
-            // cbControllerAssignmentLowerLimit
-            // 
-            this.cbControllerAssignmentLowerLimit.FormattingEnabled = true;
-            this.cbControllerAssignmentLowerLimit.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31",
-            "32",
-            "33",
-            "34",
-            "35",
-            "36",
-            "37",
-            "38",
-            "39",
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45",
-            "46",
-            "47",
-            "48",
-            "49",
-            "50",
-            "51",
-            "52",
-            "53",
-            "54",
-            "55",
-            "56",
-            "57",
-            "58",
-            "59",
-            "60",
-            "61",
-            "62",
-            "63",
-            "64",
-            "65",
-            "66",
-            "67",
-            "68",
-            "69",
-            "70",
-            "71",
-            "72",
-            "73",
-            "74",
-            "75",
-            "76",
-            "77",
-            "78",
-            "79",
-            "80",
-            "81",
-            "82",
-            "83",
-            "84",
-            "85",
-            "86",
-            "87",
-            "88",
-            "89",
-            "90",
-            "91",
-            "92",
-            "93",
-            "94",
-            "95",
-            "96",
-            "97",
-            "98",
-            "99",
-            "100",
-            "101",
-            "102",
-            "103",
-            "104",
-            "105",
-            "106",
-            "107",
-            "108",
-            "109",
-            "110",
-            "111",
-            "112",
-            "113",
-            "114",
-            "115",
-            "116",
-            "117",
-            "118",
-            "119",
-            "120",
-            "121",
-            "122",
-            "123",
-            "124",
-            "125",
-            "126",
-            "127",
-            "128",
-            "129",
-            "130",
-            "131",
-            "132",
-            "133",
-            "134",
-            "135",
-            "136",
-            "137",
-            "138",
-            "139",
-            "140",
-            "141",
-            "142",
-            "143",
-            "144",
-            "145",
-            "146",
-            "147",
-            "148",
-            "149",
-            "150",
-            "151",
-            "152",
-            "153",
-            "154",
-            "155",
-            "156",
-            "157",
-            "158",
-            "159",
-            "160",
-            "161",
-            "162",
-            "163",
-            "164",
-            "165",
-            "166",
-            "167",
-            "168",
-            "169",
-            "170",
-            "171",
-            "172",
-            "173",
-            "174",
-            "175",
-            "176",
-            "177",
-            "178",
-            "179",
-            "180",
-            "181",
-            "182",
-            "183",
-            "184",
-            "185",
-            "186",
-            "187",
-            "188",
-            "189",
-            "190",
-            "191",
-            "192",
-            "193",
-            "194",
-            "195",
-            "196",
-            "197",
-            "198",
-            "199",
-            "200",
-            "201",
-            "202",
-            "203",
-            "204",
-            "205",
-            "206",
-            "207",
-            "208",
-            "209",
-            "210",
-            "211",
-            "212",
-            "213",
-            "214",
-            "215",
-            "216",
-            "217",
-            "218",
-            "219",
-            "220",
-            "221",
-            "222",
-            "223",
-            "224",
-            "225",
-            "226",
-            "227",
-            "228",
-            "229",
-            "230",
-            "231",
-            "232",
-            "233",
-            "234",
-            "235",
-            "236",
-            "237",
-            "238",
-            "239",
-            "240",
-            "241",
-            "242",
-            "243",
-            "244",
-            "245",
-            "246",
-            "247",
-            "248",
-            "249",
-            "250",
-            "251",
-            "252",
-            "253",
-            "254",
-            "255"});
-            this.cbControllerAssignmentLowerLimit.Location = new System.Drawing.Point(289, 96);
-            this.cbControllerAssignmentLowerLimit.Name = "cbControllerAssignmentLowerLimit";
-            this.cbControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 21);
-            this.cbControllerAssignmentLowerLimit.TabIndex = 16;
-            // 
-            // cbControllerAssignmentUpperLimit
-            // 
-            this.cbControllerAssignmentUpperLimit.FormattingEnabled = true;
-            this.cbControllerAssignmentUpperLimit.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31",
-            "32",
-            "33",
-            "34",
-            "35",
-            "36",
-            "37",
-            "38",
-            "39",
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45",
-            "46",
-            "47",
-            "48",
-            "49",
-            "50",
-            "51",
-            "52",
-            "53",
-            "54",
-            "55",
-            "56",
-            "57",
-            "58",
-            "59",
-            "60",
-            "61",
-            "62",
-            "63",
-            "64",
-            "65",
-            "66",
-            "67",
-            "68",
-            "69",
-            "70",
-            "71",
-            "72",
-            "73",
-            "74",
-            "75",
-            "76",
-            "77",
-            "78",
-            "79",
-            "80",
-            "81",
-            "82",
-            "83",
-            "84",
-            "85",
-            "86",
-            "87",
-            "88",
-            "89",
-            "90",
-            "91",
-            "92",
-            "93",
-            "94",
-            "95",
-            "96",
-            "97",
-            "98",
-            "99",
-            "100",
-            "101",
-            "102",
-            "103",
-            "104",
-            "105",
-            "106",
-            "107",
-            "108",
-            "109",
-            "110",
-            "111",
-            "112",
-            "113",
-            "114",
-            "115",
-            "116",
-            "117",
-            "118",
-            "119",
-            "120",
-            "121",
-            "122",
-            "123",
-            "124",
-            "125",
-            "126",
-            "127",
-            "128",
-            "129",
-            "130",
-            "131",
-            "132",
-            "133",
-            "134",
-            "135",
-            "136",
-            "137",
-            "138",
-            "139",
-            "140",
-            "141",
-            "142",
-            "143",
-            "144",
-            "145",
-            "146",
-            "147",
-            "148",
-            "149",
-            "150",
-            "151",
-            "152",
-            "153",
-            "154",
-            "155",
-            "156",
-            "157",
-            "158",
-            "159",
-            "160",
-            "161",
-            "162",
-            "163",
-            "164",
-            "165",
-            "166",
-            "167",
-            "168",
-            "169",
-            "170",
-            "171",
-            "172",
-            "173",
-            "174",
-            "175",
-            "176",
-            "177",
-            "178",
-            "179",
-            "180",
-            "181",
-            "182",
-            "183",
-            "184",
-            "185",
-            "186",
-            "187",
-            "188",
-            "189",
-            "190",
-            "191",
-            "192",
-            "193",
-            "194",
-            "195",
-            "196",
-            "197",
-            "198",
-            "199",
-            "200",
-            "201",
-            "202",
-            "203",
-            "204",
-            "205",
-            "206",
-            "207",
-            "208",
-            "209",
-            "210",
-            "211",
-            "212",
-            "213",
-            "214",
-            "215",
-            "216",
-            "217",
-            "218",
-            "219",
-            "220",
-            "221",
-            "222",
-            "223",
-            "224",
-            "225",
-            "226",
-            "227",
-            "228",
-            "229",
-            "230",
-            "231",
-            "232",
-            "233",
-            "234",
-            "235",
-            "236",
-            "237",
-            "238",
-            "239",
-            "240",
-            "241",
-            "242",
-            "243",
-            "244",
-            "245",
-            "246",
-            "247",
-            "248",
-            "249",
-            "250",
-            "251",
-            "252",
-            "253",
-            "254",
-            "255"});
-            this.cbControllerAssignmentUpperLimit.Location = new System.Drawing.Point(82, 96);
-            this.cbControllerAssignmentUpperLimit.Name = "cbControllerAssignmentUpperLimit";
-            this.cbControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 21);
-            this.cbControllerAssignmentUpperLimit.TabIndex = 15;
-            // 
-            // cbControllerAssignmentParam
-            // 
-            this.cbControllerAssignmentParam.FormattingEnabled = true;
-            this.cbControllerAssignmentParam.Items.AddRange(new object[] {
-            "OUTPUT",
-            "GLOBAL SPKR SIM",
-            "HUSH OFFSET",
-            "VOLUME",
-            "LEFT OUT LVL",
-            "RIGHT OUT LVL",
-            "MIX DIR",
-            "DIRECT PAN",
-            "DELAY LVL",
-            "REVERB LVL",
-            "GAIN",
-            "DIST TYPE",
-            "POST BASS LVL",
-            "POST MID LVL",
-            "POST TREBLE LVL",
-            "POST PRESENCE LVL",
-            "HUSH I/O",
-            "EXP THRESH",
-            "PRE LF LVL",
-            "PRE LF FREQ",
-            "PRE MID LVL",
-            "PRE MID FREQ",
-            "PRE MID BW",
-            "POST BASS FREQ",
-            "POST BASS BW",
-            "POST MID FREQ",
-            "POST MID BW",
-            "POST TREBLE FREQ",
-            "POST TREBLE BW",
-            "POST PRESENCE FREQ",
-            "POST PRESENCE BW",
-            "SPKR SIM",
-            "SPKR TYPE",
-            "MIC POSITION",
-            "REACTANCE",
-            "COMPRESSOR I/O",
-            "COMP THRESH",
-            "COMP ATTACK",
-            "COMP RELEASE",
-            "PHASER I/O",
-            "DEPTH",
-            "RATE",
-            "RESONANCE",
-            "STAGES",
-            "DELAY",
-            "MUTE TYPE",
-            "SOURCE MIX",
-            "SOURCE 2",
-            "DLY HF DAMP",
-            "OUT LVL 1",
-            "PAN 1",
-            "DLY TIME 1",
-            "REGEN 1",
-            "OUT LVL 2",
-            "PAN 2",
-            "DLY TIME 2",
-            "REGEN 2",
-            "REV INPUT",
-            "MIX DIR/DLY",
-            "REV DECAY",
-            "REV HF DAMP",
-            "BYPASS"});
-            this.cbControllerAssignmentParam.Location = new System.Drawing.Point(289, 56);
-            this.cbControllerAssignmentParam.Name = "cbControllerAssignmentParam";
-            this.cbControllerAssignmentParam.Size = new System.Drawing.Size(152, 21);
-            this.cbControllerAssignmentParam.TabIndex = 13;
-            this.cbControllerAssignmentParam.SelectedIndexChanged += new System.EventHandler(this.cbControllerAssignmentParam_SelectedIndexChanged);
-            // 
-            // cbControllerAssignmentNumber
-            // 
-            this.cbControllerAssignmentNumber.FormattingEnabled = true;
-            this.cbControllerAssignmentNumber.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31",
-            "32",
-            "33",
-            "34",
-            "35",
-            "36",
-            "37",
-            "38",
-            "39",
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45",
-            "46",
-            "47",
-            "48",
-            "49",
-            "50",
-            "51",
-            "52",
-            "53",
-            "54",
-            "55",
-            "56",
-            "57",
-            "58",
-            "59",
-            "60",
-            "61",
-            "62",
-            "63",
-            "64",
-            "65",
-            "66",
-            "67",
-            "68",
-            "69",
-            "70",
-            "71",
-            "72",
-            "73",
-            "74",
-            "75",
-            "76",
-            "77",
-            "78",
-            "79",
-            "80",
-            "81",
-            "82",
-            "83",
-            "84",
-            "85",
-            "86",
-            "87",
-            "88",
-            "89",
-            "90",
-            "91",
-            "92",
-            "93",
-            "94",
-            "95",
-            "96",
-            "97",
-            "98",
-            "99",
-            "100",
-            "101",
-            "102",
-            "103",
-            "104",
-            "105",
-            "106",
-            "107",
-            "108",
-            "109",
-            "110",
-            "111",
-            "112",
-            "113",
-            "114",
-            "115",
-            "116",
-            "117",
-            "118",
-            "119",
-            "120",
-            "OFF",
-            "ADJ"});
-            this.cbControllerAssignmentNumber.Location = new System.Drawing.Point(82, 56);
-            this.cbControllerAssignmentNumber.Name = "cbControllerAssignmentNumber";
-            this.cbControllerAssignmentNumber.Size = new System.Drawing.Size(59, 21);
-            this.cbControllerAssignmentNumber.TabIndex = 12;
-            // 
-            // cbControllerAssignment
-            // 
-            this.cbControllerAssignment.FormattingEnabled = true;
-            this.cbControllerAssignment.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.cbControllerAssignment.Location = new System.Drawing.Point(82, 21);
-            this.cbControllerAssignment.Name = "cbControllerAssignment";
-            this.cbControllerAssignment.Size = new System.Drawing.Size(59, 21);
-            this.cbControllerAssignment.TabIndex = 11;
-            this.cbControllerAssignment.SelectedIndexChanged += new System.EventHandler(this.CbControllerAssignment_SelectedIndexChanged);
-            this.cbControllerAssignment.Enter += new System.EventHandler(this.CbControllerAssignment_Enter);
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(221, 56);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(40, 13);
-            this.label69.TabIndex = 10;
-            this.label69.Text = "Param:";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(13, 56);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(47, 13);
-            this.label70.TabIndex = 8;
-            this.label70.Text = "Number:";
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(221, 99);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(63, 13);
-            this.label71.TabIndex = 6;
-            this.label71.Text = "Lower Limit:";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(13, 101);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(63, 13);
-            this.label72.TabIndex = 4;
-            this.label72.Text = "Upper Limit:";
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(12, 21);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(64, 13);
-            this.label73.TabIndex = 2;
-            this.label73.Text = "Assignment:";
-            // 
             // tpWahPitchShift
             // 
             this.tpWahPitchShift.Controls.Add(this.groupBox15);
@@ -4848,6 +3918,931 @@ namespace ChameleonSysExEd
             this.label114.TabIndex = 2;
             this.label114.Text = "In/Out:";
             // 
+            // tpControllerTapDelay
+            // 
+            this.tpControllerTapDelay.Controls.Add(this.groupBox12);
+            this.tpControllerTapDelay.Controls.Add(this.groupBox14);
+            this.tpControllerTapDelay.Location = new System.Drawing.Point(4, 22);
+            this.tpControllerTapDelay.Name = "tpControllerTapDelay";
+            this.tpControllerTapDelay.Size = new System.Drawing.Size(661, 295);
+            this.tpControllerTapDelay.TabIndex = 4;
+            this.tpControllerTapDelay.Text = "Controller Assignment/Tap Delay";
+            this.tpControllerTapDelay.UseVisualStyleBackColor = true;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.cbTapDelay2Multiplier);
+            this.groupBox12.Controls.Add(this.cbTapDelay1Multiplier);
+            this.groupBox12.Controls.Add(this.label58);
+            this.groupBox12.Controls.Add(this.label59);
+            this.groupBox12.Location = new System.Drawing.Point(1, 155);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(658, 54);
+            this.groupBox12.TabIndex = 20;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Tap Delay";
+            // 
+            // cbTapDelay2Multiplier
+            // 
+            this.cbTapDelay2Multiplier.FormattingEnabled = true;
+            this.cbTapDelay2Multiplier.Items.AddRange(new object[] {
+            "Sixteen",
+            "Eight",
+            "Triplet",
+            "Quarter",
+            "Half",
+            "Whole",
+            "None"});
+            this.cbTapDelay2Multiplier.Location = new System.Drawing.Point(295, 21);
+            this.cbTapDelay2Multiplier.Name = "cbTapDelay2Multiplier";
+            this.cbTapDelay2Multiplier.Size = new System.Drawing.Size(72, 21);
+            this.cbTapDelay2Multiplier.TabIndex = 16;
+            // 
+            // cbTapDelay1Multiplier
+            // 
+            this.cbTapDelay1Multiplier.FormattingEnabled = true;
+            this.cbTapDelay1Multiplier.Items.AddRange(new object[] {
+            "Sixteen",
+            "Eight",
+            "Triplet",
+            "Quarter",
+            "Half",
+            "Whole",
+            "None"});
+            this.cbTapDelay1Multiplier.Location = new System.Drawing.Point(88, 21);
+            this.cbTapDelay1Multiplier.Name = "cbTapDelay1Multiplier";
+            this.cbTapDelay1Multiplier.Size = new System.Drawing.Size(70, 21);
+            this.cbTapDelay1Multiplier.TabIndex = 15;
+            // 
+            // label58
+            // 
+            this.label58.Location = new System.Drawing.Point(227, 18);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(69, 32);
+            this.label58.TabIndex = 10;
+            this.label58.Text = "Delay 2 Multiplier:";
+            // 
+            // label59
+            // 
+            this.label59.Location = new System.Drawing.Point(12, 18);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(63, 33);
+            this.label59.TabIndex = 8;
+            this.label59.Text = "Delay 1 Multiplier:";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.nudControllerAssignmentLowerLimit);
+            this.groupBox14.Controls.Add(this.nudControllerAssignmentUpperLimit);
+            this.groupBox14.Controls.Add(this.cbControllerAssignmentLowerLimit);
+            this.groupBox14.Controls.Add(this.cbControllerAssignmentUpperLimit);
+            this.groupBox14.Controls.Add(this.cbControllerAssignmentParam);
+            this.groupBox14.Controls.Add(this.cbControllerAssignmentNumber);
+            this.groupBox14.Controls.Add(this.cbControllerAssignment);
+            this.groupBox14.Controls.Add(this.label69);
+            this.groupBox14.Controls.Add(this.label70);
+            this.groupBox14.Controls.Add(this.label71);
+            this.groupBox14.Controls.Add(this.label72);
+            this.groupBox14.Controls.Add(this.label73);
+            this.groupBox14.Location = new System.Drawing.Point(7, 9);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(652, 140);
+            this.groupBox14.TabIndex = 19;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Controller Assignment";
+            // 
+            // nudControllerAssignmentLowerLimit
+            // 
+            this.nudControllerAssignmentLowerLimit.Location = new System.Drawing.Point(354, 97);
+            this.nudControllerAssignmentLowerLimit.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentLowerLimit.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.nudControllerAssignmentLowerLimit.Name = "nudControllerAssignmentLowerLimit";
+            this.nudControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 20);
+            this.nudControllerAssignmentLowerLimit.TabIndex = 21;
+            // 
+            // nudControllerAssignmentUpperLimit
+            // 
+            this.nudControllerAssignmentUpperLimit.Location = new System.Drawing.Point(147, 96);
+            this.nudControllerAssignmentUpperLimit.Maximum = new decimal(new int[] {
+            1200,
+            0,
+            0,
+            0});
+            this.nudControllerAssignmentUpperLimit.Minimum = new decimal(new int[] {
+            2400,
+            0,
+            0,
+            -2147483648});
+            this.nudControllerAssignmentUpperLimit.Name = "nudControllerAssignmentUpperLimit";
+            this.nudControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 20);
+            this.nudControllerAssignmentUpperLimit.TabIndex = 20;
+            // 
+            // cbControllerAssignmentLowerLimit
+            // 
+            this.cbControllerAssignmentLowerLimit.FormattingEnabled = true;
+            this.cbControllerAssignmentLowerLimit.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "76",
+            "77",
+            "78",
+            "79",
+            "80",
+            "81",
+            "82",
+            "83",
+            "84",
+            "85",
+            "86",
+            "87",
+            "88",
+            "89",
+            "90",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "96",
+            "97",
+            "98",
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120",
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130",
+            "131",
+            "132",
+            "133",
+            "134",
+            "135",
+            "136",
+            "137",
+            "138",
+            "139",
+            "140",
+            "141",
+            "142",
+            "143",
+            "144",
+            "145",
+            "146",
+            "147",
+            "148",
+            "149",
+            "150",
+            "151",
+            "152",
+            "153",
+            "154",
+            "155",
+            "156",
+            "157",
+            "158",
+            "159",
+            "160",
+            "161",
+            "162",
+            "163",
+            "164",
+            "165",
+            "166",
+            "167",
+            "168",
+            "169",
+            "170",
+            "171",
+            "172",
+            "173",
+            "174",
+            "175",
+            "176",
+            "177",
+            "178",
+            "179",
+            "180",
+            "181",
+            "182",
+            "183",
+            "184",
+            "185",
+            "186",
+            "187",
+            "188",
+            "189",
+            "190",
+            "191",
+            "192",
+            "193",
+            "194",
+            "195",
+            "196",
+            "197",
+            "198",
+            "199",
+            "200",
+            "201",
+            "202",
+            "203",
+            "204",
+            "205",
+            "206",
+            "207",
+            "208",
+            "209",
+            "210",
+            "211",
+            "212",
+            "213",
+            "214",
+            "215",
+            "216",
+            "217",
+            "218",
+            "219",
+            "220",
+            "221",
+            "222",
+            "223",
+            "224",
+            "225",
+            "226",
+            "227",
+            "228",
+            "229",
+            "230",
+            "231",
+            "232",
+            "233",
+            "234",
+            "235",
+            "236",
+            "237",
+            "238",
+            "239",
+            "240",
+            "241",
+            "242",
+            "243",
+            "244",
+            "245",
+            "246",
+            "247",
+            "248",
+            "249",
+            "250",
+            "251",
+            "252",
+            "253",
+            "254",
+            "255"});
+            this.cbControllerAssignmentLowerLimit.Location = new System.Drawing.Point(289, 96);
+            this.cbControllerAssignmentLowerLimit.Name = "cbControllerAssignmentLowerLimit";
+            this.cbControllerAssignmentLowerLimit.Size = new System.Drawing.Size(59, 21);
+            this.cbControllerAssignmentLowerLimit.TabIndex = 16;
+            // 
+            // cbControllerAssignmentUpperLimit
+            // 
+            this.cbControllerAssignmentUpperLimit.FormattingEnabled = true;
+            this.cbControllerAssignmentUpperLimit.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "76",
+            "77",
+            "78",
+            "79",
+            "80",
+            "81",
+            "82",
+            "83",
+            "84",
+            "85",
+            "86",
+            "87",
+            "88",
+            "89",
+            "90",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "96",
+            "97",
+            "98",
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120",
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130",
+            "131",
+            "132",
+            "133",
+            "134",
+            "135",
+            "136",
+            "137",
+            "138",
+            "139",
+            "140",
+            "141",
+            "142",
+            "143",
+            "144",
+            "145",
+            "146",
+            "147",
+            "148",
+            "149",
+            "150",
+            "151",
+            "152",
+            "153",
+            "154",
+            "155",
+            "156",
+            "157",
+            "158",
+            "159",
+            "160",
+            "161",
+            "162",
+            "163",
+            "164",
+            "165",
+            "166",
+            "167",
+            "168",
+            "169",
+            "170",
+            "171",
+            "172",
+            "173",
+            "174",
+            "175",
+            "176",
+            "177",
+            "178",
+            "179",
+            "180",
+            "181",
+            "182",
+            "183",
+            "184",
+            "185",
+            "186",
+            "187",
+            "188",
+            "189",
+            "190",
+            "191",
+            "192",
+            "193",
+            "194",
+            "195",
+            "196",
+            "197",
+            "198",
+            "199",
+            "200",
+            "201",
+            "202",
+            "203",
+            "204",
+            "205",
+            "206",
+            "207",
+            "208",
+            "209",
+            "210",
+            "211",
+            "212",
+            "213",
+            "214",
+            "215",
+            "216",
+            "217",
+            "218",
+            "219",
+            "220",
+            "221",
+            "222",
+            "223",
+            "224",
+            "225",
+            "226",
+            "227",
+            "228",
+            "229",
+            "230",
+            "231",
+            "232",
+            "233",
+            "234",
+            "235",
+            "236",
+            "237",
+            "238",
+            "239",
+            "240",
+            "241",
+            "242",
+            "243",
+            "244",
+            "245",
+            "246",
+            "247",
+            "248",
+            "249",
+            "250",
+            "251",
+            "252",
+            "253",
+            "254",
+            "255"});
+            this.cbControllerAssignmentUpperLimit.Location = new System.Drawing.Point(82, 96);
+            this.cbControllerAssignmentUpperLimit.Name = "cbControllerAssignmentUpperLimit";
+            this.cbControllerAssignmentUpperLimit.Size = new System.Drawing.Size(59, 21);
+            this.cbControllerAssignmentUpperLimit.TabIndex = 15;
+            // 
+            // cbControllerAssignmentParam
+            // 
+            this.cbControllerAssignmentParam.FormattingEnabled = true;
+            this.cbControllerAssignmentParam.Items.AddRange(new object[] {
+            "OUTPUT",
+            "GLOBAL SPKR SIM",
+            "HUSH OFFSET",
+            "VOLUME",
+            "LEFT OUT LVL",
+            "RIGHT OUT LVL",
+            "MIX DIR",
+            "DIRECT PAN",
+            "DELAY LVL",
+            "REVERB LVL",
+            "GAIN",
+            "DIST TYPE",
+            "POST BASS LVL",
+            "POST MID LVL",
+            "POST TREBLE LVL",
+            "POST PRESENCE LVL",
+            "HUSH I/O",
+            "EXP THRESH",
+            "PRE LF LVL",
+            "PRE LF FREQ",
+            "PRE MID LVL",
+            "PRE MID FREQ",
+            "PRE MID BW",
+            "POST BASS FREQ",
+            "POST BASS BW",
+            "POST MID FREQ",
+            "POST MID BW",
+            "POST TREBLE FREQ",
+            "POST TREBLE BW",
+            "POST PRESENCE FREQ",
+            "POST PRESENCE BW",
+            "SPKR SIM",
+            "SPKR TYPE",
+            "MIC POSITION",
+            "REACTANCE",
+            "COMPRESSOR I/O",
+            "COMP THRESH",
+            "COMP ATTACK",
+            "COMP RELEASE",
+            "PHASER I/O",
+            "DEPTH",
+            "RATE",
+            "RESONANCE",
+            "STAGES",
+            "DELAY",
+            "MUTE TYPE",
+            "SOURCE MIX",
+            "SOURCE 2",
+            "DLY HF DAMP",
+            "OUT LVL 1",
+            "PAN 1",
+            "DLY TIME 1",
+            "REGEN 1",
+            "OUT LVL 2",
+            "PAN 2",
+            "DLY TIME 2",
+            "REGEN 2",
+            "REV INPUT",
+            "MIX DIR/DLY",
+            "REV DECAY",
+            "REV HF DAMP",
+            "BYPASS"});
+            this.cbControllerAssignmentParam.Location = new System.Drawing.Point(289, 56);
+            this.cbControllerAssignmentParam.Name = "cbControllerAssignmentParam";
+            this.cbControllerAssignmentParam.Size = new System.Drawing.Size(152, 21);
+            this.cbControllerAssignmentParam.TabIndex = 13;
+            this.cbControllerAssignmentParam.SelectedIndexChanged += new System.EventHandler(this.cbControllerAssignmentParam_SelectedIndexChanged);
+            // 
+            // cbControllerAssignmentNumber
+            // 
+            this.cbControllerAssignmentNumber.FormattingEnabled = true;
+            this.cbControllerAssignmentNumber.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "76",
+            "77",
+            "78",
+            "79",
+            "80",
+            "81",
+            "82",
+            "83",
+            "84",
+            "85",
+            "86",
+            "87",
+            "88",
+            "89",
+            "90",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "96",
+            "97",
+            "98",
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120",
+            "OFF",
+            "ADJ"});
+            this.cbControllerAssignmentNumber.Location = new System.Drawing.Point(82, 56);
+            this.cbControllerAssignmentNumber.Name = "cbControllerAssignmentNumber";
+            this.cbControllerAssignmentNumber.Size = new System.Drawing.Size(59, 21);
+            this.cbControllerAssignmentNumber.TabIndex = 12;
+            // 
+            // cbControllerAssignment
+            // 
+            this.cbControllerAssignment.FormattingEnabled = true;
+            this.cbControllerAssignment.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.cbControllerAssignment.Location = new System.Drawing.Point(82, 21);
+            this.cbControllerAssignment.Name = "cbControllerAssignment";
+            this.cbControllerAssignment.Size = new System.Drawing.Size(59, 21);
+            this.cbControllerAssignment.TabIndex = 11;
+            this.cbControllerAssignment.SelectedIndexChanged += new System.EventHandler(this.CbControllerAssignment_SelectedIndexChanged);
+            this.cbControllerAssignment.Enter += new System.EventHandler(this.CbControllerAssignment_Enter);
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(221, 56);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(40, 13);
+            this.label69.TabIndex = 10;
+            this.label69.Text = "Param:";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(13, 56);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(47, 13);
+            this.label70.TabIndex = 8;
+            this.label70.Text = "Number:";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(221, 99);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(63, 13);
+            this.label71.TabIndex = 6;
+            this.label71.Text = "Lower Limit:";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(13, 101);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(63, 13);
+            this.label72.TabIndex = 4;
+            this.label72.Text = "Upper Limit:";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(12, 21);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(64, 13);
+            this.label73.TabIndex = 2;
+            this.label73.Text = "Assignment:";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
@@ -5129,12 +5124,6 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1Pan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1OutLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1Regen)).EndInit();
-            this.tpControllerTapDelay.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).EndInit();
             this.tpWahPitchShift.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
@@ -5166,6 +5155,12 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserReson)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserRate)).EndInit();
+            this.tpControllerTapDelay.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentLowerLimit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudControllerAssignmentUpperLimit)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
