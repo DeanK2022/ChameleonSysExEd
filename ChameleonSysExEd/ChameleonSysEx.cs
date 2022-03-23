@@ -1292,7 +1292,7 @@ namespace ChameleonSysExEd
                     asu.TailEnd.Title[i] = (byte)32;
                     asu.TailEnd.Title[i+1] = (byte)0;
                 }
-                for (int i = 0; i < Title.Length; i += 2)
+                for (int i = 0; i < Title.Length * 2; i += 2)
                 {
                     asu.TailEnd.Title[i] = (byte)Title[i/2];
                     asu.TailEnd.Title[i+1] = (byte)0;
@@ -1313,8 +1313,6 @@ namespace ChameleonSysExEd
                 asu.TailEnd.TapDelay.TapDelayD2Multiplyer = TapDelay.TapDelayD2Multiplyer;
                 asu.TailEnd.TapDelay.Z2 = 0;
                 asu.TailEnd.Eox = Eox;
-
-                asu.TailEnd.CheckSum = CheckSum; // TO DO - complete this 
 
                 if (asu.HighGainHeader.Control.ConfigMode > 5) // low gain
                 {
@@ -1360,7 +1358,6 @@ namespace ChameleonSysExEd
                         Delay.ToStruct(&asu.LowGainWah.Delay);
                         Reverb.ToStruct(&asu.LowGainWah.Reverb);
                     }
-
                 }
                 else
                 {
@@ -1410,8 +1407,8 @@ namespace ChameleonSysExEd
 
                 byte[] bytes= StructureToByteArray(&asu);
                 byte xorRunValue = 0;
-                for (int i = 0; i < 250; i++)
-                    xorRunValue = (byte)~(xorRunValue ^ bytes[i]);  //XNOR
+                for (int i = 6; i < 250; i++)
+                    xorRunValue = (byte)(xorRunValue ^ bytes[i]);  //sum the XOR of the data, ignoring const midi header
                 bytes[250] = (byte)xorRunValue;
                 return bytes;
             }

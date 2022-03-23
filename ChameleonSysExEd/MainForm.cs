@@ -347,8 +347,17 @@ namespace ChameleonSysExEd
                 curSysEx.ControllerAssignment[idx].Number = sysEx.ControllerAssignment[idx].Number;
                 curSysEx.ControllerAssignment[idx].Param = sysEx.ControllerAssignment[idx].Param;
             }
-            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit  = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex);
-            curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
+            if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemChoices)
+            {
+                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit = (byte)(cbControllerAssignmentLowerLimit.SelectedIndex);
+                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)cbControllerAssignmentUpperLimit.SelectedIndex;
+            }
+            if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemNumeric)
+            {
+                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit = (byte)(nudControllerAssignmentLowerLimit.Value);
+                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)nudControllerAssignmentUpperLimit.Value;
+            }
+
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number = (byte)cbControllerAssignmentNumber.SelectedIndex;
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Param = (byte)cbControllerAssignmentParam.SelectedIndex;
 
