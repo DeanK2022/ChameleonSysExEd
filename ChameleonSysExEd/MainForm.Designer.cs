@@ -292,6 +292,8 @@ namespace ChameleonSysExEd
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
+            this.btnRecordSysEx = new System.Windows.Forms.Button();
+            this.tbRecordStatus = new System.Windows.Forms.TextBox();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -5040,11 +5042,31 @@ namespace ChameleonSysExEd
             this.saveFileDdlg.DefaultExt = "*.syx";
             this.saveFileDdlg.InitialDirectory = ".\\";
             // 
+            // btnRecordSysEx
+            // 
+            this.btnRecordSysEx.Cursor = System.Windows.Forms.Cursors.NoMoveVert;
+            this.btnRecordSysEx.Location = new System.Drawing.Point(201, 417);
+            this.btnRecordSysEx.Name = "btnRecordSysEx";
+            this.btnRecordSysEx.Size = new System.Drawing.Size(104, 28);
+            this.btnRecordSysEx.TabIndex = 11;
+            this.btnRecordSysEx.Text = "&Capture SysEx";
+            this.btnRecordSysEx.UseVisualStyleBackColor = true;
+            this.btnRecordSysEx.Click += new System.EventHandler(this.btnRecordSysEx_Click);
+            // 
+            // tbRecordStatus
+            // 
+            this.tbRecordStatus.Location = new System.Drawing.Point(321, 417);
+            this.tbRecordStatus.Name = "tbRecordStatus";
+            this.tbRecordStatus.Size = new System.Drawing.Size(175, 20);
+            this.tbRecordStatus.TabIndex = 12;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 475);
+            this.Controls.Add(this.tbRecordStatus);
+            this.Controls.Add(this.btnRecordSysEx);
             this.Controls.Add(this.label67);
             this.Controls.Add(this.nudCurPreset);
             this.Controls.Add(this.button1);
@@ -5438,6 +5460,8 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.SaveFileDialog saveFileDdlg;
         private System.Windows.Forms.NumericUpDown nudControllerAssignmentLowerLimit;
         private System.Windows.Forms.NumericUpDown nudControllerAssignmentUpperLimit;
+        private System.Windows.Forms.Button btnRecordSysEx;
+        private System.Windows.Forms.TextBox tbRecordStatus;
     }
 }
 

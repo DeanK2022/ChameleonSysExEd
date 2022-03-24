@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ChameleonSysExEd.ChameleonSysExComplete;
+using Sanford.Multimedia.Midi;
 
 namespace ChameleonSysExEd
 {
@@ -19,6 +20,8 @@ namespace ChameleonSysExEd
         public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
         private FormDirtyTracker _dirtyTracker;
         private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
+        private List<InputDevice> recordingInputDevices = null;
+
         public MainForm()
         {
             InitializeComponent();
@@ -575,6 +578,69 @@ namespace ChameleonSysExEd
                     cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
                     cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+            }
+        }
+        private async void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
+        {
+            //DialogHost.CloseDialogCommand.Execute(null, null);
+
+            // get our recorded message
+            var message = e.Message;
+
+            // save our recoreded sysex message to disk in a new file and add it to the library
+            try
+            {
+                var sysExLibrarianFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
+                var filePath = $"{sysExLibrarianFolder}\\NewFile_{DateTime.Now.ToString("yyyy_dd_M_HH_mm_ss")}.syx";
+                File.WriteAllBytes(filePath, message.GetBytes());
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine( "An error occurred when receiving a sysex message " + ex);
+            }
+        }
+        private void btnRecordSysEx_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (InputDevice.DeviceCount == 0)
+                {
+                    tbRecordStatus.Text = "You need at least one MIDI input device connected to record.";
+         
+                    return;
+                }
+
+                recordingInputDevices = new List<InputDevice>();
+
+                for (var i = 0; i < InputDevice.DeviceCount; i++)
+                {
+                    var inputDevice = new InputDevice(i);
+                    inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
+                    inputDevice.StartRecording();
+
+                    recordingInputDevices.Add(inputDevice);
+                }
+
+                await DialogHost.Show(new ProgressDialog(), "RootDialog", RecordingCanceled_ClosingEventHandler);
+
+                // stop recording on all devices and dispose of the resources
+                foreach (var inputDevice in recordingInputDevices)
+                {
+                    inputDevice.StopRecording();
+                    inputDevice.Dispose();
+                }
+
+                recordingInputDevices = null;
+            }
+            catch (InputDeviceException ex)
+            {
+                Log.Error(ex, "An error occurred when recording");
+
+                var messageDialog = new MessageDialog
+                {
+                    Message = { Text = ex.Message }
+                };
+                await DialogHost.Show(messageDialog, "RootDialog");
             }
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
