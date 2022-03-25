@@ -593,6 +593,14 @@ namespace ChameleonSysExEd
                 var sysExLibrarianFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
                 var filePath = $"{sysExLibrarianFolder}\\NewFile_{DateTime.Now.ToString("yyyy_dd_M_HH_mm_ss")}.syx";
                 File.WriteAllBytes(filePath, message.GetBytes());
+                // stop recording on all devices and dispose of the resources
+                foreach (var inputDevice in recordingInputDevices)
+                {
+                    inputDevice.StopRecording();
+                    inputDevice.Dispose();
+                }
+
+                recordingInputDevices = null;
             }
             catch (Exception ex)
             {
@@ -619,28 +627,17 @@ namespace ChameleonSysExEd
                     inputDevice.StartRecording();
 
                     recordingInputDevices.Add(inputDevice);
+                    var capabilities = InputDevice.GetDeviceCapabilities(i);
+                    tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
                 }
 
-                await DialogHost.Show(new ProgressDialog(), "RootDialog", RecordingCanceled_ClosingEventHandler);
+                //await DialogHost.Show(new ProgressDialog(), "RootDialog", RecordingCanceled_ClosingEventHandler);
 
-                // stop recording on all devices and dispose of the resources
-                foreach (var inputDevice in recordingInputDevices)
-                {
-                    inputDevice.StopRecording();
-                    inputDevice.Dispose();
-                }
 
-                recordingInputDevices = null;
             }
             catch (InputDeviceException ex)
             {
-                Log.Error(ex, "An error occurred when recording");
-
-                var messageDialog = new MessageDialog
-                {
-                    Message = { Text = ex.Message }
-                };
-                await DialogHost.Show(messageDialog, "RootDialog");
+                tbRecordStatus.Text = "An error occurred when recording";
             }
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
