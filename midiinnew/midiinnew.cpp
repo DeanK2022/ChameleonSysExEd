@@ -6,7 +6,7 @@ This app inputs MIDI messages and displays information about each one in a conso
 
 I incorporate a callback into this example.
 */
-#define UNICODE
+
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
@@ -125,8 +125,8 @@ void CALLBACK midiCallback(HMIDIIN handle, UINT uMsg, DWORD dwInstance, DWORD dw
 	{
 		/* Display the time stamp, and the bytes. (Note: I always display 3 bytes even for
 		Midi messages that have less) */
-		wsprintf(&buffer[0], L"0x%08X 0x%02X 0x%02X 0x%02X\r\n", dwParam2, dwParam1 & 0x000000FF, (dwParam1 >> 8) & 0x000000FF, (dwParam1 >> 16) & 0x000000FF);
-		_cputws(&buffer[0]);
+		sprintf(&buffer[0], "0x%08X 0x%02X 0x%02X 0x%02X\r\n", dwParam2, dwParam1 & 0x000000FF, (dwParam1 >> 8) & 0x000000FF, (dwParam1 >> 16) & 0x000000FF);
+		_cputs(&buffer[0]);
 		break;
 	}
 
@@ -168,13 +168,13 @@ void CALLBACK midiCallback(HMIDIIN handle, UINT uMsg, DWORD dwInstance, DWORD dw
 			{
 				if (!(--bytes))
 				{
-					wsprintf(&buffer[0], L"0x%02X\r\n", *(ptr)++);
+					sprintf(&buffer[0], "0x%02X\r\n", *(ptr)++);
 					bytes = 16;
 				}
 				else
-					wsprintf(&buffer[0], L"0x%02X ", *(ptr)++);
+					sprintf(&buffer[0], "0x%02X ", *(ptr)++);
 
-				_cputws(&buffer[0]);
+				_cputs(&buffer[0]);
 			}
 
 			/* Was this the last block of System Exclusive bytes? */
@@ -216,7 +216,7 @@ void CALLBACK midiCallback(HMIDIIN handle, UINT uMsg, DWORD dwInstance, DWORD dw
 void PrintMidiInErrorMsg(unsigned long err)
 {
 #define BUFFERSIZE 200
-	TCHAR	buffer[BUFFERSIZE];
+	char	buffer[BUFFERSIZE];
 
 	if (!(err = midiInGetErrorText(err, &buffer[0], BUFFERSIZE)))
 	{
