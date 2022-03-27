@@ -5044,7 +5044,7 @@ namespace ChameleonSysExEd
             // 
             // btnRecordSysEx
             // 
-            this.btnRecordSysEx.Cursor = System.Windows.Forms.Cursors.NoMoveVert;
+            this.btnRecordSysEx.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.btnRecordSysEx.Location = new System.Drawing.Point(201, 417);
             this.btnRecordSysEx.Name = "btnRecordSysEx";
             this.btnRecordSysEx.Size = new System.Drawing.Size(104, 28);

@@ -607,6 +607,34 @@ namespace ChameleonSysExEd
                 System.Console.WriteLine( "An error occurred when receiving a sysex message " + ex);
             }
         }
+        private async void InputDevice_MessageReceived(object sender, SysExMessageEventArgs e)
+        {
+            //DialogHost.CloseDialogCommand.Execute(null, null);
+
+            // get our recorded message
+            var message = e.Message;
+
+            // save our recoreded sysex message to disk in a new file and add it to the library
+            try
+            {
+                var sysExLibrarianFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
+                var filePath = $"{sysExLibrarianFolder}\\NewFile_{DateTime.Now.ToString("yyyy_dd_M_HH_mm_ss")}.syx";
+                File.WriteAllBytes(filePath, message.GetBytes());
+                // stop recording on all devices and dispose of the resources
+                foreach (var inputDevice in recordingInputDevices)
+                {
+                    inputDevice.StopRecording();
+                    inputDevice.Dispose();
+                }
+
+                recordingInputDevices = null;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("An error occurred when receiving a sysex message " + ex);
+            }
+        }
+
         private void btnRecordSysEx_Click(object sender, EventArgs e)
         {
             try
@@ -622,13 +650,16 @@ namespace ChameleonSysExEd
 
                 for (var i = 0; i < InputDevice.DeviceCount; i++)
                 {
-                    var inputDevice = new InputDevice(i);
+                    var inputDevice = new InputDevice(i,true, false);
+                    var capabilities = InputDevice.GetDeviceCapabilities(i);
+                    tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
+
                     inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
+                    inputDevice.MessageReceived += InputDevice_MessageReceived1;
                     inputDevice.StartRecording();
 
                     recordingInputDevices.Add(inputDevice);
-                    var capabilities = InputDevice.GetDeviceCapabilities(i);
-                    tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
+                 
                 }
 
                 //await DialogHost.Show(new ProgressDialog(), "RootDialog", RecordingCanceled_ClosingEventHandler);
@@ -639,6 +670,11 @@ namespace ChameleonSysExEd
             {
                 tbRecordStatus.Text = "An error occurred when recording";
             }
+        }
+
+        private void InputDevice_MessageReceived1(IMidiMessage message)
+        {
+           
         }
         //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
         //{
