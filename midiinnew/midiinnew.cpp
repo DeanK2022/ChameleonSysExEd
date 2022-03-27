@@ -252,7 +252,7 @@ int main(int argc, char** argv)
 	if (!(err = midiInOpen(&handle, 0, (DWORD)midiCallback, 0, CALLBACK_FUNCTION)))
 	{
 		/* Store pointer to our input buffer for System Exclusive messages in MIDIHDR */
-		midiHdr.lpData = (LPBYTE)&SysXBuffer[0];
+		midiHdr.lpData = (LPSTR)&SysXBuffer[0];
 
 		/* Store its size in the MIDIHDR */
 		midiHdr.dwBufferLength = sizeof(SysXBuffer);
