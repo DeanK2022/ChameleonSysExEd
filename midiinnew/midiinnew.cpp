@@ -11,9 +11,9 @@ I incorporate a callback into this example.
 #include <stdio.h>
 #include <conio.h>
 #include <mmsystem.h>
-
-
-
+//
+#define BUF_CNT 32
+#define BUF_SZ 256
 
 
 
@@ -23,11 +23,12 @@ I incorporate a callback into this example.
 	GlobalLock function to get a pointer to the memory object. To free a data block, use
 	GlobalUnlock and GlobalFree. But Win32 doesn't appear to have this limitation.
 */
+
 unsigned char SysXBuffer[256];
 
+unsigned char SysXArray[BUF_CNT][BUF_SZ];
 /* A flag to indicate whether I'm currently receiving a SysX message */
 unsigned char SysXFlag = 0;
-
 
 
 
@@ -121,86 +122,120 @@ void CALLBACK midiCallback(HMIDIIN handle, UINT uMsg, DWORD dwInstance, DWORD dw
 	switch (uMsg)
 	{
 		/* Received some regular MIDI message */
-	case MIM_DATA:
-	{
-		/* Display the time stamp, and the bytes. (Note: I always display 3 bytes even for
-		Midi messages that have less) */
-		sprintf(&buffer[0], "0x%08X 0x%02X 0x%02X 0x%02X\r\n", dwParam2, dwParam1 & 0x000000FF, (dwParam1 >> 8) & 0x000000FF, (dwParam1 >> 16) & 0x000000FF);
-		_cputs(&buffer[0]);
-		break;
-	}
-
-	/* Received all or part of some System Exclusive message */
-	case MIM_LONGDATA:
-	{
-		/* If this application is ready to close down, then don't midiInAddBuffer() again */
-		if (!(SysXFlag & 0x80))
+		case MIM_DATA:
 		{
-			/*	Assign address of MIDIHDR to a LPMIDIHDR variable. Makes it easier to access the
-				field that contains the pointer to our block of MIDI events */
-			lpMIDIHeader = (LPMIDIHDR)dwParam1;
-
-			/* Get address of the MIDI event that caused this call */
-			ptr = (unsigned char*)(lpMIDIHeader->lpData);
-
-			/* Is this the first block of System Exclusive bytes? */
-			if (!SysXFlag)
-			{
-				/* Print out a noticeable heading as well as the timestamp of the first block.
-					(But note that other, subsequent blocks will have their own time stamps). */
-				printf("*************** System Exclusive **************\r\n0x%08X ", dwParam2);
-
-				/* Indicate we've begun handling a particular System Exclusive message */
-				SysXFlag |= 0x01;
-			}
-
-			/* Is this the last block (ie, the end of System Exclusive byte is here in the buffer)? */
-			if (*(ptr + (lpMIDIHeader->dwBytesRecorded - 1)) == 0xF7)
-			{
-				/* Indicate we're done handling this particular System Exclusive message */
-				SysXFlag &= (~0x01);
-			}
-
-			/* Display the bytes -- 16 per line */
-			bytes = 16;
-
-			while ((lpMIDIHeader->dwBytesRecorded--))
-			{
-				if (!(--bytes))
-				{
-					sprintf(&buffer[0], "0x%02X\r\n", *(ptr)++);
-					bytes = 16;
-				}
-				else
-					sprintf(&buffer[0], "0x%02X ", *(ptr)++);
-
-				_cputs(&buffer[0]);
-			}
-
-			/* Was this the last block of System Exclusive bytes? */
-			if (!SysXFlag)
-			{
-				/* Print out a noticeable ending */
-				_cputs("\r\n******************************************\r\n");
-			}
-
-			/* Queue the MIDIHDR for more input */
-			midiInAddBuffer(handle, lpMIDIHeader, sizeof(MIDIHDR));
+			printf("MIM_DATA\n");
+			/* Display the time stamp, and the bytes. (Note: I always display 3 bytes even for
+			Midi messages that have less) */
+			sprintf(&buffer[0], "0x%08X 0x%02X 0x%02X 0x%02X\r\n", dwParam2, dwParam1 & 0x000000FF, (dwParam1 >> 8) & 0x000000FF, (dwParam1 >> 16) & 0x000000FF);
+			printf("%s", &buffer[0]);
+			break;
 		}
 
-		break;
-	}
+		/* Received all or part of some System Exclusive message */
+		case MIM_LONGDATA:
+		{
+			printf("MIM_LONGDATA\n");
+			/*	Assign address of MIDIHDR to a LPMIDIHDR variable. Makes it easier to access the
+	field that contains the pointer to our block of MIDI events */
+			lpMIDIHeader = (LPMIDIHDR)dwParam1;
+			if (lpMIDIHeader->dwFlags & MHDR_DONE)
+				printf("MHDR_DONE\n");
 
-	/* Process these messages if you desire */
-/*
-		case MIM_OPEN:
-		case MIM_CLOSE:
-		case MIM_ERROR:
-		case MIM_LONGERROR:
-		case MIM_MOREDATA:
+
+			if (lpMIDIHeader->dwFlags & MHDR_INQUEUE)
+				printf("MHDR_INQUEUE\n");
+
+			if (lpMIDIHeader->dwFlags & MHDR_ISSTRM)
+				printf("MHDR_ISSTRM\n");
+
+			if (lpMIDIHeader->dwFlags & MHDR_PREPARED)
+				printf("MHDR_PREPARED\n");
+
+			/* If this application is ready to close down, then don't midiInAddBuffer() again */
+			if (!(SysXFlag & 0x80))
+			{
+
+
+				/* Get address of the MIDI event that caused this call */
+				ptr = (unsigned char*)(lpMIDIHeader->lpData);
+
+				/* Is this the first block of System Exclusive bytes? */
+				if (!SysXFlag)
+				{
+					/* Print out a noticeable heading as well as the timestamp of the first block.
+						(But note that other, subsequent blocks will have their own time stamps). */
+					printf("*************** System Exclusive **************\r\n0x%08X ", dwParam2);
+
+					/* Indicate we've begun handling a particular System Exclusive message */
+					SysXFlag |= 0x01;
+				}
+
+				/* Is this the last block (ie, the end of System Exclusive byte is here in the buffer)? */
+				if (*(ptr + (lpMIDIHeader->dwBytesRecorded - 1)) == 0xF7)
+				{
+					/* Indicate we're done handling this particular System Exclusive message */
+					SysXFlag &= (~0x01);
+				}
+
+				/* Display the bytes -- 16 per line */
+				bytes = 16;
+
+				while ((lpMIDIHeader->dwBytesRecorded--))
+				{
+					if (!(--bytes))
+					{
+						sprintf(&buffer[0], "0x%02X\r\n", *(ptr)++);
+						bytes = 16;
+					}
+					else
+						sprintf(&buffer[0], "0x%02X ", *(ptr)++);
+
+					printf("%s",&buffer[0]);
+				}
+
+				/* Was this the last block of System Exclusive bytes? */
+				if (!SysXFlag)
+				{
+					/* Print out a noticeable ending */
+					printf("\r\n******************************************\r\n");
+				}
+
+				/* Queue the MIDIHDR for more input */
+				unsigned long err = midiInAddBuffer(handle, lpMIDIHeader, sizeof(MIDIHDR));
+				if (err)
+					printf("Error in addbuffer\n");
+			}
 
 			break;
-*/
+		}
+		case MIM_OPEN:
+		{
+			printf("MIM_OPEN\n");
+			break;
+		}
+		case MIM_CLOSE:
+		{
+			printf("MIM_CLOSE\n");
+			break;
+		}
+		case MIM_ERROR:
+		{
+			printf("MIM_ERROR\n");
+			break;
+		}
+		case MIM_LONGERROR:
+		{
+			printf("MIM_LONGERROR\n");
+			break;
+		}
+		case MIM_MOREDATA:
+		{
+			printf("MIM_MOREDATA\n");
+			break;
+		}
+		printf("unknown\n");
+		break;
 	}
 }
 
@@ -245,29 +280,56 @@ void PrintMidiInErrorMsg(unsigned long err)
 int main(int argc, char** argv)
 {
 	HMIDIIN			handle;
-	MIDIHDR			midiHdr;
+	//MIDIHDR			midiHdr;
 	unsigned long	err;
 
+	MIDIHDR midiHdrArr[BUF_CNT];
+
+
+
 	/* Open default MIDI In device */
-	if (!(err = midiInOpen(&handle, 0, (DWORD)midiCallback, 0, CALLBACK_FUNCTION)))
+	if (!(err = midiInOpen(&handle, 0, (DWORD)midiCallback, 0, CALLBACK_FUNCTION|MIDI_IO_STATUS)))
 	{
 		/* Store pointer to our input buffer for System Exclusive messages in MIDIHDR */
-		midiHdr.lpData = (LPSTR)&SysXBuffer[0];
+/*		midiHdr.lpData = (LPSTR)&SysXBuffer[0];
 
-		/* Store its size in the MIDIHDR */
+		/* Store its size in the MIDIHDR 
 		midiHdr.dwBufferLength = sizeof(SysXBuffer);
 
-		/* Flags must be set to 0 */
+		/* Flags must be set to 0 
 		midiHdr.dwFlags = 0;
 
-		/* Prepare the buffer and MIDIHDR */
+		/* Prepare the buffer and MIDIHDR 
 		err = midiInPrepareHeader(handle, &midiHdr, sizeof(MIDIHDR));
 		if (!err)
 		{
-			/* Queue MIDI input buffer */
+			/* Queue MIDI input buffer 
 			err = midiInAddBuffer(handle, &midiHdr, sizeof(MIDIHDR));
 			if (!err)
 			{
+				*/
+				////////////////
+		for (int idx = 0; idx < BUF_CNT;idx++)
+		{
+			midiHdrArr[idx].lpData = (LPSTR)&SysXArray[idx][0];
+
+			/* Store its size in the MIDIHDR */
+			midiHdrArr[idx].dwBufferLength = BUF_SZ * sizeof(unsigned char);
+
+			/* Flags must be set to 0 */
+			midiHdrArr[idx].dwFlags = 0;
+
+			/* Prepare the buffer and MIDIHDR */
+			err = midiInPrepareHeader(handle, &midiHdrArr[idx], sizeof(MIDIHDR));
+			if (!err)
+			{
+				/* Queue MIDI input buffer */
+				err = midiInAddBuffer(handle, &midiHdrArr[idx], sizeof(MIDIHDR));
+				if (!err)
+					printf("Added buffer %d\n", idx);
+			}
+		}
+		///////////////
 				/* Start recording Midi */
 				err = midiInStart(handle);
 				if (!err)
@@ -284,29 +346,35 @@ int main(int argc, char** argv)
 					   never get the driver to finish with our midiHdr
 					*/
 					SysXFlag |= 0x80;
-					printf("\r\nRecording stopped!\n");
+ 					printf("\r\nRecording stopped!\n");
 				}
 
 				/* Stop recording */
 				midiInReset(handle);
-			}
-		}
-
+				
 		/* If there was an error above, then print a message */
-		if (err) PrintMidiInErrorMsg(err);
+		if (err) 
+			PrintMidiInErrorMsg(err);
 
 		/* Close the MIDI In device */
-		while ((err = midiInClose(handle)) == MIDIERR_STILLPLAYING) Sleep(0);
-		if (err) PrintMidiInErrorMsg(err);
+		while ((err = midiInClose(handle)) == MIDIERR_STILLPLAYING) 
+			Sleep(0);
+		
+		if (err) 
+			PrintMidiInErrorMsg(err);
 
 		/* Unprepare the buffer and MIDIHDR. Unpreparing a buffer that has not been prepared is ok */
-		midiInUnprepareHeader(handle, &midiHdr, sizeof(MIDIHDR));
+		//midiInUnprepareHeader(handle, &midiHdr, sizeof(MIDIHDR));
+		for (int idx = 0; idx < BUF_CNT; idx++)
+		{
+			midiInUnprepareHeader(handle, &midiHdrArr[idx], sizeof(MIDIHDR));
+		}
 	}
 	else
 	{
 		printf("Error opening the default MIDI In Device!\r\n");
 		PrintMidiInErrorMsg(err);
 	}
-
+	printf("DONE\n");
 	return(0);
 }
