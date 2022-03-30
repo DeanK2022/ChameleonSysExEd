@@ -4929,8 +4929,9 @@ namespace ChameleonSysExEd
             // mIDISettingsToolStripMenuItem
             // 
             this.mIDISettingsToolStripMenuItem.Name = "mIDISettingsToolStripMenuItem";
-            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mIDISettingsToolStripMenuItem.Text = "MIDI Settings";
+            this.mIDISettingsToolStripMenuItem.Click += new System.EventHandler(this.mIDISettingsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -5029,7 +5030,7 @@ namespace ChameleonSysExEd
             // 
             this.nudCurPreset.Location = new System.Drawing.Point(88, 425);
             this.nudCurPreset.Name = "nudCurPreset";
-            this.nudCurPreset.Size = new System.Drawing.Size(59, 20);
+            this.nudCurPreset.Size = new System.Drawing.Size(41, 20);
             this.nudCurPreset.TabIndex = 9;
             // 
             // openFileDialogSysEx
@@ -5055,7 +5056,7 @@ namespace ChameleonSysExEd
             // 
             // tbRecordStatus
             // 
-            this.tbRecordStatus.Location = new System.Drawing.Point(321, 417);
+            this.tbRecordStatus.Location = new System.Drawing.Point(406, 424);
             this.tbRecordStatus.Name = "tbRecordStatus";
             this.tbRecordStatus.Size = new System.Drawing.Size(175, 20);
             this.tbRecordStatus.TabIndex = 12;

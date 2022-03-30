@@ -21,6 +21,9 @@ namespace ChameleonSysExEd
         private FormDirtyTracker _dirtyTracker;
         private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
         private List<InputDevice> recordingInputDevices = null;
+        private int midiOptionInDeviceID = -1;
+        private int midiOptionOutDeviceID=-1;
+        private int midiOptionOutDelay = 200;
 
         public MainForm()
         {
@@ -590,10 +593,7 @@ namespace ChameleonSysExEd
             // save our recoreded sysex message to disk in a new file and add it to the library
             try
             {
-                var sysExLibrarianFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
-                var filePath = $"{sysExLibrarianFolder}\\NewFile_{DateTime.Now.ToString("yyyy_dd_M_HH_mm_ss")}.syx";
-                File.WriteAllBytes(filePath, message.GetBytes());
-                // stop recording on all devices and dispose of the resources
+                tbRecordStatus.Text = "Got SysEx " + e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
                 foreach (var inputDevice in recordingInputDevices)
                 {
                     inputDevice.StopRecording();
@@ -646,24 +646,15 @@ namespace ChameleonSysExEd
                     return;
                 }
 
+                var inputDevice = new InputDevice(this.midiOptionInDeviceID,true, false);
+                var capabilities = InputDevice.GetDeviceCapabilities(i);
+                tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
+
+                inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
+                //inputDevice.MessageReceived += InputDevice_MessageReceived1;
                 recordingInputDevices = new List<InputDevice>();
-
-                for (var i = 0; i < InputDevice.DeviceCount; i++)
-                {
-                    var inputDevice = new InputDevice(i,true, false);
-                    var capabilities = InputDevice.GetDeviceCapabilities(i);
-                    tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
-
-                    inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
-                    inputDevice.MessageReceived += InputDevice_MessageReceived1;
-                    inputDevice.StartRecording();
-
-                    recordingInputDevices.Add(inputDevice);
-                 
-                }
-
-                //await DialogHost.Show(new ProgressDialog(), "RootDialog", RecordingCanceled_ClosingEventHandler);
-
+                inputDevice.StartRecording();
+                recordingInputDevices.Add(inputDevice);
 
             }
             catch (InputDeviceException ex)
@@ -676,193 +667,17 @@ namespace ChameleonSysExEd
         {
            
         }
-        //private void LoadFormFromComposite(TChameleonCompositeLowGainChorus tccObj)
-        //{
-        //    unsafe
-        //    {
-        //        ChamObjectHelpers.DumpStructChorus(tccObj);
-        //        ChamObjectHelpers.DumpAddresses(tccObj);
 
-        //        tbTitle.Text = ChamObjectHelpers.ConvertToString(tccObj.Title, Constants.TITLE_LEN_BYTE);
-        //        cbConfiguration.SelectedIndex = tccObj.Control.ConfigMode;
+        private void mIDISettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MidiOptionForm midiOptionForm = new MidiOptionForm();
+            if (midiOptionForm.ShowDialog() == DialogResult.OK)
+            {
+                midiOptionInDeviceID = midiOptionForm.GetMidiInDeviceID();
+                midiOptionOutDeviceID = midiOptionForm.GetMidiOutDeviceID();
+                midiOptionOutDelay = midiOptionForm.GetMidiOutDelay();
+            }
 
-        //        nudMixerReverbLevel.Value = tccObj.Mixer.ReverbLevel - 63;
-        //        nudMixerDelayLevel.Value = tccObj.Mixer.DelayLevel - 63;
-        //        nudMixerPan.Value = tccObj.Mixer.Pan;
-        //        nudMixerMixDir.Value = tccObj.Mixer.MixDir;
-        //        nudMixerRightLevel.Value = tccObj.Mixer.RightLevel - 57;
-        //        nudMixerLeftLevel.Value = tccObj.Mixer.LeftLevel - 57;
-        //        nudMixerMasterVolume.Value = tccObj.Mixer.MasterVolume;
-
-        //        cbHushInOut.SelectedIndex = tccObj.Hush.InOut;
-        //        nudHushThreshold.Value = tccObj.Hush.Threshold - 90;
-
-        //        nudPreEqLowFreqLevel.Value = tccObj.PreEQ.LowFreqLevel - 15;
-        //        cbPreEqLowFreq.SelectedIndex = tccObj.PreEQ.LowFreq;
-
-        //        nudPreEqMidFreqLevel.Value = tccObj.PreEQ.MidFreqLevel - 15;
-        //        cbPreEqMidFreq.SelectedIndex = tccObj.PreEQ.MidFreq;
-        //        cbPreEqMidBand.SelectedIndex = tccObj.PreEQ.MidBand;
-
-        //        cbPostEqBassFreq.SelectedIndex = tccObj.PostEQ.BassFreq;
-        //        cbPostEqBassBand.SelectedIndex = tccObj.PostEQ.BassBand;
-        //        cbPostEqMidFreq.SelectedIndex = tccObj.PostEQ.MidFreq;
-        //        cbPostEqMidBand.SelectedIndex = tccObj.PostEQ.MidBand;
-
-        //        cbPostEqPresFreq.SelectedIndex = tccObj.PostEQ.PresFreq; 
-        //        cbPostEqPresBand.SelectedIndex = tccObj.PostEQ.PresBand;
-
-        //        cbPostEqTrebleFreq.SelectedIndex = tccObj.PostEQ.TrebleFreq;
-        //        cbPostEqTrebleBand.SelectedIndex = tccObj.PostEQ.TrebleBand;
-
-        //        nudSpkSimReactance.Value = tccObj.SpeakerSim.Reactance - 15;
-        //        nudSpkSimMicPlace.Value = tccObj.SpeakerSim.MicPlace - 15;
-
-        //        nudReverbHighFreqDamp.Value = tccObj.Reverb.ReverbHighFreqDamp;
-        //        nudReverbDecay.Value = tccObj.Reverb.ReverbDecay;
-        //        nudReverbMix.Value = tccObj.Reverb.ReverbMix;
-
-        //        cbTapDelay2Multiplier.SelectedIndex = tccObj.TapDelay.TapDelayD2Multiplyer;
-
-        //        cbTapDelay1Multiplier.SelectedIndex = tccObj.TapDelay.TapDelayD2Multiplyer;
-
-        //        cbControllerAssignmentParam.SelectedIndex = tccObj.ControllerAssignment1.Param;
-        //        cbControllerAssignmentNumber.SelectedIndex = tccObj.ControllerAssignment1.Number;
-        //        cbControllerAssignment.SelectedIndex = tccObj.ControllerAssignment1.LowerLimit; 
-
-        //        cbDelaySource2.SelectedIndex = tccObj.Delay.Source2;
-        //        cbDelayState.SelectedIndex = tccObj.Delay.DelayState;
-        //        cbDelayMuteType.SelectedIndex = tccObj.Delay.MuteType;
-        //        nudDelayHighFreqDamp.Value = tccObj.Delay.HighFreqDamp;
-        //        nudDelaySourceMix.Value = tccObj.Delay.SourceMix;
-
-        //        nudDelay1Time.Value = ((tccObj.Delay.D1TimeHighByte << 7) + tccObj.Delay.D1Time) * 4;
-        //        nudDelay1Pan.Value = tccObj.Delay.D1Pan;
-        //        nudDelay1OutLevel.Value = tccObj.Delay.D1OutLevel - 63;
-        //        nudDelay1Regen.Value = tccObj.Delay.D1Regen - 63;
-
-        //        nudDelay2Time.Value = ((tccObj.Delay.D2TimeHighByte << 7) + tccObj.Delay.D2Time) * 4;
-        //        nudDelay2Pan.Value = tccObj.Delay.D2Pan;
-        //        nudDelay2OutLevel.Value = tccObj.Delay.D2OutLevel - 63;
-        //        nudDelay2Regen.Value = tccObj.Delay.D2Regen - 63;
-
-        //        cbControllerAssignmentLowerLimit.SelectedIndex = tccObj.ControllerAssignment1.LowerLimit + 1;
-        //        cbControllerAssignmentUpperLimit.SelectedIndex = tccObj.ControllerAssignment1.UpperLimit;
-        //        //nudCurPreset.Value = 
-
-        //        if (tccObj.Control.ConfigMode > 5)  //low gain, compressor allowed
-        //        {
-        //            gbCompressor.Visible = true;
-        //            nudGainAmount.Minimum = 0;
-        //            nudGainAmount.Maximum = 48;
-
-        //            cbCompressorInOut.SelectedIndex = tccObj.Compressor.InOut;
-        //            nudCompressorThreshold.Value = tccObj.Compressor.Threshold -24;
-        //            cbCompressorAttack.SelectedIndex = tccObj.Compressor.Attack;
-        //            cbCompressorRelease.SelectedIndex = tccObj.Compressor.Release;
-
-        //            nudGainPresence.Value = tccObj.GainLow.Presence - 15;
-        //            nudGainTrebleLevel.Value = tccObj.GainLow.TrebleLevel - 15;
-        //            nudGainMidLevel.Value = tccObj.GainLow.MidLevel - 15;
-        //            nudGainBassLevel.Value = tccObj.GainLow.BassLevel - 15;
-        //            nudGainVariac.Enabled = false;
-        //            cbGainType.SelectedIndex = tccObj.GainLow.GainType;
-        //            nudGainAmount.Minimum = 0;
-        //            nudGainAmount.Maximum = 48;
-        //            nudGainAmount.Value = tccObj.GainLow.GainAmount + 40;
-        //        }
-        //        else
-        //        {
-        //            gbCompressor.Visible = false;
-        //            nudGainAmount.Minimum = 12;
-        //            nudGainAmount.Maximum = 78;
-
-        //            nudGainPresence.Value = tccObj.GainLow.Presence - 15;
-        //            nudGainTrebleLevel.Value = tccObj.GainLow.TrebleLevel - 15;
-        //            nudGainMidLevel.Value = tccObj.GainLow.MidLevel - 15;
-        //            nudGainBassLevel.Value = tccObj.GainLow.BassLevel - 15;
-        //            nudGainVariac.Value = tccObj.GainLow.GainType;
-        //            nudGainAmount.Value = tccObj.GainLow.GainAmount + 12;
-
-        //        }
-        //        cbSpkSimSpkType.SelectedIndex = tccObj.SpeakerSim.SpeakerType;
-        //        cbSpkSimSpkSim.SelectedIndex = tccObj.SpeakerSim.SpeakerSim;
-        //        cbChorusInOut.SelectedIndex = tccObj.Chorus.ChorusInOut;
-        //        cbReverbState.SelectedIndex = tccObj.Reverb.ReverbState;
-
-        //        if (ChamObjectHelpers.IsChorus(tccObj.Control.ConfigMode))
-        //        {
-        //            nudChorus1Delay.Value = tccObj.Chorus.Chorus1Delay + 2;
-        //            nudChorus1Depth.Value = tccObj.Chorus.Chorus1Depth;
-        //            nudChorus1Pan.Value = tccObj.Chorus.Chorus1Pan;
-        //            nudChorus1Level.Value = tccObj.Chorus.Chorus1Level - 63;
-        //            nudChorus1Rate.Value = (tccObj.Chorus.Chorus1RateHighByte << 7) + tccObj.Chorus.Chorus1Rate;
-
-        //            nudChorus2Delay.Value = tccObj.Chorus.Chorus2Delay + 2;
-        //            nudChorus2Depth.Value = tccObj.Chorus.Chorus2Depth;
-        //            nudChorus2Pan.Value = tccObj.Chorus.Chorus2Pan;
-        //            nudChorus2Level.Value = tccObj.Chorus.Chorus2Level - 63;
-        //            nudChorus2Rate.Value = (tccObj.Chorus.Chorus2RateHighByte << 7) + tccObj.Chorus.Chorus2Rate;
-        //        }
-
-        //        if (ChamObjectHelpers.IsFlanger(tccObj.Control.ConfigMode))
-        //        {
-        //            TChameleonFlanger* tcps = (TChameleonFlanger*)&tccObj.Chorus;
-        //            cbFlangerInOut.SelectedIndex = tcps->FlangeInOut;
-        //            nudFlangerRegeneration.Value = tcps->Regeneration;
-        //            nudFlanger2Depth.Value = tcps->Depth2;
-        //            nudFlanger2Pan.Value = tcps->Pan2;
-        //            nudFlanger2Level.Value = tcps->Level2;
-        //            nudFlanger2Rate.Value = tcps->Rate2Low;
-        //            nudFlanger1Depth.Value = tcps->Depth1;
-        //            nudFlanger1Pan.Value = tcps->Pan1;
-        //            nudFlanger1Level.Value = tcps->Level1;
-        //            nudFlanger1Rate.Value = tcps->Rate1Low;
-        //        };
-
-        //        if (ChamObjectHelpers.IsTremolo(tccObj.Control.ConfigMode))
-        //        {
-        //            TChameleonTremolo* tcps = (TChameleonTremolo*)&tccObj.Chorus;
-        //            cbTremoloLocation.SelectedIndex = tcps->TremoloLocation;
-        //            nudTremoloRate.Value = tcps->TremoloRate;
-        //            nudTremoloDepth.Value = tcps->TremoloDepth;
-        //            cbTremoloShape.SelectedIndex = tcps->TremoloShape;
-        //            cbTremoloInOut.SelectedIndex = tcps->TremoloInOut;
-
-        //        };
-
-        //        if (ChamObjectHelpers.IsPitchShift(tccObj.Control.ConfigMode))
-        //        {
-        //            TChameleonPitchShift *tcps = (TChameleonPitchShift*) &tccObj.Chorus;
-        //            nudPitchShiftFineTune.Value = tcps->FineTune;
-        //            nudPitchShiftPitch.Value = tcps->Pitch;
-        //            cbPitchShiftSpeed.SelectedIndex = tcps->Speed;
-        //            cbPitchShiftInOut.SelectedIndex = tcps->PitchShiftInOut;
-        //            nudPitchShiftPan.Value = tcps->Pan;
-        //            nudPitchShiftLevel.Value = tcps->Level;
-
-        //        };
-
-        //        if (ChamObjectHelpers.IsWah(tccObj.Control.ConfigMode))
-        //        {
-        //            TChameleonWah* tcps = (TChameleonWah*)&tccObj.Chorus;
-        //            cbWahFrequency.SelectedIndex = tcps->Freq;
-        //            cbWahInOut.SelectedIndex = tcps->WahInOut;
-
-        //        };
-
-        //        if (ChamObjectHelpers.IsPhaser(tccObj.Control.ConfigMode))
-        //        {
-        //            TChameleonPhaser* tcps = (TChameleonPhaser*)&tccObj.Chorus;
-
-        //            nudPhaserDepth.Value = tcps->Depth;
-        //            nudPhaserReson.Value = tcps->Resonance;
-        //            nudPhaserRate.Value = tcps->Rate;
-        //            cbPhaserStage.SelectedIndex = tcps->Stage;
-        //            cbPhaserInOut.SelectedIndex = tcps->PhaserInOut;
-        //        };
-        //    }
-        //}
-
+        }
     }
  }

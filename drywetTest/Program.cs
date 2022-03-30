@@ -1,4 +1,5 @@
 ﻿using System;
+using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
 
 namespace InputDeviceExample
@@ -22,6 +23,13 @@ namespace InputDeviceExample
         private static void OnEventReceived(object sender, MidiEventReceivedEventArgs e)
         {
             var midiDevice = (MidiDevice)sender;
+            NormalSysExEvent norm = null;
+            if (e.Event is NormalSysExEvent)
+                norm = (NormalSysExEvent)e.Event;
+            EscapeSysExEvent escape = null;
+            if (e.Event is EscapeSysExEvent)
+                escape = (EscapeSysExEvent)e.Event;
+
             Console.WriteLine($"Event received from '{midiDevice.Name}' at {DateTime.Now}: {e.Event}");
         }
     }

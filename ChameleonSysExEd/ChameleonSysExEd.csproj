@@ -83,6 +83,12 @@
     <Compile Include="ChameleonSysExStructs.cs" />
     <Compile Include="ChameleonSysExHelpers.cs" />
     <Compile Include="ChameleonSysEx.cs" />
+    <Compile Include="MidiOptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MidiOptionForm.Designer.cs">
+      <DependentUpon>MidiOptionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ParamSet.cs" />
     <Compile Include="FormDirtyTracker.cs" />
     <Compile Include="MainForm.cs">
@@ -95,6 +101,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MidiOptionForm.resx">
+      <DependentUpon>MidiOptionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
