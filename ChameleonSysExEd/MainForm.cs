@@ -17,7 +17,8 @@ namespace ChameleonSysExEd
 {
     public partial class MainForm : Form
     {
-        public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
+        //public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
+        public ChameleonSysExComplete[] sysExArr = new ChameleonSysExComplete[] { };
         private FormDirtyTracker _dirtyTracker;
         private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
         private List<InputDevice> recordingInputDevices = null;
@@ -54,9 +55,9 @@ namespace ChameleonSysExEd
         {
             unsafe
             {
-
+                /*
+                 * This is not needed but allows all struct sizes to be assayed
                 int oo = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeAllStructsUnion));
-         
                 int oa = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderLowGain));
                 int os = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
                 int od = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeTailend));
@@ -72,7 +73,7 @@ namespace ChameleonSysExEd
                 int ot = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainPitchShift));
                 int oy = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainTremolo));
                 int ou = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHighGainWah));
-
+                */
                 tbTitle.Text = mySysEx.Title;
                 cbConfiguration.SelectedIndex = mySysEx.Control.ConfigMode;
 
@@ -646,8 +647,8 @@ namespace ChameleonSysExEd
                     return;
                 }
 
-                var inputDevice = new InputDevice(this.midiOptionInDeviceID,true, false);
-                var capabilities = InputDevice.GetDeviceCapabilities(i);
+                var inputDevice = new InputDevice(midiOptionInDeviceID,true, false);
+                var capabilities = InputDevice.GetDeviceCapabilities(midiOptionInDeviceID);
                 tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
 
                 inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
@@ -677,7 +678,18 @@ namespace ChameleonSysExEd
                 midiOptionOutDeviceID = midiOptionForm.GetMidiOutDeviceID();
                 midiOptionOutDelay = midiOptionForm.GetMidiOutDelay();
             }
+        }
 
+        private void importFromMIDIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportMIDIForm importMIDIForm = new ImportMIDIForm();
+            importMIDIForm.ShowDialog();
+        }
+
+        private void exportToMIDIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportMIDIForm exportMIDIForm = new ExportMIDIForm();
+            exportMIDIForm.ShowDialog();
         }
     }
  }

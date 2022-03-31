@@ -83,6 +83,18 @@
     <Compile Include="ChameleonSysExStructs.cs" />
     <Compile Include="ChameleonSysExHelpers.cs" />
     <Compile Include="ChameleonSysEx.cs" />
+    <Compile Include="ImportMIDIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportMIDIForm.Designer.cs">
+      <DependentUpon>ImportMIDIForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportMIDIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportMIDIForm.Designer.cs">
+      <DependentUpon>ExportMIDIForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MidiOptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +111,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ImportMIDIForm.resx">
+      <DependentUpon>ImportMIDIForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportMIDIForm.resx">
+      <DependentUpon>ExportMIDIForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

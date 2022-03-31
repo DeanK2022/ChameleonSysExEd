@@ -52,5 +52,17 @@ namespace ChameleonSysExEd
         {
             return (int)nudSendDelay.Value;
         }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            Close();
+        }
     }
 }

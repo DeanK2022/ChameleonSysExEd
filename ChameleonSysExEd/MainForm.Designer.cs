@@ -278,6 +278,10 @@ namespace ChameleonSysExEd
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importFromMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mIDISettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -4872,8 +4876,8 @@ namespace ChameleonSysExEd
             // toolStripStatusFileName
             // 
             this.toolStripStatusFileName.Name = "toolStripStatusFileName";
-            this.toolStripStatusFileName.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusFileName.Text = "toolStripStatusLabel1";
+            this.toolStripStatusFileName.Size = new System.Drawing.Size(42, 17);
+            this.toolStripStatusFileName.Text = "Ready!";
             // 
             // menuStrip1
             // 
@@ -4892,7 +4896,11 @@ namespace ChameleonSysExEd
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem});
+            this.saveAsToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.exportToMIDIToolStripMenuItem,
+            this.importFromMIDIToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -4900,23 +4908,49 @@ namespace ChameleonSysExEd
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.saveAsToolStripMenuItem.Text = "&Save As";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Text = "---";
+            // 
+            // exportToMIDIToolStripMenuItem
+            // 
+            this.exportToMIDIToolStripMenuItem.Name = "exportToMIDIToolStripMenuItem";
+            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToMIDIToolStripMenuItem.Text = "&Export to MIDI";
+            this.exportToMIDIToolStripMenuItem.Click += new System.EventHandler(this.exportToMIDIToolStripMenuItem_Click);
+            // 
+            // importFromMIDIToolStripMenuItem
+            // 
+            this.importFromMIDIToolStripMenuItem.Name = "importFromMIDIToolStripMenuItem";
+            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importFromMIDIToolStripMenuItem.Text = "&Import from MIDI";
+            this.importFromMIDIToolStripMenuItem.Click += new System.EventHandler(this.importFromMIDIToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // optionsToolStripMenuItem
             // 
@@ -4929,7 +4963,7 @@ namespace ChameleonSysExEd
             // mIDISettingsToolStripMenuItem
             // 
             this.mIDISettingsToolStripMenuItem.Name = "mIDISettingsToolStripMenuItem";
-            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.mIDISettingsToolStripMenuItem.Text = "MIDI Settings";
             this.mIDISettingsToolStripMenuItem.Click += new System.EventHandler(this.mIDISettingsToolStripMenuItem_Click);
             // 
@@ -5029,9 +5063,24 @@ namespace ChameleonSysExEd
             // nudCurPreset
             // 
             this.nudCurPreset.Location = new System.Drawing.Point(88, 425);
+            this.nudCurPreset.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudCurPreset.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudCurPreset.Name = "nudCurPreset";
             this.nudCurPreset.Size = new System.Drawing.Size(41, 20);
             this.nudCurPreset.TabIndex = 9;
+            this.nudCurPreset.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // openFileDialogSysEx
             // 
@@ -5463,6 +5512,10 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.NumericUpDown nudControllerAssignmentUpperLimit;
         private System.Windows.Forms.Button btnRecordSysEx;
         private System.Windows.Forms.TextBox tbRecordStatus;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem exportToMIDIToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importFromMIDIToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
