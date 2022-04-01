@@ -17,7 +17,7 @@ namespace ChameleonSysExEd
 {
     public partial class MainForm : Form
     {
-        //public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
+        public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
         public ChameleonSysExComplete[] sysExArr = new ChameleonSysExComplete[] { };
         private FormDirtyTracker _dirtyTracker;
         private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
@@ -45,7 +45,7 @@ namespace ChameleonSysExEd
 
                 fs.Close();
 
-                sysEx.LoadFromFile(openFileDialogSysEx.FileName);
+                sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExArr);
                 LoadFormFromComposite(sysEx);
                // LoadFormFromComposite(TChameleonCompositeObj);
                // ChamObjectHelpers.DumpAddresses(TChameleonCompositeObj);

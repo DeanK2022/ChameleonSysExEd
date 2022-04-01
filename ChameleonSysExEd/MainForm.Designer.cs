@@ -278,7 +278,6 @@ namespace ChameleonSysExEd
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -298,6 +297,8 @@ namespace ChameleonSysExEd
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
             this.btnRecordSysEx = new System.Windows.Forms.Button();
             this.tbRecordStatus = new System.Windows.Forms.TextBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -4897,9 +4898,10 @@ namespace ChameleonSysExEd
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
-            this.toolStripMenuItem2,
+            this.toolStripSeparator1,
             this.exportToMIDIToolStripMenuItem,
             this.importFromMIDIToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -4925,12 +4927,6 @@ namespace ChameleonSysExEd
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem2.Text = "---";
             // 
             // exportToMIDIToolStripMenuItem
             // 
@@ -4963,7 +4959,7 @@ namespace ChameleonSysExEd
             // mIDISettingsToolStripMenuItem
             // 
             this.mIDISettingsToolStripMenuItem.Name = "mIDISettingsToolStripMenuItem";
-            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mIDISettingsToolStripMenuItem.Text = "MIDI Settings";
             this.mIDISettingsToolStripMenuItem.Click += new System.EventHandler(this.mIDISettingsToolStripMenuItem_Click);
             // 
@@ -5109,6 +5105,16 @@ namespace ChameleonSysExEd
             this.tbRecordStatus.Name = "tbRecordStatus";
             this.tbRecordStatus.Size = new System.Drawing.Size(175, 20);
             this.tbRecordStatus.TabIndex = 12;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // MainForm
             // 
@@ -5512,10 +5518,11 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.NumericUpDown nudControllerAssignmentUpperLimit;
         private System.Windows.Forms.Button btnRecordSysEx;
         private System.Windows.Forms.TextBox tbRecordStatus;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem exportToMIDIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importFromMIDIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
