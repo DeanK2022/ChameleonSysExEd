@@ -29,7 +29,7 @@ namespace ChameleonSysExEd
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnExport = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.lblMIDIPort = new System.Windows.Forms.Label();
@@ -38,15 +38,15 @@ namespace ChameleonSysExEd
             this.lbStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnExport
+            // btnImport
             // 
-            this.btnExport.Location = new System.Drawing.Point(59, 141);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(75, 23);
-            this.btnExport.TabIndex = 0;
-            this.btnExport.Text = "&Import";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            this.btnImport.Location = new System.Drawing.Point(59, 141);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 0;
+            this.btnImport.Text = "&Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnClose
             // 
@@ -114,7 +114,7 @@ namespace ChameleonSysExEd
             this.Controls.Add(this.lblMIDIPort);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.btnImport);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -127,7 +127,7 @@ namespace ChameleonSysExEd
 
         #endregion
 
-        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Label lblMIDIPort;

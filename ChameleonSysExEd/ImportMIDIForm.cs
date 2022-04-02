@@ -25,7 +25,7 @@ namespace ChameleonSysExEd
             Close();
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        private void btnImport_Click(object sender, EventArgs e)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace ChameleonSysExEd
                 lbStatus.Text = "An error occurred when recording";
             }
         }
-        private async void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
+        private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
             //DialogHost.CloseDialogCommand.Execute(null, null);
 

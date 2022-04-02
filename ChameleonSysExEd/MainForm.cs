@@ -597,7 +597,7 @@ namespace ChameleonSysExEd
                     cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
             }
         }
-        private async void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
+        private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
             //DialogHost.CloseDialogCommand.Execute(null, null);
 
@@ -622,7 +622,7 @@ namespace ChameleonSysExEd
                 System.Console.WriteLine( "An error occurred when receiving a sysex message " + ex);
             }
         }
-        private async void InputDevice_MessageReceived(object sender, SysExMessageEventArgs e)
+        private void InputDevice_MessageReceived(object sender, SysExMessageEventArgs e)
         {
             //DialogHost.CloseDialogCommand.Execute(null, null);
 
@@ -674,7 +674,7 @@ namespace ChameleonSysExEd
             }
             catch (InputDeviceException ex)
             {
-                tbRecordStatus.Text = "An error occurred when recording";
+                tbRecordStatus.Text = "An error occurred when recording" + e.ToString();
             }
         }
 
