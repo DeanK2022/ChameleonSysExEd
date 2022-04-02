@@ -19,9 +19,10 @@ namespace ChameleonSysExEd
     {
         public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
         public ChameleonSysExComplete[] sysExArr = new ChameleonSysExComplete[] { };
+        private List<InputDevice> recordingInputDevices = null;
         private FormDirtyTracker _dirtyTracker;
         private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
-        private List<InputDevice> recordingInputDevices = null;
+        
         private int midiOptionInDeviceID = -1;
         private int midiOptionOutDeviceID=-1;
         private int midiOptionOutDelay = 200;
@@ -31,6 +32,18 @@ namespace ChameleonSysExEd
             InitializeComponent();
             //ParamSetHelpers.HaveIGotEverything();
             ParamSetHelpers.LoadParamSetItems(ControllerParamLookup);
+            if (InputDevice.DeviceCount == 0)
+            {
+                tbRecordStatus.Text = "You need at least one MIDI input device connected to record.";
+                foreach (var item in fileToolStripMenuItem.DropDownItems.Find("Import", false))
+                    item.Enabled = false;
+            }
+            if (OutputDevice.DeviceCount == 0)
+            {
+                tbRecordStatus.Text = "You need at least one MIDI output device connected to record.";
+                foreach (var item in fileToolStripMenuItem.DropDownItems.Find("Export", false))
+                    item.Enabled = false;
+            }
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,11 +52,11 @@ namespace ChameleonSysExEd
             if (openFileDialogSysEx.ShowDialog() == DialogResult.OK)
             {
                 toolStripStatusFileName.Text = openFileDialogSysEx.FileName;
-                FileStream fs = new FileStream(openFileDialogSysEx.FileName, FileMode.Open);
+                //FileStream fs = new FileStream(openFileDialogSysEx.FileName, FileMode.Open);
 
                 //TChameleonCompositeObj = ChamObjectHelpers.FromFileStream(fs);
 
-                fs.Close();
+                //fs.Close();
 
                 sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExArr);
                 LoadFormFromComposite(sysEx);
@@ -595,6 +608,7 @@ namespace ChameleonSysExEd
             try
             {
                 tbRecordStatus.Text = "Got SysEx " + e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
+                sysEx.ByteArrToStruct(e.Message.GetBytes());
                 foreach (var inputDevice in recordingInputDevices)
                 {
                     inputDevice.StopRecording();

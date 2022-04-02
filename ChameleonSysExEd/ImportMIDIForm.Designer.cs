@@ -35,6 +35,7 @@ namespace ChameleonSysExEd
             this.lblMIDIPort = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblSend = new System.Windows.Forms.Label();
+            this.lbStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnExport
@@ -45,6 +46,7 @@ namespace ChameleonSysExEd
             this.btnExport.TabIndex = 0;
             this.btnExport.Text = "&Import";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnClose
             // 
@@ -78,7 +80,7 @@ namespace ChameleonSysExEd
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(59, 89);
+            this.label1.Location = new System.Drawing.Point(59, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(223, 13);
             this.label1.TabIndex = 4;
@@ -87,17 +89,26 @@ namespace ChameleonSysExEd
             // lblSend
             // 
             this.lblSend.AutoSize = true;
-            this.lblSend.Location = new System.Drawing.Point(59, 50);
+            this.lblSend.Location = new System.Drawing.Point(59, 44);
             this.lblSend.Name = "lblSend";
-            this.lblSend.Size = new System.Drawing.Size(44, 13);
+            this.lblSend.Size = new System.Drawing.Size(59, 13);
             this.lblSend.TabIndex = 5;
-            this.lblSend.Text = "Send: 0";
+            this.lblSend.Text = "Receive: 0";
+            // 
+            // lbStatus
+            // 
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Location = new System.Drawing.Point(63, 109);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(0, 13);
+            this.lbStatus.TabIndex = 6;
             // 
             // ImportMIDIForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 178);
+            this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.lblSend);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMIDIPort);
@@ -122,5 +133,6 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label lblMIDIPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblSend;
+        private System.Windows.Forms.Label lbStatus;
     }
 }

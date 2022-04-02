@@ -1030,7 +1030,7 @@ namespace ChameleonSysExEd
             TapDelay = new ChameleonTapDelay();
             Eox = 0xf7;
         }
-        private TChameleonCompositeHeaderHighGain FromFileStream(FileStream fs)
+        private TChameleonCompositeHeaderHighGain FromFileStreamHG(FileStream fs)
         {
             //Create Buffer
             byte[] buff = new byte[Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain))];
@@ -1042,6 +1042,21 @@ namespace ChameleonSysExEd
             GCHandle handle = GCHandle.Alloc(buff, GCHandleType.Pinned);
             //Marshal the bytes
             TChameleonCompositeHeaderHighGain loadedFile = (TChameleonCompositeHeaderHighGain)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(TChameleonCompositeHeaderHighGain));
+            handle.Free();//Give control of the buffer back to the GC 
+            return loadedFile;
+        }
+        private TChameleonCompositeAllStructsUnion FromFileStream(FileStream fs)
+        {
+            //Create Buffer
+            byte[] buff = new byte[Marshal.SizeOf(typeof(TChameleonCompositeAllStructsUnion))];
+            int amt = 0;
+            //Loop until we've read enough bytes (usually once) 
+            while (amt < buff.Length)
+                amt += fs.Read(buff, amt, buff.Length - amt); //Read bytes 
+                                                              //Make sure that the Garbage Collector doesn't move our buffer 
+            GCHandle handle = GCHandle.Alloc(buff, GCHandleType.Pinned);
+            //Marshal the bytes
+            TChameleonCompositeAllStructsUnion loadedFile = (TChameleonCompositeAllStructsUnion)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(TChameleonCompositeAllStructsUnion));
             handle.Free();//Give control of the buffer back to the GC 
             return loadedFile;
         }
@@ -1059,195 +1074,14 @@ namespace ChameleonSysExEd
 
                 for (int sysExIdx = 0; sysExIdx < sysExCnt; sysExIdx++)
                 {
-                    TChameleonCompositeHeaderHighGain tcch = FromFileStream(fs);
+                    //TChameleonCompositeHeaderHighGain tcch = FromFileStream(fs);
+                    TChameleonCompositeAllStructsUnion casu = FromFileStream(fs);
 
-                    int sizeTChameleonCompositeHeaderHG = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
-                    int sizeTChameleonCompositeHeaderLG = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderLowGain));
-                    int sizeTChameleonCompositeLowGainChorus = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainChorus));
+                    //int sizeTChameleonCompositeHeaderHG = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
+                    //int sizeTChameleonCompositeHeaderLG = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderLowGain));
+                    //int sizeTChameleonCompositeLowGainChorus = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainChorus));
 
-                    Status = tcch.Status;
-                    ManufCode = tcch.ManufCode;
-                    DeviceID = tcch.DeviceID;
-                    ModelID = tcch.ModelID;
-                    Control = new ChameleonControl(tcch.Control);
-                    Mixer = new ChameleonMixer(tcch.Mixer);
-
-                    Hush = new ChameleonHush(tcch.Hush);
-                    PreEQ = new ChameleonPreEQ(tcch.PreEQ);
-                    PostEQ = new ChameleonPostEQ(tcch.PostEQ);
-                    SpeakerSim = new ChameleonSpeakerSim(tcch.SpeakerSim);
-                    IntPtr ptrToTCStruct = (IntPtr)(&tcch);
-
-                    TChameleonCompositeAllStructsUnion* asu = (TChameleonCompositeAllStructsUnion*)&tcch;
-                    byte[] bytes = StructureToByteArray(asu);
-
-                    //calc and apply checksum
-                    byte xorRunValue = 0;
-                    for (int i = 6; i < 250; i++)
-                        xorRunValue = (byte)(xorRunValue ^ bytes[i]);  //XOR
-
-                    bytes[250] = xorRunValue;
-
-                    if (tcch.Control.ConfigMode > 5)  //low gain, compressor allowed
-                    {
-                        GainLow = new ChameleonGainLow(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->GainLow);
-                        Compressor = new ChameleonCompressor(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Compressor);
-                    }
-                    else
-                    {
-                        GainHigh = new ChameleonGainHigh(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->GainLow);
-                    }
-
-                    int size = Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
-
-                    size = Marshal.SizeOf(typeof(TChameleonCompositeTailend));
-
-                    IntPtr ptrtoDelay = (IntPtr)(&tcch);
-
-                    if (ChamObjectHelpers.IsChorus(tcch.Control.ConfigMode))
-                    {
-                        if (tcch.Control.ConfigMode > 5)
-                        {
-                            long startDelay = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
-                            long startReverb = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Reverb) - (long)ptrToTCStruct;
-                            TChameleonCompositeLowGainChorus* tclgc;
-                            tclgc = (TChameleonCompositeLowGainChorus*)&tcch;
-                            ChamObjectHelpers.DumpStructChorus(*tclgc);
-                            ChamObjectHelpers.DumpAddresses(*tclgc);
-                            Chorus = new ChameleonChorus(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Chorus);
-                            Delay = new ChameleonDelay(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Reverb);
-                        }
-                        else
-                        {
-                            long startDelay = (long)(IntPtr)(&((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
-                            long startReverb = (long)(IntPtr)(&((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Reverb) - (long)ptrToTCStruct;
-                            TChameleonCompositeHighGainChorus* tclgc;
-                            tclgc = (TChameleonCompositeHighGainChorus*)&tcch;
-                            ChamObjectHelpers.DumpStructChorusHigh(*tclgc);
-                            ChamObjectHelpers.DumpAddressesHigh(*tclgc);
-                            Chorus = new ChameleonChorus(((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Chorus);
-                            Delay = new ChameleonDelay(((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Reverb);
-                        }
-                    }
-                    if (ChamObjectHelpers.IsFlanger(tcch.Control.ConfigMode))
-                    {
-                        if (tcch.Control.ConfigMode > 5)
-                        {
-                            ChamObjectHelpers.DumpStructFlanger(*(TChameleonCompositeLowGainFlanger*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainFlanger*)ptrToTCStruct);
-                            Flanger = new ChameleonFlanger(((TChameleonCompositeLowGainFlanger*)ptrToTCStruct)->Flanger);
-                            Delay = new ChameleonDelay(((TChameleonCompositeLowGainFlanger*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeLowGainFlanger*)ptrToTCStruct)->Reverb);
-                        }
-                        else
-                        {
-                            ChamObjectHelpers.DumpStructFlangerHigh(*(TChameleonCompositeHighGainFlanger*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainFlanger*)ptrToTCStruct);
-                            Flanger = new ChameleonFlanger(((TChameleonCompositeHighGainFlanger*)ptrToTCStruct)->Flanger);
-                            Delay = new ChameleonDelay(((TChameleonCompositeHighGainFlanger*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeHighGainFlanger*)ptrToTCStruct)->Reverb);
-                        }
-                    }
-
-                    if (ChamObjectHelpers.IsTremolo(tcch.Control.ConfigMode))
-                    {
-                        if (tcch.Control.ConfigMode > 5)
-                        {
-                            ChamObjectHelpers.DumpStructTremolo(*(TChameleonCompositeLowGainTremolo*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainTremolo*)ptrToTCStruct);
-                            Tremolo = new ChameleonTremolo(((TChameleonCompositeLowGainTremolo*)ptrToTCStruct)->Tremolo);
-                            Delay = new ChameleonDelay(((TChameleonCompositeLowGainTremolo*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeLowGainTremolo*)ptrToTCStruct)->Reverb);
-                        }
-                        else
-                        {
-                            ChamObjectHelpers.DumpStructTremoloHigh(*(TChameleonCompositeHighGainTremolo*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainTremolo*)ptrToTCStruct);
-                            Tremolo = new ChameleonTremolo(((TChameleonCompositeHighGainTremolo*)ptrToTCStruct)->Tremolo);
-                            Delay = new ChameleonDelay(((TChameleonCompositeHighGainTremolo*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeHighGainTremolo*)ptrToTCStruct)->Reverb);
-                        }
-                    }
-                    if (ChamObjectHelpers.IsPitchShift(tcch.Control.ConfigMode))
-                    {
-                        if (tcch.Control.ConfigMode > 5)
-                        {
-                            ChamObjectHelpers.DumpStructPitchShift(*(TChameleonCompositeLowGainPitchShift*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainPitchShift*)ptrToTCStruct);
-                            PitchShift = new ChameleonPitchShift(((TChameleonCompositeLowGainPitchShift*)ptrToTCStruct)->PitchShift);
-                            Delay = new ChameleonDelay(((TChameleonCompositeLowGainPitchShift*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeLowGainPitchShift*)ptrToTCStruct)->Reverb);
-                        }
-                        else
-                        {
-                            ChamObjectHelpers.DumpStructPitchShiftHigh(*(TChameleonCompositeHighGainPitchShift*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainPitchShift*)ptrToTCStruct);
-                            PitchShift = new ChameleonPitchShift(((TChameleonCompositeHighGainPitchShift*)ptrToTCStruct)->PitchShift);
-                            Delay = new ChameleonDelay(((TChameleonCompositeHighGainPitchShift*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeHighGainPitchShift*)ptrToTCStruct)->Reverb);
-                        }
-                    }
-                    if (ChamObjectHelpers.IsWah(tcch.Control.ConfigMode))
-                    {
-                        if (tcch.Control.ConfigMode > 5)
-                        {
-                            ChamObjectHelpers.DumpStructWah(*(TChameleonCompositeLowGainWah*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainWah*)ptrToTCStruct);
-                            Wah = new ChameleonWah(((TChameleonCompositeLowGainWah*)ptrToTCStruct)->Wah);
-                            Delay = new ChameleonDelay(((TChameleonCompositeLowGainWah*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeLowGainWah*)ptrToTCStruct)->Reverb);
-                        }
-                        else
-                        {
-                            ChamObjectHelpers.DumpStructWahHigh(*(TChameleonCompositeHighGainWah*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainWah*)ptrToTCStruct);
-                            Wah = new ChameleonWah(((TChameleonCompositeHighGainWah*)ptrToTCStruct)->Wah);
-                            Delay = new ChameleonDelay(((TChameleonCompositeHighGainWah*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeHighGainWah*)ptrToTCStruct)->Reverb);
-                        }
-                    }
-                    if (ChamObjectHelpers.IsPhaser(tcch.Control.ConfigMode))
-                    {
-                        if (tcch.Control.ConfigMode > 5)
-                        {
-                            ChamObjectHelpers.DumpStructPhaser(*(TChameleonCompositeLowGainPhaser*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainPhaser*)ptrToTCStruct);
-                            Phaser = new ChameleonPhaser(((TChameleonCompositeLowGainPhaser*)ptrToTCStruct)->Phaser);
-                            Delay = new ChameleonDelay(((TChameleonCompositeLowGainPhaser*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeLowGainPhaser*)ptrToTCStruct)->Reverb);
-                        }
-                        else
-                        {
-                            ChamObjectHelpers.DumpStructPhaserHigh(*(TChameleonCompositeHighGainPhaser*)ptrToTCStruct);
-                            ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainPhaser*)ptrToTCStruct);
-                            Phaser = new ChameleonPhaser(((TChameleonCompositeHighGainPhaser*)ptrToTCStruct)->Phaser);
-                            Delay = new ChameleonDelay(((TChameleonCompositeHighGainPhaser*)ptrToTCStruct)->Delay);
-                            Reverb = new ChameleonReverb(((TChameleonCompositeHighGainPhaser*)ptrToTCStruct)->Reverb);
-                        }
-                    }
-
-                    IntPtr ptrToTailEndStruct = (IntPtr)(&tcch);
-                    TChameleonCompositeTailend* tailend = (TChameleonCompositeTailend*)ptrToTailEndStruct;
-                    long startTitle = (long)(IntPtr)(&((TChameleonCompositeTailend*)ptrToTCStruct)->Title) - (long)ptrToTCStruct;
-                    //long startReverb = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
-
-                    Title = ChamObjectHelpers.ConvertToString(tailend->Title, Constants.TITLE_LEN_BYTE);
-
-                    ControllerAssignment = new ChameleonControllerAssignment[Constants.MAX_CONTROLLER_COUNT];
-                    ControllerAssignment[0] = new ChameleonControllerAssignment(tailend->ControllerAssignment1);
-                    ControllerAssignment[1] = new ChameleonControllerAssignment(tailend->ControllerAssignment2);
-                    ControllerAssignment[2] = new ChameleonControllerAssignment(tailend->ControllerAssignment3);
-                    ControllerAssignment[3] = new ChameleonControllerAssignment(tailend->ControllerAssignment4);
-                    ControllerAssignment[4] = new ChameleonControllerAssignment(tailend->ControllerAssignment5);
-                    ControllerAssignment[5] = new ChameleonControllerAssignment(tailend->ControllerAssignment6);
-                    ControllerAssignment[6] = new ChameleonControllerAssignment(tailend->ControllerAssignment7);
-                    ControllerAssignment[7] = new ChameleonControllerAssignment(tailend->ControllerAssignment8);
-
-                    TapDelay = new ChameleonTapDelay(tailend->TapDelay);
-
-                    CheckSum = tailend->CheckSum;
+                    LoadFromStruct(casu);
 
                     sysExArr[sysExIdx] = this;
                     
@@ -1423,6 +1257,206 @@ namespace ChameleonSysExEd
                 bytes[250] = (byte)xorRunValue;
                 return bytes;
             }
+        }
+        public unsafe TChameleonCompositeAllStructsUnion ByteArrToStruct(byte[] arr)
+        {
+            TChameleonCompositeAllStructsUnion casu = new TChameleonCompositeAllStructsUnion();
+          
+            int len = arr.Length;
+            IntPtr arrPtr;
+            fixed(byte* v = &arr[0])
+            { 
+                arrPtr = (IntPtr)v;
+            
+                Marshal.PtrToStructure(arrPtr, casu);
+            }
+            return casu;
+        }
+        public unsafe void LoadFromStruct (TChameleonCompositeAllStructsUnion tcch)
+        {
+            Status = tcch.HighGainHeader.Status;
+            ManufCode = tcch.HighGainHeader.ManufCode;
+            DeviceID = tcch.HighGainHeader.DeviceID;
+            ModelID = tcch.HighGainHeader.ModelID;
+            Control = new ChameleonControl(tcch.HighGainHeader.Control);
+            Mixer = new ChameleonMixer(tcch.HighGainHeader.Mixer);
+
+            Hush = new ChameleonHush(tcch.HighGainHeader.Hush);
+            PreEQ = new ChameleonPreEQ(tcch.HighGainHeader.PreEQ);
+            PostEQ = new ChameleonPostEQ(tcch.HighGainHeader.PostEQ);
+            SpeakerSim = new ChameleonSpeakerSim(tcch.HighGainHeader.SpeakerSim);
+            IntPtr ptrToTCStruct = (IntPtr)(&tcch);
+
+            TChameleonCompositeAllStructsUnion* asu = (TChameleonCompositeAllStructsUnion*)&tcch;
+            byte[] bytes = StructureToByteArray(asu);
+
+            //calc and apply checksum
+            byte xorRunValue = 0;
+            for (int i = 6; i < 250; i++)
+                xorRunValue = (byte)(xorRunValue ^ bytes[i]);  //XOR
+
+            bytes[250] = xorRunValue;
+
+            if (tcch.HighGainHeader.Control.ConfigMode > 5)  //low gain, compressor allowed
+            {
+                GainLow = new ChameleonGainLow(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->GainLow);
+                Compressor = new ChameleonCompressor(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Compressor);
+            }
+            else
+            {
+                GainHigh = new ChameleonGainHigh(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->GainLow);
+            }
+
+            int size = Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
+
+            size = Marshal.SizeOf(typeof(TChameleonCompositeTailend));
+
+            IntPtr ptrtoDelay = (IntPtr)(&tcch);
+
+            if (ChamObjectHelpers.IsChorus(tcch.HighGainHeader.Control.ConfigMode))
+            {
+                if (tcch.HighGainHeader.Control.ConfigMode > 5)
+                {
+                    long startDelay = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
+                    long startReverb = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Reverb) - (long)ptrToTCStruct;
+                    TChameleonCompositeLowGainChorus* tclgc;
+                    tclgc = (TChameleonCompositeLowGainChorus*)&tcch;
+                    ChamObjectHelpers.DumpStructChorus(*tclgc);
+                    ChamObjectHelpers.DumpAddresses(*tclgc);
+                    Chorus = new ChameleonChorus(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Chorus);
+                    Delay = new ChameleonDelay(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Reverb);
+                }
+                else
+                {
+                    long startDelay = (long)(IntPtr)(&((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
+                    long startReverb = (long)(IntPtr)(&((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Reverb) - (long)ptrToTCStruct;
+                    TChameleonCompositeHighGainChorus* tclgc;
+                    tclgc = (TChameleonCompositeHighGainChorus*)&tcch;
+                    ChamObjectHelpers.DumpStructChorusHigh(*tclgc);
+                    ChamObjectHelpers.DumpAddressesHigh(*tclgc);
+                    Chorus = new ChameleonChorus(((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Chorus);
+                    Delay = new ChameleonDelay(((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeHighGainChorus*)ptrToTCStruct)->Reverb);
+                }
+            }
+            if (ChamObjectHelpers.IsFlanger(tcch.HighGainHeader.Control.ConfigMode))
+            {
+                if (tcch.HighGainHeader.Control.ConfigMode > 5)
+                {
+                    ChamObjectHelpers.DumpStructFlanger(*(TChameleonCompositeLowGainFlanger*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainFlanger*)ptrToTCStruct);
+                    Flanger = new ChameleonFlanger(((TChameleonCompositeLowGainFlanger*)ptrToTCStruct)->Flanger);
+                    Delay = new ChameleonDelay(((TChameleonCompositeLowGainFlanger*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeLowGainFlanger*)ptrToTCStruct)->Reverb);
+                }
+                else
+                {
+                    ChamObjectHelpers.DumpStructFlangerHigh(*(TChameleonCompositeHighGainFlanger*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainFlanger*)ptrToTCStruct);
+                    Flanger = new ChameleonFlanger(((TChameleonCompositeHighGainFlanger*)ptrToTCStruct)->Flanger);
+                    Delay = new ChameleonDelay(((TChameleonCompositeHighGainFlanger*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeHighGainFlanger*)ptrToTCStruct)->Reverb);
+                }
+            }
+
+            if (ChamObjectHelpers.IsTremolo(tcch.HighGainHeader.Control.ConfigMode))
+            {
+                if (tcch.HighGainHeader.Control.ConfigMode > 5)
+                {
+                    ChamObjectHelpers.DumpStructTremolo(*(TChameleonCompositeLowGainTremolo*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainTremolo*)ptrToTCStruct);
+                    Tremolo = new ChameleonTremolo(((TChameleonCompositeLowGainTremolo*)ptrToTCStruct)->Tremolo);
+                    Delay = new ChameleonDelay(((TChameleonCompositeLowGainTremolo*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeLowGainTremolo*)ptrToTCStruct)->Reverb);
+                }
+                else
+                {
+                    ChamObjectHelpers.DumpStructTremoloHigh(*(TChameleonCompositeHighGainTremolo*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainTremolo*)ptrToTCStruct);
+                    Tremolo = new ChameleonTremolo(((TChameleonCompositeHighGainTremolo*)ptrToTCStruct)->Tremolo);
+                    Delay = new ChameleonDelay(((TChameleonCompositeHighGainTremolo*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeHighGainTremolo*)ptrToTCStruct)->Reverb);
+                }
+            }
+            if (ChamObjectHelpers.IsPitchShift(tcch.HighGainHeader.Control.ConfigMode))
+            {
+                if (tcch.HighGainHeader.Control.ConfigMode > 5)
+                {
+                    ChamObjectHelpers.DumpStructPitchShift(*(TChameleonCompositeLowGainPitchShift*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainPitchShift*)ptrToTCStruct);
+                    PitchShift = new ChameleonPitchShift(((TChameleonCompositeLowGainPitchShift*)ptrToTCStruct)->PitchShift);
+                    Delay = new ChameleonDelay(((TChameleonCompositeLowGainPitchShift*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeLowGainPitchShift*)ptrToTCStruct)->Reverb);
+                }
+                else
+                {
+                    ChamObjectHelpers.DumpStructPitchShiftHigh(*(TChameleonCompositeHighGainPitchShift*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainPitchShift*)ptrToTCStruct);
+                    PitchShift = new ChameleonPitchShift(((TChameleonCompositeHighGainPitchShift*)ptrToTCStruct)->PitchShift);
+                    Delay = new ChameleonDelay(((TChameleonCompositeHighGainPitchShift*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeHighGainPitchShift*)ptrToTCStruct)->Reverb);
+                }
+            }
+            if (ChamObjectHelpers.IsWah(tcch.HighGainHeader.Control.ConfigMode))
+            {
+                if (tcch.HighGainHeader.Control.ConfigMode > 5)
+                {
+                    ChamObjectHelpers.DumpStructWah(*(TChameleonCompositeLowGainWah*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainWah*)ptrToTCStruct);
+                    Wah = new ChameleonWah(((TChameleonCompositeLowGainWah*)ptrToTCStruct)->Wah);
+                    Delay = new ChameleonDelay(((TChameleonCompositeLowGainWah*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeLowGainWah*)ptrToTCStruct)->Reverb);
+                }
+                else
+                {
+                    ChamObjectHelpers.DumpStructWahHigh(*(TChameleonCompositeHighGainWah*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainWah*)ptrToTCStruct);
+                    Wah = new ChameleonWah(((TChameleonCompositeHighGainWah*)ptrToTCStruct)->Wah);
+                    Delay = new ChameleonDelay(((TChameleonCompositeHighGainWah*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeHighGainWah*)ptrToTCStruct)->Reverb);
+                }
+            }
+            if (ChamObjectHelpers.IsPhaser(tcch.HighGainHeader.Control.ConfigMode))
+            {
+                if (tcch.HighGainHeader.Control.ConfigMode > 5)
+                {
+                    ChamObjectHelpers.DumpStructPhaser(*(TChameleonCompositeLowGainPhaser*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddresses(*(TChameleonCompositeLowGainPhaser*)ptrToTCStruct);
+                    Phaser = new ChameleonPhaser(((TChameleonCompositeLowGainPhaser*)ptrToTCStruct)->Phaser);
+                    Delay = new ChameleonDelay(((TChameleonCompositeLowGainPhaser*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeLowGainPhaser*)ptrToTCStruct)->Reverb);
+                }
+                else
+                {
+                    ChamObjectHelpers.DumpStructPhaserHigh(*(TChameleonCompositeHighGainPhaser*)ptrToTCStruct);
+                    ChamObjectHelpers.DumpAddressesHigh(*(TChameleonCompositeHighGainPhaser*)ptrToTCStruct);
+                    Phaser = new ChameleonPhaser(((TChameleonCompositeHighGainPhaser*)ptrToTCStruct)->Phaser);
+                    Delay = new ChameleonDelay(((TChameleonCompositeHighGainPhaser*)ptrToTCStruct)->Delay);
+                    Reverb = new ChameleonReverb(((TChameleonCompositeHighGainPhaser*)ptrToTCStruct)->Reverb);
+                }
+            }
+
+            IntPtr ptrToTailEndStruct = (IntPtr)(&tcch);
+            TChameleonCompositeTailend* tailend = (TChameleonCompositeTailend*)ptrToTailEndStruct;
+            long startTitle = (long)(IntPtr)(&((TChameleonCompositeTailend*)ptrToTCStruct)->Title) - (long)ptrToTCStruct;
+            //long startReverb = (long)(IntPtr)(&((TChameleonCompositeLowGainChorus*)ptrToTCStruct)->Delay) - (long)ptrToTCStruct;
+
+            Title = ChamObjectHelpers.ConvertToString(tailend->Title, Constants.TITLE_LEN_BYTE);
+
+            ControllerAssignment = new ChameleonControllerAssignment[Constants.MAX_CONTROLLER_COUNT];
+            ControllerAssignment[0] = new ChameleonControllerAssignment(tailend->ControllerAssignment1);
+            ControllerAssignment[1] = new ChameleonControllerAssignment(tailend->ControllerAssignment2);
+            ControllerAssignment[2] = new ChameleonControllerAssignment(tailend->ControllerAssignment3);
+            ControllerAssignment[3] = new ChameleonControllerAssignment(tailend->ControllerAssignment4);
+            ControllerAssignment[4] = new ChameleonControllerAssignment(tailend->ControllerAssignment5);
+            ControllerAssignment[5] = new ChameleonControllerAssignment(tailend->ControllerAssignment6);
+            ControllerAssignment[6] = new ChameleonControllerAssignment(tailend->ControllerAssignment7);
+            ControllerAssignment[7] = new ChameleonControllerAssignment(tailend->ControllerAssignment8);
+
+            TapDelay = new ChameleonTapDelay(tailend->TapDelay);
+
+            CheckSum = tailend->CheckSum;
         }
     }
 }
