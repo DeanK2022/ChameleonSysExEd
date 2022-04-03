@@ -278,8 +278,10 @@ namespace ChameleonSysExEd
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exportToMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mIDISettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -297,8 +299,6 @@ namespace ChameleonSysExEd
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
             this.btnRecordSysEx = new System.Windows.Forms.Button();
             this.tbRecordStatus = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -4928,6 +4928,11 @@ namespace ChameleonSysExEd
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // exportToMIDIToolStripMenuItem
             // 
             this.exportToMIDIToolStripMenuItem.Name = "exportToMIDIToolStripMenuItem";
@@ -4941,6 +4946,11 @@ namespace ChameleonSysExEd
             this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importFromMIDIToolStripMenuItem.Text = "&Import from MIDI";
             this.importFromMIDIToolStripMenuItem.Click += new System.EventHandler(this.importFromMIDIToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -4959,7 +4969,7 @@ namespace ChameleonSysExEd
             // mIDISettingsToolStripMenuItem
             // 
             this.mIDISettingsToolStripMenuItem.Name = "mIDISettingsToolStripMenuItem";
-            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mIDISettingsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.mIDISettingsToolStripMenuItem.Text = "MIDI Settings";
             this.mIDISettingsToolStripMenuItem.Click += new System.EventHandler(this.mIDISettingsToolStripMenuItem_Click);
             // 
@@ -5077,6 +5087,7 @@ namespace ChameleonSysExEd
             0,
             0,
             0});
+            this.nudCurPreset.ValueChanged += new System.EventHandler(this.nudCurPreset_ValueChanged);
             // 
             // openFileDialogSysEx
             // 
@@ -5105,16 +5116,6 @@ namespace ChameleonSysExEd
             this.tbRecordStatus.Name = "tbRecordStatus";
             this.tbRecordStatus.Size = new System.Drawing.Size(175, 20);
             this.tbRecordStatus.TabIndex = 12;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // MainForm
             // 

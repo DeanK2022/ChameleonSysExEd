@@ -58,16 +58,9 @@ namespace ChameleonSysExEd
                 }
 
             }
-
-
         }
-
-
     }
     //--------------------------
-
-
-
     public class ChameleonControl //@4-7 
     {
         public byte Code1;         //0x06        
@@ -974,14 +967,6 @@ namespace ChameleonSysExEd
 
         public string Title;               //@156-181
         public ChameleonControllerAssignment[] ControllerAssignment;
-        //public ChameleonControllerAssignment ControllerAssignment1;  //64 Bytes @182-245
-        //public ChameleonControllerAssignment ControllerAssignment2;
-        //public ChameleonControllerAssignment ControllerAssignment3;
-        //public ChameleonControllerAssignment ControllerAssignment4;
-        //public ChameleonControllerAssignment ControllerAssignment5;
-        //public ChameleonControllerAssignment ControllerAssignment6;
-        //public ChameleonControllerAssignment ControllerAssignment7;
-        //public ChameleonControllerAssignment ControllerAssignment8;
         public ChameleonTapDelay TapDelay;        //@246 - 249
 
         public byte CheckSum;             //@250 checksum (bytes 7-456 XOR)
@@ -1020,13 +1005,6 @@ namespace ChameleonSysExEd
             for (int idx =0; idx < Constants.MAX_CONTROLLER_COUNT;idx++)
                 ControllerAssignment[idx] = new ChameleonControllerAssignment();
 
-            //ControllerAssignment2 = new ChameleonControllerAssignment();
-            //ControllerAssignment3 = new ChameleonControllerAssignment();
-            //ControllerAssignment4 = new ChameleonControllerAssignment();
-            //ControllerAssignment5 = new ChameleonControllerAssignment();
-            //ControllerAssignment6 = new ChameleonControllerAssignment();
-            //ControllerAssignment7 = new ChameleonControllerAssignment();
-            //ControllerAssignment8 = new ChameleonControllerAssignment();
             TapDelay = new ChameleonTapDelay();
             Eox = 0xf7;
         }
@@ -1060,7 +1038,7 @@ namespace ChameleonSysExEd
             handle.Free();//Give control of the buffer back to the GC 
             return loadedFile;
         }
-        public bool LoadFromFile(string fileName, List<ChameleonSysExComplete> sysExList, int sysExStart)
+        public bool LoadFromFile(string fileName, List<ChameleonSysExComplete> sysExList, ref int sysExStart)
         {
             Console.WriteLine("From File Load " + fileName);
             unsafe
@@ -1074,26 +1052,18 @@ namespace ChameleonSysExEd
 
                 for (int sysExIdx = 0; sysExIdx < sysExCnt; sysExIdx++)
                 {
-                    //TChameleonCompositeHeaderHighGain tcch = FromFileStream(fs);
                     TChameleonCompositeAllStructsUnion casu = FromFileStream(fs);
 
-                    //int sizeTChameleonCompositeHeaderHG = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderHighGain));
-                    //int sizeTChameleonCompositeHeaderLG = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeHeaderLowGain));
-                    //int sizeTChameleonCompositeLowGainChorus = System.Runtime.InteropServices.Marshal.SizeOf(typeof(TChameleonCompositeLowGainChorus));
-
                     LoadFromStruct(casu);
-
-                    sysExList.Insert(sysExStart+sysExIdx, this);
+                    sysExStart++;
+                    sysExList.Add(this);
                     
                 }
                 fs.Close();
             }
             return true;
 
-
         }
-
-
 
         unsafe public byte[] StructureToByteArray(TChameleonCompositeAllStructsUnion* obj)
         {
@@ -1257,6 +1227,11 @@ namespace ChameleonSysExEd
                 bytes[250] = (byte)xorRunValue;
                 return bytes;
             }
+        }
+        public unsafe void FromByteArr(byte[] arr)
+        {
+            TChameleonCompositeAllStructsUnion casu = ByteArrToStruct(arr);
+            LoadFromStruct(casu);
         }
         public unsafe TChameleonCompositeAllStructsUnion ByteArrToStruct(byte[] arr)
         {

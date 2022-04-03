@@ -68,13 +68,10 @@ namespace ChameleonSysExEd
             if (openFileDialogSysEx.ShowDialog() == DialogResult.OK)
             {
                 toolStripStatusFileName.Text = openFileDialogSysEx.FileName;
-                //FileStream fs = new FileStream(openFileDialogSysEx.FileName, FileMode.Open);
 
-                //TChameleonCompositeObj = ChamObjectHelpers.FromFileStream(fs);
-
-                //fs.Close();
-
-                sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExList, (int)nudCurPreset.Value);
+                int index = (int)nudCurPreset.Value -1;
+                sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExList, ref index);
+                nudCurPreset.Value = index;
                 LoadFormFromComposite(sysEx);
                // LoadFormFromComposite(TChameleonCompositeObj);
                // ChamObjectHelpers.DumpAddresses(TChameleonCompositeObj);
@@ -308,9 +305,6 @@ namespace ChameleonSysExEd
                 nudControllerAssignmentLowerLimit.Value = sysEx.ControllerAssignment[controllerIdx].LowerLimit;
                 nudControllerAssignmentUpperLimit.Value = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
             }
-
-
-
         }
         private ChameleonSysExComplete UIToChameleonSysExComplete ()
         {
@@ -726,7 +720,6 @@ namespace ChameleonSysExEd
                         item.Enabled = (OutputDevice.DeviceCount > 0);
                 }
             }
-            
         }
 
         private void importFromMIDIToolStripMenuItem_Click(object sender, EventArgs e)
@@ -735,12 +728,18 @@ namespace ChameleonSysExEd
             importMIDIForm.sysExList = sysExList;
             importMIDIForm.sysExStart = (int)nudCurPreset.Value - 1;
             importMIDIForm.ShowDialog();
+            nudCurPreset.Value = importMIDIForm.sysExStart;
         }
 
         private void exportToMIDIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExportMIDIForm exportMIDIForm = new ExportMIDIForm();
             exportMIDIForm.ShowDialog();
+        }
+
+        private void nudCurPreset_ValueChanged(object sender, EventArgs e)
+        {
+            TBD  -  Force error here so it gets added
         }
     }
  }
