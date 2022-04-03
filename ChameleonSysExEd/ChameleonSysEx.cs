@@ -1060,7 +1060,7 @@ namespace ChameleonSysExEd
             handle.Free();//Give control of the buffer back to the GC 
             return loadedFile;
         }
-        public bool LoadFromFile(string fileName, ChameleonSysExComplete[] sysExArr)
+        public bool LoadFromFile(string fileName, List<ChameleonSysExComplete> sysExList, int sysExStart)
         {
             Console.WriteLine("From File Load " + fileName);
             unsafe
@@ -1083,7 +1083,7 @@ namespace ChameleonSysExEd
 
                     LoadFromStruct(casu);
 
-                    sysExArr[sysExIdx] = this;
+                    sysExList.Insert(sysExStart+sysExIdx, this);
                     
                 }
                 fs.Close();

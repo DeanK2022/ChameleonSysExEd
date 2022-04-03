@@ -15,6 +15,8 @@ namespace ChameleonSysExEd
     {
         public int midiOptionInDeviceID = -1;
         private List<InputDevice> recordingInputDevices = null;
+        public List<ChameleonSysExComplete> sysExList;
+        public int sysExStart;
         public ImportMIDIForm()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace ChameleonSysExEd
                 recordingInputDevices = new List<InputDevice>();
                 inputDevice.StartRecording();
                 recordingInputDevices.Add(inputDevice);
-
+        
             }
             catch (InputDeviceException ex)
             {
@@ -47,12 +49,9 @@ namespace ChameleonSysExEd
         }
         private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
-            //DialogHost.CloseDialogCommand.Execute(null, null);
-
-            // get our recorded message
+            
             var message = e.Message;
-
-            // save our recoreded sysex message to disk in a new file and add it to the library
+                        
             try
             {
                 lbStatus.Text = "Got SysEx " + e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
@@ -63,6 +62,9 @@ namespace ChameleonSysExEd
                 }
 
                 recordingInputDevices = null;
+                ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
+                sysEx.ByteArrToStruct(message.GetBytes());
+                sysExList.Insert(sysExStart++, sysEx);
             }
             catch (Exception ex)
             {

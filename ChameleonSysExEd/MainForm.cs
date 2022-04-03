@@ -18,7 +18,7 @@ namespace ChameleonSysExEd
     public partial class MainForm : Form
     {
         public ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
-        public ChameleonSysExComplete[] sysExArr = new ChameleonSysExComplete[] { };
+        public List<ChameleonSysExComplete> sysExList = new List<ChameleonSysExComplete> ();
         private List<InputDevice> recordingInputDevices = null;
         private FormDirtyTracker _dirtyTracker;
         private readonly Dictionary<string, ParamSetItemBase> ControllerParamLookup = new Dictionary<string, ParamSetItemBase>();
@@ -35,20 +35,30 @@ namespace ChameleonSysExEd
             if (InputDevice.DeviceCount == 0)
             {
                 tbRecordStatus.Text = "You need at least one MIDI input device connected to record.";
-                //foreach (ToolStripMenuItem item in fileToolStripMenuItem.DropDownItems)
-                //{
-                //    if (item.Text.Contains("Import"))
-                //        item.Enabled = false;
-                //}
+                foreach (var itm in fileToolStripMenuItem.DropDownItems)
+                {
+                    ToolStripMenuItem item;
+                    if (itm is ToolStripMenuItem)
+                    {
+                        item = (ToolStripMenuItem)itm;
+                        if (item.Text.Contains("Import"))
+                            item.Enabled = false;
+                    }
+                }
             }
             if (OutputDevice.DeviceCount == 0)
             {
                 tbRecordStatus.Text = "You need at least one MIDI output device connected to upload.";
-                //foreach (ToolStripMenuItem item in fileToolStripMenuItem.DropDownItems)
-                //{
-                //    if (item.Text.Contains("Export"))
-                //        item.Enabled = false;
-                //}
+                foreach (var itm in fileToolStripMenuItem.DropDownItems)
+                {
+                    ToolStripMenuItem item;
+                    if (itm is ToolStripMenuItem)
+                    {
+                        item = (ToolStripMenuItem)itm;
+                        if (item.Text.Contains("Export"))
+                            item.Enabled = false;
+                    }
+                }
             }
         }
 
@@ -64,7 +74,7 @@ namespace ChameleonSysExEd
 
                 //fs.Close();
 
-                sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExArr);
+                sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExList, (int)nudCurPreset.Value);
                 LoadFormFromComposite(sysEx);
                // LoadFormFromComposite(TChameleonCompositeObj);
                // ChamObjectHelpers.DumpAddresses(TChameleonCompositeObj);
@@ -605,12 +615,8 @@ namespace ChameleonSysExEd
         }
         private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
-            //DialogHost.CloseDialogCommand.Execute(null, null);
-
-            // get our recorded message
             var message = e.Message;
-
-            // save our recoreded sysex message to disk in a new file and add it to the library
+     
             try
             {
                 tbRecordStatus.Text = "Got SysEx " + e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
@@ -698,11 +704,36 @@ namespace ChameleonSysExEd
                 midiOptionOutDeviceID = midiOptionForm.GetMidiOutDeviceID();
                 midiOptionOutDelay = midiOptionForm.GetMidiOutDelay();
             }
+              
+            foreach (var itm in fileToolStripMenuItem.DropDownItems)
+            {
+                ToolStripMenuItem item;
+                if (itm is ToolStripMenuItem)
+                {
+                    item = (ToolStripMenuItem)itm;
+                    if (item.Text.Contains("Import"))
+                        item.Enabled = (InputDevice.DeviceCount > 0);
+                }
+            }
+
+            foreach (var itm in fileToolStripMenuItem.DropDownItems)
+            {
+                ToolStripMenuItem item;
+                if (itm is ToolStripMenuItem)
+                {
+                    item = (ToolStripMenuItem)itm;
+                    if (item.Text.Contains("Export"))
+                        item.Enabled = (OutputDevice.DeviceCount > 0);
+                }
+            }
+            
         }
 
         private void importFromMIDIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ImportMIDIForm importMIDIForm = new ImportMIDIForm();
+            importMIDIForm.sysExList = sysExList;
+            importMIDIForm.sysExStart = (int)nudCurPreset.Value - 1;
             importMIDIForm.ShowDialog();
         }
 
