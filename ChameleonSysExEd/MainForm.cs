@@ -35,14 +35,20 @@ namespace ChameleonSysExEd
             if (InputDevice.DeviceCount == 0)
             {
                 tbRecordStatus.Text = "You need at least one MIDI input device connected to record.";
-                foreach (var item in fileToolStripMenuItem.DropDownItems.Find("Import", false))
-                    item.Enabled = false;
+                //foreach (ToolStripMenuItem item in fileToolStripMenuItem.DropDownItems)
+                //{
+                //    if (item.Text.Contains("Import"))
+                //        item.Enabled = false;
+                //}
             }
             if (OutputDevice.DeviceCount == 0)
             {
-                tbRecordStatus.Text = "You need at least one MIDI output device connected to record.";
-                foreach (var item in fileToolStripMenuItem.DropDownItems.Find("Export", false))
-                    item.Enabled = false;
+                tbRecordStatus.Text = "You need at least one MIDI output device connected to upload.";
+                //foreach (ToolStripMenuItem item in fileToolStripMenuItem.DropDownItems)
+                //{
+                //    if (item.Text.Contains("Export"))
+                //        item.Enabled = false;
+                //}
             }
         }
 
