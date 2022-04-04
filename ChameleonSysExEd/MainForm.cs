@@ -34,7 +34,6 @@ namespace ChameleonSysExEd
             ParamSetHelpers.LoadParamSetItems(ControllerParamLookup);
             if (InputDevice.DeviceCount == 0)
             {
-                tbRecordStatus.Text = "You need at least one MIDI input device connected to record.";
                 foreach (var itm in fileToolStripMenuItem.DropDownItems)
                 {
                     ToolStripMenuItem item;
@@ -51,7 +50,6 @@ namespace ChameleonSysExEd
 
             if (OutputDevice.DeviceCount == 0)
             {
-                tbRecordStatus.Text = "You need at least one MIDI output device connected to upload.";
                 foreach (var itm in fileToolStripMenuItem.DropDownItems)
                 {
                     ToolStripMenuItem item;
@@ -72,7 +70,7 @@ namespace ChameleonSysExEd
             {
                 toolStripStatusFileName.Text = openFileDialogSysEx.FileName;
 
-                int index = (int)nudCurPreset.Value -1;
+                int index = (int)nudCurPreset.Value;
                 sysEx.LoadFromFile(openFileDialogSysEx.FileName, sysExList, ref index);
                 nudCurPreset.Value = index;
                 LoadFormFromComposite(sysEx);
@@ -148,7 +146,7 @@ namespace ChameleonSysExEd
                 cbTapDelay1Multiplier.SelectedIndex = mySysEx.TapDelay.TapDelayD2Multiplyer;
 
                 cbControllerAssignment.SelectedIndex = 1;
-                SetControllerAssignmentFromClass(1);
+                SetControllerAssignmentFromClass(0);
                 //cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
                 //cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
                 //cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
@@ -283,7 +281,7 @@ namespace ChameleonSysExEd
         private void SetControllerAssignmentFromClass(int controllerIdx)
         {
             cbControllerAssignment.SelectedIndex = controllerIdx ;
-            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param;
+            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param ;
             cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Number;
 
             if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemChoices)
@@ -293,7 +291,7 @@ namespace ChameleonSysExEd
                 cbControllerAssignmentLowerLimit.Items.AddRange(psic.lowerLimitValues);
                 cbControllerAssignmentUpperLimit.Items.Clear();
                 cbControllerAssignmentUpperLimit.Items.AddRange(psic.upperLimitValues);
-                cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit;
+                cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit add parammodifier here;
                 cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
             }
 
@@ -610,88 +608,7 @@ namespace ChameleonSysExEd
                     cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGWahParams());
             }
         }
-        private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
-        {
-            var message = e.Message;
-     
-            try
-            {
-                tbRecordStatus.Text = "Got SysEx " + e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
-                sysEx.ByteArrToStruct(e.Message.GetBytes());
-                foreach (var inputDevice in recordingInputDevices)
-                {
-                    inputDevice.StopRecording();
-                    inputDevice.Dispose();
-                }
-
-                recordingInputDevices = null;
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine( "An error occurred when receiving a sysex message " + ex);
-            }
-        }
-        private void InputDevice_MessageReceived(object sender, SysExMessageEventArgs e)
-        {
-            //DialogHost.CloseDialogCommand.Execute(null, null);
-
-            // get our recorded message
-            var message = e.Message;
-
-            // save our recoreded sysex message to disk in a new file and add it to the library
-            try
-            {
-                var sysExLibrarianFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}";
-                var filePath = $"{sysExLibrarianFolder}\\NewFile_{DateTime.Now.ToString("yyyy_dd_M_HH_mm_ss")}.syx";
-                File.WriteAllBytes(filePath, message.GetBytes());
-                // stop recording on all devices and dispose of the resources
-                foreach (var inputDevice in recordingInputDevices)
-                {
-                    inputDevice.StopRecording();
-                    inputDevice.Dispose();
-                }
-
-                recordingInputDevices = null;
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine("An error occurred when receiving a sysex message " + ex);
-            }
-        }
-
-        private void btnRecordSysEx_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (InputDevice.DeviceCount == 0)
-                {
-                    tbRecordStatus.Text = "You need at least one MIDI input device connected to record.";
-         
-                    return;
-                }
-
-                var inputDevice = new InputDevice(midiOptionInDeviceID,true, false);
-                var capabilities = InputDevice.GetDeviceCapabilities(midiOptionInDeviceID);
-                tbRecordStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
-
-                inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
-                //inputDevice.MessageReceived += InputDevice_MessageReceived1;
-                recordingInputDevices = new List<InputDevice>();
-                inputDevice.StartRecording();
-                recordingInputDevices.Add(inputDevice);
-
-            }
-            catch (InputDeviceException ex)
-            {
-                tbRecordStatus.Text = "An error occurred when recording" + e.ToString();
-            }
-        }
-
-        private void InputDevice_MessageReceived1(IMidiMessage message)
-        {
-           
-        }
-
+       
         private void mIDISettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MidiOptionForm midiOptionForm = new MidiOptionForm();

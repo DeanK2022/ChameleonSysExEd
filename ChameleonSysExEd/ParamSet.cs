@@ -16,15 +16,21 @@ namespace ChameleonSysExEd
 
         public int limitMin;
         public int limitMax;
+        public int limitMinMod;
+        public int limitMaxMod;
 
         public ParamSetItemNumeric(string paramName,
             int limitMin,
-            int limitMax)
+            int limitMax,
+            int limitMinMod=0,
+            int limitMaxMod=0)
         {
 
             this.paramName = paramName;
             this.limitMin = limitMin;
             this.limitMax = limitMax;
+            this.limitMinMod = limitMinMod;
+            this.limitMaxMod = limitMaxMod;
 
         }
     }
@@ -56,7 +62,7 @@ namespace ChameleonSysExEd
             kvpParams["RIGHT OUT LVL"] = new ParamSetItemNumeric("RIGHT OUT LVL", -57, 6);
             kvpParams["MIX DIR"] = new ParamSetItemNumeric("MIX DIR", 0, 100);
             kvpParams["DIRECT PAN"] = new ParamSetItemNumeric("DIRECT PAN", 0, 100);
-            kvpParams["DELAY LVL"] = new ParamSetItemNumeric("DELAY LVL", -63, 0);
+            kvpParams["DELAY LVL"] = new ParamSetItemNumeric("DELAY LVL", -63, 0,-63,-63);
             kvpParams["REVERB LVL"] = new ParamSetItemNumeric("REVERB LVL", -63, 0);
             kvpParams["GAIN"] = new ParamSetItemNumeric("GAIN", 12, 78);
             kvpParams["DIST TYPE"] = new ParamSetItemChoices("DIST TYPE", new string[] { "Solid State", "Pentode", "Triode A", "Triode B" }, null);

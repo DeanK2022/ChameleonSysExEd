@@ -297,8 +297,6 @@ namespace ChameleonSysExEd
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
-            this.btnRecordSysEx = new System.Windows.Forms.Button();
-            this.tbRecordStatus = new System.Windows.Forms.TextBox();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -4950,52 +4948,52 @@ namespace ChameleonSysExEd
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
             // 
             // exportToMIDIToolStripMenuItem
             // 
             this.exportToMIDIToolStripMenuItem.Name = "exportToMIDIToolStripMenuItem";
-            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.exportToMIDIToolStripMenuItem.Text = "&Export to MIDI";
             this.exportToMIDIToolStripMenuItem.Click += new System.EventHandler(this.exportToMIDIToolStripMenuItem_Click);
             // 
             // importFromMIDIToolStripMenuItem
             // 
             this.importFromMIDIToolStripMenuItem.Name = "importFromMIDIToolStripMenuItem";
-            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.importFromMIDIToolStripMenuItem.Text = "&Import from MIDI";
             this.importFromMIDIToolStripMenuItem.Click += new System.EventHandler(this.importFromMIDIToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // optionsToolStripMenuItem
@@ -5114,19 +5112,9 @@ namespace ChameleonSysExEd
             0,
             0,
             0});
-            this.nudCurPreset.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.nudCurPreset.Name = "nudCurPreset";
             this.nudCurPreset.Size = new System.Drawing.Size(41, 20);
             this.nudCurPreset.TabIndex = 9;
-            this.nudCurPreset.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.nudCurPreset.ValueChanged += new System.EventHandler(this.nudCurPreset_ValueChanged);
             // 
             // openFileDialogSysEx
@@ -5139,31 +5127,11 @@ namespace ChameleonSysExEd
             this.saveFileDdlg.DefaultExt = "*.syx";
             this.saveFileDdlg.InitialDirectory = ".\\";
             // 
-            // btnRecordSysEx
-            // 
-            this.btnRecordSysEx.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.btnRecordSysEx.Location = new System.Drawing.Point(201, 417);
-            this.btnRecordSysEx.Name = "btnRecordSysEx";
-            this.btnRecordSysEx.Size = new System.Drawing.Size(104, 28);
-            this.btnRecordSysEx.TabIndex = 11;
-            this.btnRecordSysEx.Text = "&Capture SysEx";
-            this.btnRecordSysEx.UseVisualStyleBackColor = true;
-            this.btnRecordSysEx.Click += new System.EventHandler(this.btnRecordSysEx_Click);
-            // 
-            // tbRecordStatus
-            // 
-            this.tbRecordStatus.Location = new System.Drawing.Point(406, 424);
-            this.tbRecordStatus.Name = "tbRecordStatus";
-            this.tbRecordStatus.Size = new System.Drawing.Size(175, 20);
-            this.tbRecordStatus.TabIndex = 12;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 475);
-            this.Controls.Add(this.tbRecordStatus);
-            this.Controls.Add(this.btnRecordSysEx);
             this.Controls.Add(this.label67);
             this.Controls.Add(this.nudCurPreset);
             this.Controls.Add(this.button1);
@@ -5557,8 +5525,6 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.SaveFileDialog saveFileDdlg;
         private System.Windows.Forms.NumericUpDown nudControllerAssignmentLowerLimit;
         private System.Windows.Forms.NumericUpDown nudControllerAssignmentUpperLimit;
-        private System.Windows.Forms.Button btnRecordSysEx;
-        private System.Windows.Forms.TextBox tbRecordStatus;
         private System.Windows.Forms.ToolStripMenuItem exportToMIDIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importFromMIDIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
