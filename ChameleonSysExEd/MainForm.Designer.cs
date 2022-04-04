@@ -636,6 +636,16 @@ namespace ChameleonSysExEd
             // nudGainTrebleLevel
             // 
             this.nudGainTrebleLevel.Location = new System.Drawing.Point(412, 54);
+            this.nudGainTrebleLevel.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudGainTrebleLevel.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.nudGainTrebleLevel.Name = "nudGainTrebleLevel";
             this.nudGainTrebleLevel.Size = new System.Drawing.Size(74, 20);
             this.nudGainTrebleLevel.TabIndex = 11;
@@ -652,6 +662,16 @@ namespace ChameleonSysExEd
             // nudGainMidLevel
             // 
             this.nudGainMidLevel.Location = new System.Drawing.Point(244, 57);
+            this.nudGainMidLevel.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudGainMidLevel.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.nudGainMidLevel.Name = "nudGainMidLevel";
             this.nudGainMidLevel.Size = new System.Drawing.Size(74, 20);
             this.nudGainMidLevel.TabIndex = 9;
@@ -668,6 +688,16 @@ namespace ChameleonSysExEd
             // nudGainBassLevel
             // 
             this.nudGainBassLevel.Location = new System.Drawing.Point(78, 56);
+            this.nudGainBassLevel.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudGainBassLevel.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.nudGainBassLevel.Name = "nudGainBassLevel";
             this.nudGainBassLevel.Size = new System.Drawing.Size(75, 20);
             this.nudGainBassLevel.TabIndex = 7;
@@ -2052,6 +2082,16 @@ namespace ChameleonSysExEd
             // nudSpkSimReactance
             // 
             this.nudSpkSimReactance.Location = new System.Drawing.Point(574, 21);
+            this.nudSpkSimReactance.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudSpkSimReactance.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.nudSpkSimReactance.Name = "nudSpkSimReactance";
             this.nudSpkSimReactance.Size = new System.Drawing.Size(59, 20);
             this.nudSpkSimReactance.TabIndex = 13;

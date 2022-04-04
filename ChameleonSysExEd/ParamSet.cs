@@ -213,7 +213,7 @@ namespace ChameleonSysExEd
         }
 
 
-        static public string[] GetHGFlangeParams()
+        static public string[] GetHGFlangerParams()
         {
             return new string[] {
                 "OUTPUT",
@@ -607,7 +607,7 @@ namespace ChameleonSysExEd
                 "REV DECAY" };
         }
 
-        static public string[] GetLGFlangeParams()
+        static public string[] GetLGFlangerParams()
         {
             return new string[] {
                 "OUTPUT",
@@ -1355,7 +1355,7 @@ namespace ChameleonSysExEd
                     Console.WriteLine(item + "GetHGChorusParams Missing param def for " + item);
                 
             }
-            foreach (var item in GetHGFlangeParams())
+            foreach (var item in GetHGFlangerParams())
             {
                 if (!ControllerParamLookup.ContainsKey(item))
                     Console.WriteLine(item + "GetHGFlangeParams Missing param def for " + item);
@@ -1392,7 +1392,7 @@ namespace ChameleonSysExEd
                     Console.WriteLine(item + "GetLGChorusParams Missing param def for " + item);
 
             }
-            foreach (var item in GetLGFlangeParams())
+            foreach (var item in GetLGFlangerParams())
             {
                 if (!ControllerParamLookup.ContainsKey(item))
                     Console.WriteLine(item + "GetLGFlangeParams Missing param def for " + item);

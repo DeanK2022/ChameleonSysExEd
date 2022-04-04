@@ -46,6 +46,9 @@ namespace ChameleonSysExEd
                     }
                 }
             }
+            else
+                midiOptionInDeviceID = 0;
+
             if (OutputDevice.DeviceCount == 0)
             {
                 tbRecordStatus.Text = "You need at least one MIDI output device connected to upload.";
@@ -580,31 +583,31 @@ namespace ChameleonSysExEd
             {
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
                     cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGChorusParams());
+                if (ChamObjectHelpers.IsFlanger(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGFlangerParams());
+                if (ChamObjectHelpers.IsPhaser(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGPhaserParams());
+                if (ChamObjectHelpers.IsPitchShift(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGPitchShiftParams());
+                if (ChamObjectHelpers.IsTremolo(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGTremoloParams());
+                if (ChamObjectHelpers.IsWah(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetLGWahParams());
             }
             else
             {
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
                     cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
-                if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
-                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGChorusParams());
+                if (ChamObjectHelpers.IsFlanger(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGFlangerParams());
+                if (ChamObjectHelpers.IsPhaser(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGPhaserParams());
+                if (ChamObjectHelpers.IsPitchShift(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGPitchShiftParams());
+                if (ChamObjectHelpers.IsTremolo(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGTremoloParams());
+                if (ChamObjectHelpers.IsWah(sysEx.Control.ConfigMode))
+                    cbControllerAssignmentParam.Items.AddRange(ParamSetHelpers.GetHGWahParams());
             }
         }
         private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
@@ -724,11 +727,16 @@ namespace ChameleonSysExEd
 
         private void importFromMIDIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportMIDIForm importMIDIForm = new ImportMIDIForm();
+            ImportMIDIForm importMIDIForm = new ImportMIDIForm(midiOptionInDeviceID);
             importMIDIForm.sysExList = sysExList;
             importMIDIForm.sysExStart = (int)nudCurPreset.Value - 1;
-            importMIDIForm.ShowDialog();
-            nudCurPreset.Value = importMIDIForm.sysExStart;
+            
+
+            if (importMIDIForm.ShowDialog() == DialogResult.OK)
+            {
+                nudCurPreset.Value += importMIDIForm.sysExStart;
+                nudCurPreset.Maximum = sysExList.Count+1;
+            }
         }
 
         private void exportToMIDIToolStripMenuItem_Click(object sender, EventArgs e)
@@ -739,7 +747,9 @@ namespace ChameleonSysExEd
 
         private void nudCurPreset_ValueChanged(object sender, EventArgs e)
         {
-            TBD  -  Force error here so it gets added
+            sysEx = sysExList[(int)nudCurPreset.Value - 1];
+            //cbConfiguration_SelectedIndexChanged();
+            LoadFormFromComposite(sysEx);
         }
     }
  }

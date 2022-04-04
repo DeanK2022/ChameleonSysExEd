@@ -14,17 +14,22 @@ namespace ChameleonSysExEd
     public partial class ImportMIDIForm : Form
     {
         InputDevice inputDevice;
-        public int midiOptionInDeviceID = -1;
+        private int midiOptionInDeviceID = -1;
         private List<InputDevice> recordingInputDevices = null;
         public List<ChameleonSysExComplete> sysExList;
         public int sysExStart;
-        public ImportMIDIForm()
+        public ImportMIDIForm(int midiInDeviceID)
         {
             InitializeComponent();
+            midiOptionInDeviceID = midiInDeviceID;
+            inputDevice = new InputDevice(midiOptionInDeviceID, true, false);
+            var capabilities = InputDevice.GetDeviceCapabilities(midiOptionInDeviceID);
+            lbImportDeviceName.Text = capabilities.name + " (ID " + inputDevice.DeviceID + ")";
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -32,10 +37,8 @@ namespace ChameleonSysExEd
         {
             try
             {
-                inputDevice = new InputDevice(midiOptionInDeviceID, true, false);
-                var capabilities = InputDevice.GetDeviceCapabilities(midiOptionInDeviceID);
-                lbStatus.Text = "Recording on " + inputDevice.DeviceID + " " + capabilities.name;
-
+                btnStop.Enabled = true;
+                btnImport.Enabled = false;
                 inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
                 //inputDevice.MessageReceived += InputDevice_MessageReceived1;
                 recordingInputDevices = new List<InputDevice>();
@@ -44,7 +47,7 @@ namespace ChameleonSysExEd
             }
             catch (InputDeviceException ex)
             {
-                lbStatus.Text = "An error occurred when recording";
+                lbReceived.Text = "An error occurred when recording";
             }
         }
         private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
@@ -53,7 +56,7 @@ namespace ChameleonSysExEd
                         
             try
             {
-                lbStatus.Text = "Got SysEx " + e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
+                lbReceived.Text = e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
 
                 ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
                 sysEx.FromByteArr(message.GetBytes());
@@ -63,12 +66,15 @@ namespace ChameleonSysExEd
             catch (Exception ex)
             {
                 System.Console.WriteLine("An error occurred when receiving a sysex message " + ex);
-                lbStatus.Text = "Error: " + ex;
+                lbReceived.Text = "Error: " + ex;
             }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            btnStop.Enabled = false;
+            btnImport.Enabled = true;
+
             foreach (var inputDevice in recordingInputDevices)
             {
                 inputDevice.StopRecording();

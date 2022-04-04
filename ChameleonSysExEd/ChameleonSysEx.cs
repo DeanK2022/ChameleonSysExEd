@@ -1230,8 +1230,18 @@ namespace ChameleonSysExEd
         }
         public unsafe void FromByteArr(byte[] arr)
         {
-            TChameleonCompositeAllStructsUnion casu = ByteArrToStruct(arr);
-            LoadFromStruct(casu);
+            TChameleonCompositeAllStructsUnion tcasu = ByteArrToStruct(arr);
+           
+            //TChameleonCompositeAllStructsUnion casu = new TChameleonCompositeAllStructsUnion();
+
+            //int size = Marshal.SizeOf(casu);
+            //IntPtr ptr = Marshal.AllocHGlobal(size);
+            //Marshal.Copy(arr, 0, ptr, size);
+
+            //casu = (TChameleonCompositeAllStructsUnion)Marshal.PtrToStructure(ptr, casu.GetType());
+            
+            LoadFromStruct(tcasu);
+           // Marshal.FreeHGlobal(ptr);
         }
         public unsafe TChameleonCompositeAllStructsUnion ByteArrToStruct(byte[] arr)
         {
@@ -1243,7 +1253,7 @@ namespace ChameleonSysExEd
             { 
                 arrPtr = (IntPtr)v;
             
-                Marshal.PtrToStructure(arrPtr, casu);
+                Marshal.PtrToStructure(arrPtr, casu.GetType());
             }
             return casu;
         }

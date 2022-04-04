@@ -35,7 +35,9 @@ namespace ChameleonSysExEd
             this.lblMIDIPort = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblSend = new System.Windows.Forms.Label();
-            this.lbStatus = new System.Windows.Forms.Label();
+            this.lbImportDeviceName = new System.Windows.Forms.Label();
+            this.lbReceived = new System.Windows.Forms.Label();
+            this.cbAddToCurrent = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnImport
@@ -60,7 +62,6 @@ namespace ChameleonSysExEd
             // 
             // btnStop
             // 
-            this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(140, 141);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
@@ -92,24 +93,47 @@ namespace ChameleonSysExEd
             this.lblSend.AutoSize = true;
             this.lblSend.Location = new System.Drawing.Point(59, 44);
             this.lblSend.Name = "lblSend";
-            this.lblSend.Size = new System.Drawing.Size(59, 13);
+            this.lblSend.Size = new System.Drawing.Size(56, 13);
             this.lblSend.TabIndex = 5;
-            this.lblSend.Text = "Receive: 0";
+            this.lblSend.Text = "Received:";
             // 
-            // lbStatus
+            // lbImportDeviceName
             // 
-            this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(63, 109);
-            this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(0, 13);
-            this.lbStatus.TabIndex = 6;
+            this.lbImportDeviceName.AutoSize = true;
+            this.lbImportDeviceName.Location = new System.Drawing.Point(120, 14);
+            this.lbImportDeviceName.Name = "lbImportDeviceName";
+            this.lbImportDeviceName.Size = new System.Drawing.Size(33, 13);
+            this.lbImportDeviceName.TabIndex = 7;
+            this.lbImportDeviceName.Text = "None";
+            // 
+            // lbReceived
+            // 
+            this.lbReceived.AutoSize = true;
+            this.lbReceived.Location = new System.Drawing.Point(121, 44);
+            this.lbReceived.Name = "lbReceived";
+            this.lbReceived.Size = new System.Drawing.Size(13, 13);
+            this.lbReceived.TabIndex = 8;
+            this.lbReceived.Text = "0";
+            // 
+            // cbAddToCurrent
+            // 
+            this.cbAddToCurrent.AutoSize = true;
+            this.cbAddToCurrent.Enabled = false;
+            this.cbAddToCurrent.Location = new System.Drawing.Point(78, 105);
+            this.cbAddToCurrent.Name = "cbAddToCurrent";
+            this.cbAddToCurrent.Size = new System.Drawing.Size(125, 17);
+            this.cbAddToCurrent.TabIndex = 9;
+            this.cbAddToCurrent.Text = "Add to current SysEx";
+            this.cbAddToCurrent.UseVisualStyleBackColor = true;
             // 
             // ImportMIDIForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 178);
-            this.Controls.Add(this.lbStatus);
+            this.Controls.Add(this.cbAddToCurrent);
+            this.Controls.Add(this.lbReceived);
+            this.Controls.Add(this.lbImportDeviceName);
             this.Controls.Add(this.lblSend);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMIDIPort);
@@ -134,6 +158,8 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label lblMIDIPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblSend;
-        private System.Windows.Forms.Label lbStatus;
+        private System.Windows.Forms.Label lbImportDeviceName;
+        private System.Windows.Forms.Label lbReceived;
+        private System.Windows.Forms.CheckBox cbAddToCurrent;
     }
 }
