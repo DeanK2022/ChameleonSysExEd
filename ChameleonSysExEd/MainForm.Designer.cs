@@ -105,7 +105,7 @@ namespace ChameleonSysExEd
             this.nudHushThreshold = new System.Windows.Forms.NumericUpDown();
             this.label36 = new System.Windows.Forms.Label();
             this.tpSpeakerSimChorus = new System.Windows.Forms.TabPage();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.gbChorus = new System.Windows.Forms.GroupBox();
             this.cbChorusInOut = new System.Windows.Forms.ComboBox();
             this.label48 = new System.Windows.Forms.Label();
             this.nudChorus2Delay = new System.Windows.Forms.NumericUpDown();
@@ -142,7 +142,7 @@ namespace ChameleonSysExEd
             this.label47 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.tpDelayReverb = new System.Windows.Forms.TabPage();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.gbReverb = new System.Windows.Forms.GroupBox();
             this.cbReverbState = new System.Windows.Forms.ComboBox();
             this.label52 = new System.Windows.Forms.Label();
             this.nudReverbHighFreqDamp = new System.Windows.Forms.NumericUpDown();
@@ -151,7 +151,7 @@ namespace ChameleonSysExEd
             this.label54 = new System.Windows.Forms.Label();
             this.nudReverbMix = new System.Windows.Forms.NumericUpDown();
             this.label55 = new System.Windows.Forms.Label();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.gbDelay = new System.Windows.Forms.GroupBox();
             this.label61 = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
             this.label63 = new System.Windows.Forms.Label();
@@ -183,7 +183,7 @@ namespace ChameleonSysExEd
             this.nudDelay1Regen = new System.Windows.Forms.NumericUpDown();
             this.label79 = new System.Windows.Forms.Label();
             this.tpWahPitchShift = new System.Windows.Forms.TabPage();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.gbPitchShift = new System.Windows.Forms.GroupBox();
             this.label90 = new System.Windows.Forms.Label();
             this.nudPitchShiftFineTune = new System.Windows.Forms.NumericUpDown();
             this.label89 = new System.Windows.Forms.Label();
@@ -196,13 +196,13 @@ namespace ChameleonSysExEd
             this.nudPitchShiftLevel = new System.Windows.Forms.NumericUpDown();
             this.label87 = new System.Windows.Forms.Label();
             this.label88 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.gbWah = new System.Windows.Forms.GroupBox();
             this.cbWahFrequency = new System.Windows.Forms.ComboBox();
             this.cbWahInOut = new System.Windows.Forms.ComboBox();
             this.label85 = new System.Windows.Forms.Label();
             this.label86 = new System.Windows.Forms.Label();
             this.tpFlangerTremolo = new System.Windows.Forms.TabPage();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.gbTremolo = new System.Windows.Forms.GroupBox();
             this.cbTremoloLocation = new System.Windows.Forms.ComboBox();
             this.label95 = new System.Windows.Forms.Label();
             this.nudTremoloRate = new System.Windows.Forms.NumericUpDown();
@@ -213,7 +213,7 @@ namespace ChameleonSysExEd
             this.label98 = new System.Windows.Forms.Label();
             this.label109 = new System.Windows.Forms.Label();
             this.label110 = new System.Windows.Forms.Label();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.gbFlanger = new System.Windows.Forms.GroupBox();
             this.label91 = new System.Windows.Forms.Label();
             this.label92 = new System.Windows.Forms.Label();
             this.label93 = new System.Windows.Forms.Label();
@@ -239,7 +239,7 @@ namespace ChameleonSysExEd
             this.nudFlanger1Rate = new System.Windows.Forms.NumericUpDown();
             this.label107 = new System.Windows.Forms.Label();
             this.tpPhaser = new System.Windows.Forms.TabPage();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.gbPhaser = new System.Windows.Forms.GroupBox();
             this.nudPhaserDepth = new System.Windows.Forms.NumericUpDown();
             this.label108 = new System.Windows.Forms.Label();
             this.nudPhaserReson = new System.Windows.Forms.NumericUpDown();
@@ -278,6 +278,7 @@ namespace ChameleonSysExEd
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSaveJustThisOne = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exportToMIDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -298,7 +299,6 @@ namespace ChameleonSysExEd
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
-            this.tsSaveJustThisOne = new System.Windows.Forms.ToolStripMenuItem();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -326,7 +326,7 @@ namespace ChameleonSysExEd
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudHushThreshold)).BeginInit();
             this.tpSpeakerSimChorus.SuspendLayout();
-            this.groupBox9.SuspendLayout();
+            this.gbChorus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudChorus2Delay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudChorus2Depth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudChorus2Pan)).BeginInit();
@@ -341,11 +341,11 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudSpkSimReactance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpkSimMicPlace)).BeginInit();
             this.tpDelayReverb.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.gbReverb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudReverbHighFreqDamp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReverbDecay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReverbMix)).BeginInit();
-            this.groupBox13.SuspendLayout();
+            this.gbDelay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelayHighFreqDamp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelaySourceMix)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay2Time)).BeginInit();
@@ -357,17 +357,17 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1OutLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1Regen)).BeginInit();
             this.tpWahPitchShift.SuspendLayout();
-            this.groupBox15.SuspendLayout();
+            this.gbPitchShift.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftFineTune)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftPitch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftPan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftLevel)).BeginInit();
-            this.groupBox8.SuspendLayout();
+            this.gbWah.SuspendLayout();
             this.tpFlangerTremolo.SuspendLayout();
-            this.groupBox17.SuspendLayout();
+            this.gbTremolo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTremoloRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTremoloDepth)).BeginInit();
-            this.groupBox16.SuspendLayout();
+            this.gbFlanger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlangerRegeneration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger2Depth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger2Pan)).BeginInit();
@@ -378,7 +378,7 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger1Level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger1Rate)).BeginInit();
             this.tpPhaser.SuspendLayout();
-            this.groupBox18.SuspendLayout();
+            this.gbPhaser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserReson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserRate)).BeginInit();
@@ -1680,7 +1680,7 @@ namespace ChameleonSysExEd
             // 
             // tpSpeakerSimChorus
             // 
-            this.tpSpeakerSimChorus.Controls.Add(this.groupBox9);
+            this.tpSpeakerSimChorus.Controls.Add(this.gbChorus);
             this.tpSpeakerSimChorus.Controls.Add(this.groupBox10);
             this.tpSpeakerSimChorus.Location = new System.Drawing.Point(4, 22);
             this.tpSpeakerSimChorus.Name = "tpSpeakerSimChorus";
@@ -1689,40 +1689,40 @@ namespace ChameleonSysExEd
             this.tpSpeakerSimChorus.Text = "Speaker Sim / Chorus";
             this.tpSpeakerSimChorus.UseVisualStyleBackColor = true;
             // 
-            // groupBox9
+            // gbChorus
             // 
-            this.groupBox9.Controls.Add(this.cbChorusInOut);
-            this.groupBox9.Controls.Add(this.label48);
-            this.groupBox9.Controls.Add(this.nudChorus2Delay);
-            this.groupBox9.Controls.Add(this.label49);
-            this.groupBox9.Controls.Add(this.nudChorus2Depth);
-            this.groupBox9.Controls.Add(this.label50);
-            this.groupBox9.Controls.Add(this.nudChorus2Pan);
-            this.groupBox9.Controls.Add(this.label56);
-            this.groupBox9.Controls.Add(this.nudChorus2Level);
-            this.groupBox9.Controls.Add(this.label57);
-            this.groupBox9.Controls.Add(this.nudChorus2Rate);
-            this.groupBox9.Controls.Add(this.label37);
-            this.groupBox9.Controls.Add(this.label38);
-            this.groupBox9.Controls.Add(this.label34);
-            this.groupBox9.Controls.Add(this.label33);
-            this.groupBox9.Controls.Add(this.label39);
-            this.groupBox9.Controls.Add(this.nudChorus1Delay);
-            this.groupBox9.Controls.Add(this.label40);
-            this.groupBox9.Controls.Add(this.nudChorus1Depth);
-            this.groupBox9.Controls.Add(this.label41);
-            this.groupBox9.Controls.Add(this.nudChorus1Pan);
-            this.groupBox9.Controls.Add(this.label42);
-            this.groupBox9.Controls.Add(this.nudChorus1Level);
-            this.groupBox9.Controls.Add(this.label43);
-            this.groupBox9.Controls.Add(this.nudChorus1Rate);
-            this.groupBox9.Controls.Add(this.label44);
-            this.groupBox9.Location = new System.Drawing.Point(3, 76);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(658, 216);
-            this.groupBox9.TabIndex = 17;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Chorus";
+            this.gbChorus.Controls.Add(this.cbChorusInOut);
+            this.gbChorus.Controls.Add(this.label48);
+            this.gbChorus.Controls.Add(this.nudChorus2Delay);
+            this.gbChorus.Controls.Add(this.label49);
+            this.gbChorus.Controls.Add(this.nudChorus2Depth);
+            this.gbChorus.Controls.Add(this.label50);
+            this.gbChorus.Controls.Add(this.nudChorus2Pan);
+            this.gbChorus.Controls.Add(this.label56);
+            this.gbChorus.Controls.Add(this.nudChorus2Level);
+            this.gbChorus.Controls.Add(this.label57);
+            this.gbChorus.Controls.Add(this.nudChorus2Rate);
+            this.gbChorus.Controls.Add(this.label37);
+            this.gbChorus.Controls.Add(this.label38);
+            this.gbChorus.Controls.Add(this.label34);
+            this.gbChorus.Controls.Add(this.label33);
+            this.gbChorus.Controls.Add(this.label39);
+            this.gbChorus.Controls.Add(this.nudChorus1Delay);
+            this.gbChorus.Controls.Add(this.label40);
+            this.gbChorus.Controls.Add(this.nudChorus1Depth);
+            this.gbChorus.Controls.Add(this.label41);
+            this.gbChorus.Controls.Add(this.nudChorus1Pan);
+            this.gbChorus.Controls.Add(this.label42);
+            this.gbChorus.Controls.Add(this.nudChorus1Level);
+            this.gbChorus.Controls.Add(this.label43);
+            this.gbChorus.Controls.Add(this.nudChorus1Rate);
+            this.gbChorus.Controls.Add(this.label44);
+            this.gbChorus.Location = new System.Drawing.Point(3, 76);
+            this.gbChorus.Name = "gbChorus";
+            this.gbChorus.Size = new System.Drawing.Size(658, 216);
+            this.gbChorus.TabIndex = 17;
+            this.gbChorus.TabStop = false;
+            this.gbChorus.Text = "Chorus";
             // 
             // cbChorusInOut
             // 
@@ -2143,8 +2143,8 @@ namespace ChameleonSysExEd
             // 
             // tpDelayReverb
             // 
-            this.tpDelayReverb.Controls.Add(this.groupBox11);
-            this.tpDelayReverb.Controls.Add(this.groupBox13);
+            this.tpDelayReverb.Controls.Add(this.gbReverb);
+            this.tpDelayReverb.Controls.Add(this.gbDelay);
             this.tpDelayReverb.Location = new System.Drawing.Point(4, 22);
             this.tpDelayReverb.Name = "tpDelayReverb";
             this.tpDelayReverb.Size = new System.Drawing.Size(661, 295);
@@ -2152,22 +2152,22 @@ namespace ChameleonSysExEd
             this.tpDelayReverb.Text = "Delay/Reverb";
             this.tpDelayReverb.UseVisualStyleBackColor = true;
             // 
-            // groupBox11
+            // gbReverb
             // 
-            this.groupBox11.Controls.Add(this.cbReverbState);
-            this.groupBox11.Controls.Add(this.label52);
-            this.groupBox11.Controls.Add(this.nudReverbHighFreqDamp);
-            this.groupBox11.Controls.Add(this.label53);
-            this.groupBox11.Controls.Add(this.nudReverbDecay);
-            this.groupBox11.Controls.Add(this.label54);
-            this.groupBox11.Controls.Add(this.nudReverbMix);
-            this.groupBox11.Controls.Add(this.label55);
-            this.groupBox11.Location = new System.Drawing.Point(0, 231);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(658, 55);
-            this.groupBox11.TabIndex = 18;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Reverb";
+            this.gbReverb.Controls.Add(this.cbReverbState);
+            this.gbReverb.Controls.Add(this.label52);
+            this.gbReverb.Controls.Add(this.nudReverbHighFreqDamp);
+            this.gbReverb.Controls.Add(this.label53);
+            this.gbReverb.Controls.Add(this.nudReverbDecay);
+            this.gbReverb.Controls.Add(this.label54);
+            this.gbReverb.Controls.Add(this.nudReverbMix);
+            this.gbReverb.Controls.Add(this.label55);
+            this.gbReverb.Location = new System.Drawing.Point(0, 231);
+            this.gbReverb.Name = "gbReverb";
+            this.gbReverb.Size = new System.Drawing.Size(658, 55);
+            this.gbReverb.TabIndex = 18;
+            this.gbReverb.TabStop = false;
+            this.gbReverb.Text = "Reverb";
             // 
             // cbReverbState
             // 
@@ -2235,44 +2235,44 @@ namespace ChameleonSysExEd
             this.label55.TabIndex = 8;
             this.label55.Text = "Reverb State:";
             // 
-            // groupBox13
+            // gbDelay
             // 
-            this.groupBox13.Controls.Add(this.label61);
-            this.groupBox13.Controls.Add(this.label62);
-            this.groupBox13.Controls.Add(this.label63);
-            this.groupBox13.Controls.Add(this.label64);
-            this.groupBox13.Controls.Add(this.cbDelaySource2);
-            this.groupBox13.Controls.Add(this.cbDelayState);
-            this.groupBox13.Controls.Add(this.cbDelayMuteType);
-            this.groupBox13.Controls.Add(this.label80);
-            this.groupBox13.Controls.Add(this.label81);
-            this.groupBox13.Controls.Add(this.nudDelayHighFreqDamp);
-            this.groupBox13.Controls.Add(this.label82);
-            this.groupBox13.Controls.Add(this.nudDelaySourceMix);
-            this.groupBox13.Controls.Add(this.label60);
-            this.groupBox13.Controls.Add(this.nudDelay2Time);
-            this.groupBox13.Controls.Add(this.nudDelay2Pan);
-            this.groupBox13.Controls.Add(this.nudDelay2OutLevel);
-            this.groupBox13.Controls.Add(this.nudDelay2Regen);
-            this.groupBox13.Controls.Add(this.label65);
-            this.groupBox13.Controls.Add(this.label66);
-            this.groupBox13.Controls.Add(this.label68);
-            this.groupBox13.Controls.Add(this.label74);
-            this.groupBox13.Controls.Add(this.label75);
-            this.groupBox13.Controls.Add(this.nudDelay1Time);
-            this.groupBox13.Controls.Add(this.label76);
-            this.groupBox13.Controls.Add(this.nudDelay1Pan);
-            this.groupBox13.Controls.Add(this.label77);
-            this.groupBox13.Controls.Add(this.nudDelay1OutLevel);
-            this.groupBox13.Controls.Add(this.label78);
-            this.groupBox13.Controls.Add(this.nudDelay1Regen);
-            this.groupBox13.Controls.Add(this.label79);
-            this.groupBox13.Location = new System.Drawing.Point(6, 9);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(652, 216);
-            this.groupBox13.TabIndex = 16;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Delay";
+            this.gbDelay.Controls.Add(this.label61);
+            this.gbDelay.Controls.Add(this.label62);
+            this.gbDelay.Controls.Add(this.label63);
+            this.gbDelay.Controls.Add(this.label64);
+            this.gbDelay.Controls.Add(this.cbDelaySource2);
+            this.gbDelay.Controls.Add(this.cbDelayState);
+            this.gbDelay.Controls.Add(this.cbDelayMuteType);
+            this.gbDelay.Controls.Add(this.label80);
+            this.gbDelay.Controls.Add(this.label81);
+            this.gbDelay.Controls.Add(this.nudDelayHighFreqDamp);
+            this.gbDelay.Controls.Add(this.label82);
+            this.gbDelay.Controls.Add(this.nudDelaySourceMix);
+            this.gbDelay.Controls.Add(this.label60);
+            this.gbDelay.Controls.Add(this.nudDelay2Time);
+            this.gbDelay.Controls.Add(this.nudDelay2Pan);
+            this.gbDelay.Controls.Add(this.nudDelay2OutLevel);
+            this.gbDelay.Controls.Add(this.nudDelay2Regen);
+            this.gbDelay.Controls.Add(this.label65);
+            this.gbDelay.Controls.Add(this.label66);
+            this.gbDelay.Controls.Add(this.label68);
+            this.gbDelay.Controls.Add(this.label74);
+            this.gbDelay.Controls.Add(this.label75);
+            this.gbDelay.Controls.Add(this.nudDelay1Time);
+            this.gbDelay.Controls.Add(this.label76);
+            this.gbDelay.Controls.Add(this.nudDelay1Pan);
+            this.gbDelay.Controls.Add(this.label77);
+            this.gbDelay.Controls.Add(this.nudDelay1OutLevel);
+            this.gbDelay.Controls.Add(this.label78);
+            this.gbDelay.Controls.Add(this.nudDelay1Regen);
+            this.gbDelay.Controls.Add(this.label79);
+            this.gbDelay.Location = new System.Drawing.Point(6, 9);
+            this.gbDelay.Name = "gbDelay";
+            this.gbDelay.Size = new System.Drawing.Size(652, 216);
+            this.gbDelay.TabIndex = 16;
+            this.gbDelay.TabStop = false;
+            this.gbDelay.Text = "Delay";
             // 
             // label61
             // 
@@ -3102,8 +3102,8 @@ namespace ChameleonSysExEd
             // 
             // tpWahPitchShift
             // 
-            this.tpWahPitchShift.Controls.Add(this.groupBox15);
-            this.tpWahPitchShift.Controls.Add(this.groupBox8);
+            this.tpWahPitchShift.Controls.Add(this.gbPitchShift);
+            this.tpWahPitchShift.Controls.Add(this.gbWah);
             this.tpWahPitchShift.Location = new System.Drawing.Point(4, 22);
             this.tpWahPitchShift.Name = "tpWahPitchShift";
             this.tpWahPitchShift.Size = new System.Drawing.Size(661, 295);
@@ -3111,26 +3111,26 @@ namespace ChameleonSysExEd
             this.tpWahPitchShift.Text = "Wah/PitchShift";
             this.tpWahPitchShift.UseVisualStyleBackColor = true;
             // 
-            // groupBox15
+            // gbPitchShift
             // 
-            this.groupBox15.Controls.Add(this.label90);
-            this.groupBox15.Controls.Add(this.nudPitchShiftFineTune);
-            this.groupBox15.Controls.Add(this.label89);
-            this.groupBox15.Controls.Add(this.nudPitchShiftPitch);
-            this.groupBox15.Controls.Add(this.cbPitchShiftSpeed);
-            this.groupBox15.Controls.Add(this.cbPitchShiftInOut);
-            this.groupBox15.Controls.Add(this.label83);
-            this.groupBox15.Controls.Add(this.nudPitchShiftPan);
-            this.groupBox15.Controls.Add(this.label84);
-            this.groupBox15.Controls.Add(this.nudPitchShiftLevel);
-            this.groupBox15.Controls.Add(this.label87);
-            this.groupBox15.Controls.Add(this.label88);
-            this.groupBox15.Location = new System.Drawing.Point(4, 65);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(652, 101);
-            this.groupBox15.TabIndex = 18;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Pitch Shift";
+            this.gbPitchShift.Controls.Add(this.label90);
+            this.gbPitchShift.Controls.Add(this.nudPitchShiftFineTune);
+            this.gbPitchShift.Controls.Add(this.label89);
+            this.gbPitchShift.Controls.Add(this.nudPitchShiftPitch);
+            this.gbPitchShift.Controls.Add(this.cbPitchShiftSpeed);
+            this.gbPitchShift.Controls.Add(this.cbPitchShiftInOut);
+            this.gbPitchShift.Controls.Add(this.label83);
+            this.gbPitchShift.Controls.Add(this.nudPitchShiftPan);
+            this.gbPitchShift.Controls.Add(this.label84);
+            this.gbPitchShift.Controls.Add(this.nudPitchShiftLevel);
+            this.gbPitchShift.Controls.Add(this.label87);
+            this.gbPitchShift.Controls.Add(this.label88);
+            this.gbPitchShift.Location = new System.Drawing.Point(4, 65);
+            this.gbPitchShift.Name = "gbPitchShift";
+            this.gbPitchShift.Size = new System.Drawing.Size(652, 101);
+            this.gbPitchShift.TabIndex = 18;
+            this.gbPitchShift.TabStop = false;
+            this.gbPitchShift.Text = "Pitch Shift";
             // 
             // label90
             // 
@@ -3272,18 +3272,18 @@ namespace ChameleonSysExEd
             this.label88.TabIndex = 2;
             this.label88.Text = "In/Out:";
             // 
-            // groupBox8
+            // gbWah
             // 
-            this.groupBox8.Controls.Add(this.cbWahFrequency);
-            this.groupBox8.Controls.Add(this.cbWahInOut);
-            this.groupBox8.Controls.Add(this.label85);
-            this.groupBox8.Controls.Add(this.label86);
-            this.groupBox8.Location = new System.Drawing.Point(4, 3);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(652, 56);
-            this.groupBox8.TabIndex = 17;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Wah";
+            this.gbWah.Controls.Add(this.cbWahFrequency);
+            this.gbWah.Controls.Add(this.cbWahInOut);
+            this.gbWah.Controls.Add(this.label85);
+            this.gbWah.Controls.Add(this.label86);
+            this.gbWah.Location = new System.Drawing.Point(4, 3);
+            this.gbWah.Name = "gbWah";
+            this.gbWah.Size = new System.Drawing.Size(652, 56);
+            this.gbWah.TabIndex = 17;
+            this.gbWah.TabStop = false;
+            this.gbWah.Text = "Wah";
             // 
             // cbWahFrequency
             // 
@@ -3453,8 +3453,8 @@ namespace ChameleonSysExEd
             // 
             // tpFlangerTremolo
             // 
-            this.tpFlangerTremolo.Controls.Add(this.groupBox17);
-            this.tpFlangerTremolo.Controls.Add(this.groupBox16);
+            this.tpFlangerTremolo.Controls.Add(this.gbTremolo);
+            this.tpFlangerTremolo.Controls.Add(this.gbFlanger);
             this.tpFlangerTremolo.Location = new System.Drawing.Point(4, 22);
             this.tpFlangerTremolo.Name = "tpFlangerTremolo";
             this.tpFlangerTremolo.Size = new System.Drawing.Size(661, 295);
@@ -3462,24 +3462,24 @@ namespace ChameleonSysExEd
             this.tpFlangerTremolo.Text = "Flanger/Tremolo";
             this.tpFlangerTremolo.UseVisualStyleBackColor = true;
             // 
-            // groupBox17
+            // gbTremolo
             // 
-            this.groupBox17.Controls.Add(this.cbTremoloLocation);
-            this.groupBox17.Controls.Add(this.label95);
-            this.groupBox17.Controls.Add(this.nudTremoloRate);
-            this.groupBox17.Controls.Add(this.label96);
-            this.groupBox17.Controls.Add(this.nudTremoloDepth);
-            this.groupBox17.Controls.Add(this.cbTremoloShape);
-            this.groupBox17.Controls.Add(this.cbTremoloInOut);
-            this.groupBox17.Controls.Add(this.label98);
-            this.groupBox17.Controls.Add(this.label109);
-            this.groupBox17.Controls.Add(this.label110);
-            this.groupBox17.Location = new System.Drawing.Point(4, 168);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(652, 124);
-            this.groupBox17.TabIndex = 19;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Tremolo";
+            this.gbTremolo.Controls.Add(this.cbTremoloLocation);
+            this.gbTremolo.Controls.Add(this.label95);
+            this.gbTremolo.Controls.Add(this.nudTremoloRate);
+            this.gbTremolo.Controls.Add(this.label96);
+            this.gbTremolo.Controls.Add(this.nudTremoloDepth);
+            this.gbTremolo.Controls.Add(this.cbTremoloShape);
+            this.gbTremolo.Controls.Add(this.cbTremoloInOut);
+            this.gbTremolo.Controls.Add(this.label98);
+            this.gbTremolo.Controls.Add(this.label109);
+            this.gbTremolo.Controls.Add(this.label110);
+            this.gbTremolo.Location = new System.Drawing.Point(4, 168);
+            this.gbTremolo.Name = "gbTremolo";
+            this.gbTremolo.Size = new System.Drawing.Size(652, 124);
+            this.gbTremolo.TabIndex = 19;
+            this.gbTremolo.TabStop = false;
+            this.gbTremolo.Text = "Tremolo";
             // 
             // cbTremoloLocation
             // 
@@ -3578,38 +3578,38 @@ namespace ChameleonSysExEd
             this.label110.TabIndex = 2;
             this.label110.Text = "In/Out:";
             // 
-            // groupBox16
+            // gbFlanger
             // 
-            this.groupBox16.Controls.Add(this.label91);
-            this.groupBox16.Controls.Add(this.label92);
-            this.groupBox16.Controls.Add(this.label93);
-            this.groupBox16.Controls.Add(this.label94);
-            this.groupBox16.Controls.Add(this.cbFlangerInOut);
-            this.groupBox16.Controls.Add(this.label97);
-            this.groupBox16.Controls.Add(this.nudFlangerRegeneration);
-            this.groupBox16.Controls.Add(this.nudFlanger2Depth);
-            this.groupBox16.Controls.Add(this.nudFlanger2Pan);
-            this.groupBox16.Controls.Add(this.nudFlanger2Level);
-            this.groupBox16.Controls.Add(this.nudFlanger2Rate);
-            this.groupBox16.Controls.Add(this.label99);
-            this.groupBox16.Controls.Add(this.label100);
-            this.groupBox16.Controls.Add(this.label101);
-            this.groupBox16.Controls.Add(this.label102);
-            this.groupBox16.Controls.Add(this.label103);
-            this.groupBox16.Controls.Add(this.nudFlanger1Depth);
-            this.groupBox16.Controls.Add(this.label104);
-            this.groupBox16.Controls.Add(this.nudFlanger1Pan);
-            this.groupBox16.Controls.Add(this.label105);
-            this.groupBox16.Controls.Add(this.nudFlanger1Level);
-            this.groupBox16.Controls.Add(this.label106);
-            this.groupBox16.Controls.Add(this.nudFlanger1Rate);
-            this.groupBox16.Controls.Add(this.label107);
-            this.groupBox16.Location = new System.Drawing.Point(4, 3);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(652, 159);
-            this.groupBox16.TabIndex = 17;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Flanger";
+            this.gbFlanger.Controls.Add(this.label91);
+            this.gbFlanger.Controls.Add(this.label92);
+            this.gbFlanger.Controls.Add(this.label93);
+            this.gbFlanger.Controls.Add(this.label94);
+            this.gbFlanger.Controls.Add(this.cbFlangerInOut);
+            this.gbFlanger.Controls.Add(this.label97);
+            this.gbFlanger.Controls.Add(this.nudFlangerRegeneration);
+            this.gbFlanger.Controls.Add(this.nudFlanger2Depth);
+            this.gbFlanger.Controls.Add(this.nudFlanger2Pan);
+            this.gbFlanger.Controls.Add(this.nudFlanger2Level);
+            this.gbFlanger.Controls.Add(this.nudFlanger2Rate);
+            this.gbFlanger.Controls.Add(this.label99);
+            this.gbFlanger.Controls.Add(this.label100);
+            this.gbFlanger.Controls.Add(this.label101);
+            this.gbFlanger.Controls.Add(this.label102);
+            this.gbFlanger.Controls.Add(this.label103);
+            this.gbFlanger.Controls.Add(this.nudFlanger1Depth);
+            this.gbFlanger.Controls.Add(this.label104);
+            this.gbFlanger.Controls.Add(this.nudFlanger1Pan);
+            this.gbFlanger.Controls.Add(this.label105);
+            this.gbFlanger.Controls.Add(this.nudFlanger1Level);
+            this.gbFlanger.Controls.Add(this.label106);
+            this.gbFlanger.Controls.Add(this.nudFlanger1Rate);
+            this.gbFlanger.Controls.Add(this.label107);
+            this.gbFlanger.Location = new System.Drawing.Point(4, 3);
+            this.gbFlanger.Name = "gbFlanger";
+            this.gbFlanger.Size = new System.Drawing.Size(652, 159);
+            this.gbFlanger.TabIndex = 17;
+            this.gbFlanger.TabStop = false;
+            this.gbFlanger.Text = "Flanger";
             // 
             // label91
             // 
@@ -3851,7 +3851,7 @@ namespace ChameleonSysExEd
             // 
             // tpPhaser
             // 
-            this.tpPhaser.Controls.Add(this.groupBox18);
+            this.tpPhaser.Controls.Add(this.gbPhaser);
             this.tpPhaser.Location = new System.Drawing.Point(4, 22);
             this.tpPhaser.Name = "tpPhaser";
             this.tpPhaser.Size = new System.Drawing.Size(661, 295);
@@ -3859,24 +3859,24 @@ namespace ChameleonSysExEd
             this.tpPhaser.Text = "Phaser";
             this.tpPhaser.UseVisualStyleBackColor = true;
             // 
-            // groupBox18
+            // gbPhaser
             // 
-            this.groupBox18.Controls.Add(this.nudPhaserDepth);
-            this.groupBox18.Controls.Add(this.label108);
-            this.groupBox18.Controls.Add(this.nudPhaserReson);
-            this.groupBox18.Controls.Add(this.label111);
-            this.groupBox18.Controls.Add(this.nudPhaserRate);
-            this.groupBox18.Controls.Add(this.cbPhaserStage);
-            this.groupBox18.Controls.Add(this.cbPhaserInOut);
-            this.groupBox18.Controls.Add(this.label112);
-            this.groupBox18.Controls.Add(this.label113);
-            this.groupBox18.Controls.Add(this.label114);
-            this.groupBox18.Location = new System.Drawing.Point(4, 3);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(652, 206);
-            this.groupBox18.TabIndex = 20;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Phaser";
+            this.gbPhaser.Controls.Add(this.nudPhaserDepth);
+            this.gbPhaser.Controls.Add(this.label108);
+            this.gbPhaser.Controls.Add(this.nudPhaserReson);
+            this.gbPhaser.Controls.Add(this.label111);
+            this.gbPhaser.Controls.Add(this.nudPhaserRate);
+            this.gbPhaser.Controls.Add(this.cbPhaserStage);
+            this.gbPhaser.Controls.Add(this.cbPhaserInOut);
+            this.gbPhaser.Controls.Add(this.label112);
+            this.gbPhaser.Controls.Add(this.label113);
+            this.gbPhaser.Controls.Add(this.label114);
+            this.gbPhaser.Location = new System.Drawing.Point(4, 3);
+            this.gbPhaser.Name = "gbPhaser";
+            this.gbPhaser.Size = new System.Drawing.Size(652, 206);
+            this.gbPhaser.TabIndex = 20;
+            this.gbPhaser.TabStop = false;
+            this.gbPhaser.Text = "Phaser";
             // 
             // nudPhaserDepth
             // 
@@ -5156,52 +5156,59 @@ namespace ChameleonSysExEd
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            // 
+            // tsSaveJustThisOne
+            // 
+            this.tsSaveJustThisOne.Name = "tsSaveJustThisOne";
+            this.tsSaveJustThisOne.Size = new System.Drawing.Size(173, 22);
+            this.tsSaveJustThisOne.Text = "Save &Just this entry";
+            this.tsSaveJustThisOne.Click += new System.EventHandler(this.tsSaveJustThisOne_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // exportToMIDIToolStripMenuItem
             // 
             this.exportToMIDIToolStripMenuItem.Name = "exportToMIDIToolStripMenuItem";
-            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.exportToMIDIToolStripMenuItem.Text = "&Export to MIDI";
             this.exportToMIDIToolStripMenuItem.Click += new System.EventHandler(this.exportToMIDIToolStripMenuItem_Click);
             // 
             // importFromMIDIToolStripMenuItem
             // 
             this.importFromMIDIToolStripMenuItem.Name = "importFromMIDIToolStripMenuItem";
-            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.importFromMIDIToolStripMenuItem.Text = "&Import from MIDI";
             this.importFromMIDIToolStripMenuItem.Click += new System.EventHandler(this.importFromMIDIToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // optionsToolStripMenuItem
@@ -5336,13 +5343,6 @@ namespace ChameleonSysExEd
             this.saveFileDdlg.DefaultExt = "*.syx";
             this.saveFileDdlg.InitialDirectory = ".\\";
             // 
-            // tsSaveJustThisOne
-            // 
-            this.tsSaveJustThisOne.Name = "tsSaveJustThisOne";
-            this.tsSaveJustThisOne.Size = new System.Drawing.Size(180, 22);
-            this.tsSaveJustThisOne.Text = "Save &Just this entry";
-            this.tsSaveJustThisOne.Click += new System.EventHandler(this.tsSaveJustThisOne_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5393,8 +5393,8 @@ namespace ChameleonSysExEd
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudHushThreshold)).EndInit();
             this.tpSpeakerSimChorus.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
+            this.gbChorus.ResumeLayout(false);
+            this.gbChorus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudChorus2Delay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudChorus2Depth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudChorus2Pan)).EndInit();
@@ -5410,13 +5410,13 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudSpkSimReactance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpkSimMicPlace)).EndInit();
             this.tpDelayReverb.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.gbReverb.ResumeLayout(false);
+            this.gbReverb.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudReverbHighFreqDamp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReverbDecay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReverbMix)).EndInit();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
+            this.gbDelay.ResumeLayout(false);
+            this.gbDelay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelayHighFreqDamp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelaySourceMix)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay2Time)).EndInit();
@@ -5428,21 +5428,21 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1OutLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay1Regen)).EndInit();
             this.tpWahPitchShift.ResumeLayout(false);
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
+            this.gbPitchShift.ResumeLayout(false);
+            this.gbPitchShift.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftFineTune)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftPitch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftPan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPitchShiftLevel)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            this.gbWah.ResumeLayout(false);
+            this.gbWah.PerformLayout();
             this.tpFlangerTremolo.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
+            this.gbTremolo.ResumeLayout(false);
+            this.gbTremolo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTremoloRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTremoloDepth)).EndInit();
-            this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
+            this.gbFlanger.ResumeLayout(false);
+            this.gbFlanger.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlangerRegeneration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger2Depth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger2Pan)).EndInit();
@@ -5453,8 +5453,8 @@ namespace ChameleonSysExEd
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger1Level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlanger1Rate)).EndInit();
             this.tpPhaser.ResumeLayout(false);
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox18.PerformLayout();
+            this.gbPhaser.ResumeLayout(false);
+            this.gbPhaser.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserReson)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPhaserRate)).EndInit();
@@ -5550,7 +5550,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.NumericUpDown nudHushThreshold;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.GroupBox gbChorus;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.NumericUpDown nudChorus1Delay;
         private System.Windows.Forms.Label label40;
@@ -5569,7 +5569,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.NumericUpDown nudSpkSimMicPlace;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.GroupBox gbReverb;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.NumericUpDown nudReverbHighFreqDamp;
         private System.Windows.Forms.Label label53;
@@ -5606,7 +5606,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.GroupBox gbDelay;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.Label label63;
@@ -5669,7 +5669,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.OpenFileDialog openFileDialogSysEx;
         private System.Windows.Forms.ComboBox cbChorusInOut;
         private System.Windows.Forms.ComboBox cbReverbState;
-        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.GroupBox gbPitchShift;
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.NumericUpDown nudPitchShiftFineTune;
         private System.Windows.Forms.Label label89;
@@ -5682,12 +5682,12 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.NumericUpDown nudPitchShiftLevel;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Label label88;
-        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.GroupBox gbWah;
         private System.Windows.Forms.ComboBox cbWahFrequency;
         private System.Windows.Forms.ComboBox cbWahInOut;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.GroupBox gbTremolo;
         private System.Windows.Forms.ComboBox cbTremoloLocation;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.NumericUpDown nudTremoloRate;
@@ -5698,7 +5698,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label label98;
         private System.Windows.Forms.Label label109;
         private System.Windows.Forms.Label label110;
-        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.GroupBox gbFlanger;
         private System.Windows.Forms.Label label91;
         private System.Windows.Forms.Label label92;
         private System.Windows.Forms.Label label93;
@@ -5723,7 +5723,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label label106;
         private System.Windows.Forms.NumericUpDown nudFlanger1Rate;
         private System.Windows.Forms.Label label107;
-        private System.Windows.Forms.GroupBox groupBox18;
+        private System.Windows.Forms.GroupBox gbPhaser;
         private System.Windows.Forms.NumericUpDown nudPhaserDepth;
         private System.Windows.Forms.Label label108;
         private System.Windows.Forms.NumericUpDown nudPhaserReson;
