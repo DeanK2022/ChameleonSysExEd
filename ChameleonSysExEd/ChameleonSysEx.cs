@@ -1057,7 +1057,6 @@ namespace ChameleonSysExEd
                     LoadFromStruct(casu);
                     sysExStart++;
                     sysExList.Add(this);
-                    
                 }
                 fs.Close();
             }

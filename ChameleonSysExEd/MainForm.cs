@@ -280,8 +280,12 @@ namespace ChameleonSysExEd
         }
         private void SetControllerAssignmentFromClass(int controllerIdx)
         {
-            cbControllerAssignment.SelectedIndex = controllerIdx ;
-            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param ;
+            cbControllerAssignment.SelectedIndex = controllerIdx;
+            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param > cbControllerAssignmentParam.Items.Count ? cbControllerAssignmentParam.Items.Count-1 : sysEx.ControllerAssignment[controllerIdx].Param;
+            if (sysEx.ControllerAssignment[controllerIdx].Param > cbControllerAssignmentParam.Items.Count)
+            {
+                toolStripStatusFileName.Text = "CA Ass overrun in file, controller " + (controllerIdx +1) + " param " + sysEx.ControllerAssignment[controllerIdx].Param;
+            }
             cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Number;
 
             if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemChoices)
@@ -291,7 +295,7 @@ namespace ChameleonSysExEd
                 cbControllerAssignmentLowerLimit.Items.AddRange(psic.lowerLimitValues);
                 cbControllerAssignmentUpperLimit.Items.Clear();
                 cbControllerAssignmentUpperLimit.Items.AddRange(psic.upperLimitValues);
-                cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit add parammodifier here;
+                cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit ;
                 cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
             }
 
@@ -303,8 +307,8 @@ namespace ChameleonSysExEd
                 nudControllerAssignmentUpperLimit.Maximum = psin.limitMax;
                 nudControllerAssignmentUpperLimit.Minimum = psin.limitMin;
 
-                nudControllerAssignmentLowerLimit.Value = sysEx.ControllerAssignment[controllerIdx].LowerLimit;
-                nudControllerAssignmentUpperLimit.Value = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
+                nudControllerAssignmentLowerLimit.Value = sysEx.ControllerAssignment[controllerIdx].LowerLimit + psin.lowerLimitMod;
+                nudControllerAssignmentUpperLimit.Value = sysEx.ControllerAssignment[controllerIdx].UpperLimit + psin.upperLimitMod;
             }
         }
         private ChameleonSysExComplete UIToChameleonSysExComplete ()
@@ -362,15 +366,16 @@ namespace ChameleonSysExEd
             curSysEx.Delay.HighFreqDamp = (byte)nudDelayHighFreqDamp.Value;
             curSysEx.Delay.SourceMix = (byte)nudDelaySourceMix.Value;
 
-            curSysEx.Delay.D1Time = (short)nudDelay1Time.Value ;
+            curSysEx.Delay.D1Time = (short)nudDelay1Time.Value;
             curSysEx.Delay.D1Pan = (byte)nudDelay1Pan.Value;
             curSysEx.Delay.D1OutLevel = (sbyte)nudDelay1OutLevel.Value;
             curSysEx.Delay.D1Regen = (sbyte)nudDelay1Regen.Value;
   
-            curSysEx.Delay.D2Time	= (short)nudDelay2Time.Value ;
+            curSysEx.Delay.D2Time	= (short)nudDelay2Time.Value;
             curSysEx.Delay.D2Pan = (byte)nudDelay2Pan.Value;
             curSysEx.Delay.D2OutLevel = (sbyte)nudDelay2OutLevel.Value;
             curSysEx.Delay.D2Regen = (sbyte)nudDelay2Regen.Value;
+
             for (int idx = 0;idx < Constants.MAX_CONTROLLER_COUNT;idx++)
             {
                 curSysEx.ControllerAssignment[idx].LowerLimit = sysEx.ControllerAssignment[idx].LowerLimit;

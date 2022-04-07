@@ -16,21 +16,21 @@ namespace ChameleonSysExEd
 
         public int limitMin;
         public int limitMax;
-        public int limitMinMod;
-        public int limitMaxMod;
+        public int lowerLimitMod;
+        public int upperLimitMod;
 
         public ParamSetItemNumeric(string paramName,
             int limitMin,
             int limitMax,
-            int limitMinMod=0,
-            int limitMaxMod=0)
+            int lowerLimitMod = 0,
+            int upperLimitMod = 0)
         {
 
             this.paramName = paramName;
             this.limitMin = limitMin;
             this.limitMax = limitMax;
-            this.limitMinMod = limitMinMod;
-            this.limitMaxMod = limitMaxMod;
+            this.lowerLimitMod = lowerLimitMod;
+            this.upperLimitMod = upperLimitMod;
 
         }
     }
