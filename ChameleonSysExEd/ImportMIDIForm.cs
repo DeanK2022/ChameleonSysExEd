@@ -18,6 +18,7 @@ namespace ChameleonSysExEd
         private List<InputDevice> recordingInputDevices = null;
         public List<ChameleonSysExComplete> sysExList;
         public int sysExStart;
+        public int bytesReceived = 0;
         public ImportMIDIForm(int midiInDeviceID)
         {
             InitializeComponent();
@@ -29,6 +30,19 @@ namespace ChameleonSysExEd
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (btnImport.Enabled == false)
+            {
+                btnStop.Enabled = true;
+                btnImport.Enabled = true;
+
+                foreach (var inputDevice in recordingInputDevices)
+                {
+                    inputDevice.StopRecording();
+                    inputDevice.Dispose();
+                }
+                inputDevice.SysExMessageReceived -= InputDevice_SysExMessageReceived;
+                recordingInputDevices = null;
+            }
             this.DialogResult = DialogResult.OK;
             Close();
         }
@@ -37,6 +51,8 @@ namespace ChameleonSysExEd
         {
             try
             {
+                bytesReceived = 0;
+                sysExStart = 0;
                 btnStop.Enabled = true;
                 btnImport.Enabled = false;
                 inputDevice.SysExMessageReceived += InputDevice_SysExMessageReceived;
@@ -53,10 +69,10 @@ namespace ChameleonSysExEd
         private void InputDevice_SysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
             var message = e.Message;
-                        
+            bytesReceived += e.Message.Length;
             try
             {
-                lbReceived.Text = e.Message.Length + " bytes";   // stop recording on all devices and dispose of the resources
+                lbReceived.Text = bytesReceived + " bytes";   // stop recording on all devices and dispose of the resources
 
                 ChameleonSysExComplete sysEx = new ChameleonSysExComplete();
                 sysEx.FromByteArr(message.GetBytes());

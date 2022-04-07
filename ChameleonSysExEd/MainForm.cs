@@ -147,10 +147,6 @@ namespace ChameleonSysExEd
 
                 cbControllerAssignment.SelectedIndex = 1;
                 SetControllerAssignmentFromClass(0);
-                //cbControllerAssignmentParam.SelectedIndex = mySysEx.ControllerAssignment[0].Param;
-                //cbControllerAssignmentNumber.SelectedIndex = mySysEx.ControllerAssignment[0].Number;
-                //cbControllerAssignmentLowerLimit.SelectedIndex = mySysEx.ControllerAssignment[0].LowerLimit;
-                //cbControllerAssignmentUpperLimit.SelectedIndex = mySysEx.ControllerAssignment[0].UpperLimit;
 
                 cbDelaySource2.SelectedIndex = mySysEx.Delay.Source2;
                 cbDelayState.SelectedIndex = mySysEx.Delay.DelayState;
@@ -281,34 +277,46 @@ namespace ChameleonSysExEd
         private void SetControllerAssignmentFromClass(int controllerIdx)
         {
             cbControllerAssignment.SelectedIndex = controllerIdx;
-            cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param > cbControllerAssignmentParam.Items.Count ? cbControllerAssignmentParam.Items.Count-1 : sysEx.ControllerAssignment[controllerIdx].Param;
-            if (sysEx.ControllerAssignment[controllerIdx].Param > cbControllerAssignmentParam.Items.Count)
+            //cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param > cbControllerAssignmentParam.Items.Count ? cbControllerAssignmentParam.Items.Count-1 : sysEx.ControllerAssignment[controllerIdx].Param;
+            try
             {
-                toolStripStatusFileName.Text = "CA Ass overrun in file, controller " + (controllerIdx +1) + " param " + sysEx.ControllerAssignment[controllerIdx].Param;
+                if (sysEx.ControllerAssignment[controllerIdx].Param > cbControllerAssignmentParam.Items.Count)
+                {
+                    toolStripStatusFileName.Text = "ControllerAssignment overrun in file, controller " + (controllerIdx + 1) + " param val " + sysEx.ControllerAssignment[controllerIdx].Param;
+                }
+                lbParamValue.Text = sysEx.ControllerAssignment[controllerIdx].Param.ToString();
+                cbControllerAssignmentParam.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Param = sysEx.ControllerAssignment[controllerIdx].Param;
+                cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Number;
+
+                if (ControllerParamLookup.ContainsKey(cbControllerAssignmentParam.SelectedItem.ToString()))
+                {
+                    if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemChoices)
+                    {
+                        ParamSetItemChoices psic = (ParamSetItemChoices)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+                        cbControllerAssignmentLowerLimit.Items.Clear();
+                        cbControllerAssignmentLowerLimit.Items.AddRange(psic.lowerLimitValues);
+                        cbControllerAssignmentUpperLimit.Items.Clear();
+                        cbControllerAssignmentUpperLimit.Items.AddRange(psic.upperLimitValues);
+                        cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit;
+                        cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
+                    }
+
+                    if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemNumeric)
+                    {
+                        ParamSetItemNumeric psin = (ParamSetItemNumeric)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+                        nudControllerAssignmentLowerLimit.Maximum = psin.limitMax;
+                        nudControllerAssignmentLowerLimit.Minimum = psin.limitMin;
+                        nudControllerAssignmentUpperLimit.Maximum = psin.limitMax;
+                        nudControllerAssignmentUpperLimit.Minimum = psin.limitMin;
+
+                        nudControllerAssignmentLowerLimit.Value = sysEx.ControllerAssignment[controllerIdx].LowerLimit + psin.lowerLimitMod;
+                        nudControllerAssignmentUpperLimit.Value = sysEx.ControllerAssignment[controllerIdx].UpperLimit + psin.upperLimitMod;
+                    }
+                }
             }
-            cbControllerAssignmentNumber.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].Number;
-
-            if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemChoices)
+            catch (Exception ex)
             {
-                ParamSetItemChoices psic = (ParamSetItemChoices)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
-                cbControllerAssignmentLowerLimit.Items.Clear();
-                cbControllerAssignmentLowerLimit.Items.AddRange(psic.lowerLimitValues);
-                cbControllerAssignmentUpperLimit.Items.Clear();
-                cbControllerAssignmentUpperLimit.Items.AddRange(psic.upperLimitValues);
-                cbControllerAssignmentLowerLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].LowerLimit ;
-                cbControllerAssignmentUpperLimit.SelectedIndex = sysEx.ControllerAssignment[controllerIdx].UpperLimit;
-            }
-
-            if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemNumeric)
-            {
-                ParamSetItemNumeric psin = (ParamSetItemNumeric)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
-                nudControllerAssignmentLowerLimit.Maximum = psin.limitMax;
-                nudControllerAssignmentLowerLimit.Minimum = psin.limitMin;
-                nudControllerAssignmentUpperLimit.Maximum = psin.limitMax;
-                nudControllerAssignmentUpperLimit.Minimum = psin.limitMin;
-
-                nudControllerAssignmentLowerLimit.Value = sysEx.ControllerAssignment[controllerIdx].LowerLimit + psin.lowerLimitMod;
-                nudControllerAssignmentUpperLimit.Value = sysEx.ControllerAssignment[controllerIdx].UpperLimit + psin.upperLimitMod;
+                toolStripStatusFileName.Text = "ControllerAssignment overrun in file, controller " + (controllerIdx + 1) + " param val " + sysEx.ControllerAssignment[controllerIdx].Param;
             }
         }
         private ChameleonSysExComplete UIToChameleonSysExComplete ()
@@ -495,19 +503,31 @@ namespace ChameleonSysExEd
             };
             return curSysEx;
         }
+        public static void AppendAllBytes(string path, byte[] bytes)
+        {
+            //argument-checking here.
+
+            using (var stream = new FileStream(path, FileMode.Append))
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
+        }
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //determine struct to use
-            //TChameleonCompositeHeaderUnion tcu;
-            ChameleonSysExComplete curSysx = UIToChameleonSysExComplete();
-            byte[] toWrite = curSysx.ToByteArray();
-            File.WriteAllBytes(openFileDialogSysEx.FileName + "2", toWrite);
+            sysExList[(int)nudCurPreset.Value - 1] = UIToChameleonSysExComplete();
+
+            foreach (var sysExItem in sysExList)
+            {
+                byte[] toWrite = sysExItem.ToByteArray();
+                AppendAllBytes(openFileDialogSysEx.FileName + "2", toWrite);
+            }
             _dirtyTracker.SetAsClean();
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDdlg.ShowDialog();
+            _dirtyTracker.SetAsClean();
         }
 
         private void CbControllerAssignment_Enter(object sender, EventArgs e)
@@ -523,14 +543,14 @@ namespace ChameleonSysExEd
             SetControllerAssignmentFromClass(cbControllerAssignment.SelectedIndex);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             if (!_dirtyTracker.IsDirty)
                 Application.Exit();
             else
             {
-                var confirmResult = MessageBox.Show("Are you sure to abandon changes?",
-                                     "Confirm application close.",
+                var confirmResult = MessageBox.Show("Are you sure you want to abandon changes?",
+                                     "Confirm Application Close.",
                                      MessageBoxButtons.OKCancel);
                 if (confirmResult == DialogResult.OK)
                 {
@@ -551,31 +571,47 @@ namespace ChameleonSysExEd
 
         private void cbControllerAssignmentParam_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ParamSetItemBase paramSetItemBase = ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
-            bool isNumericParam = (paramSetItemBase is ParamSetItemNumeric);
-
-            cbControllerAssignmentLowerLimit.Visible = !isNumericParam;
-            nudControllerAssignmentLowerLimit.Visible = isNumericParam;
-
-
-            cbControllerAssignmentUpperLimit.Visible = !isNumericParam;
-            nudControllerAssignmentUpperLimit.Visible = isNumericParam;
-
-            if (isNumericParam)
+            if (ControllerParamLookup.ContainsKey(cbControllerAssignmentParam.SelectedItem.ToString()))
             {
-                ParamSetItemNumeric paramSetItemNumeric = (ParamSetItemNumeric)paramSetItemBase;
-                nudControllerAssignmentLowerLimit.Minimum = paramSetItemNumeric.limitMin;
-                nudControllerAssignmentLowerLimit.Maximum = paramSetItemNumeric.limitMax;
-                nudControllerAssignmentUpperLimit.Minimum = paramSetItemNumeric.limitMin;
-                nudControllerAssignmentUpperLimit.Maximum = paramSetItemNumeric.limitMax;
+                ParamSetItemBase paramSetItemBase = ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+                bool isNumericParam = (paramSetItemBase is ParamSetItemNumeric);
+
+                cbControllerAssignmentLowerLimit.Visible = !isNumericParam;
+                nudControllerAssignmentLowerLimit.Visible = isNumericParam;
+
+
+                cbControllerAssignmentUpperLimit.Visible = !isNumericParam;
+                nudControllerAssignmentUpperLimit.Visible = isNumericParam;
+
+                if (isNumericParam)
+                {
+                    ParamSetItemNumeric paramSetItemNumeric = (ParamSetItemNumeric)paramSetItemBase;
+                    nudControllerAssignmentLowerLimit.Minimum = paramSetItemNumeric.limitMin;
+                    nudControllerAssignmentLowerLimit.Maximum = paramSetItemNumeric.limitMax;
+                    nudControllerAssignmentUpperLimit.Minimum = paramSetItemNumeric.limitMin;
+                    nudControllerAssignmentUpperLimit.Maximum = paramSetItemNumeric.limitMax;
+                }
+                else
+                {
+                    ParamSetItemChoices paramSetItemChoices = (ParamSetItemChoices)paramSetItemBase;
+                    cbControllerAssignmentUpperLimit.Items.Clear();
+                    cbControllerAssignmentUpperLimit.Items.AddRange(paramSetItemChoices.upperLimitValues);
+                    cbControllerAssignmentLowerLimit.Items.Clear();
+                    cbControllerAssignmentLowerLimit.Items.AddRange(paramSetItemChoices.lowerLimitValues);
+                }
             }
-            else 
+            else
             {
-                ParamSetItemChoices paramSetItemChoices = (ParamSetItemChoices)paramSetItemBase;
-                cbControllerAssignmentUpperLimit.Items.Clear();
-                cbControllerAssignmentUpperLimit.Items.AddRange(paramSetItemChoices.upperLimitValues);
-                cbControllerAssignmentLowerLimit.Items.Clear();
-                cbControllerAssignmentLowerLimit.Items.AddRange(paramSetItemChoices.lowerLimitValues);
+                cbControllerAssignmentLowerLimit.Visible = false;
+                nudControllerAssignmentLowerLimit.Visible = true;
+
+                cbControllerAssignmentUpperLimit.Visible = false;
+                nudControllerAssignmentUpperLimit.Visible = true;
+
+                nudControllerAssignmentLowerLimit.Minimum = -32768;
+                nudControllerAssignmentLowerLimit.Maximum = 32768;
+                nudControllerAssignmentUpperLimit.Minimum = -32768;
+                nudControllerAssignmentUpperLimit.Maximum = 32768;
             }
         }
 
@@ -656,8 +692,11 @@ namespace ChameleonSysExEd
 
             if (importMIDIForm.ShowDialog() == DialogResult.OK)
             {
-                nudCurPreset.Value += importMIDIForm.sysExStart;
-                nudCurPreset.Maximum = sysExList.Count+1;
+                nudCurPreset.Maximum = sysExList.Count-1;
+                if (nudCurPreset.Value == importMIDIForm.sysExStart - 1) // force reload even though value stays same
+                    nudCurPreset_ValueChanged(sender, e);
+
+                nudCurPreset.Value += importMIDIForm.sysExStart -1;
             }
         }
 
@@ -669,9 +708,25 @@ namespace ChameleonSysExEd
 
         private void nudCurPreset_ValueChanged(object sender, EventArgs e)
         {
-            sysEx = sysExList[(int)nudCurPreset.Value - 1];
+            sysEx = sysExList[(int)nudCurPreset.Value-1];
             //cbConfiguration_SelectedIndexChanged();
             LoadFormFromComposite(sysEx);
+        }
+
+        private void nudCurPreset_Enter(object sender, EventArgs e)
+        {
+            sysExList[(int)nudCurPreset.Value - 1] = UIToChameleonSysExComplete();
+        }
+
+        private void tsSaveJustThisOne_Click(object sender, EventArgs e)
+        {
+            saveFileDdlg.FileName = openFileDialogSysEx.FileName;
+            if (saveFileDdlg.ShowDialog() == DialogResult.OK)
+            {
+                ChameleonSysExComplete curSysx = UIToChameleonSysExComplete();
+                byte[] toWrite = curSysx.ToByteArray();
+                File.WriteAllBytes(saveFileDdlg.FileName, toWrite);
+            }
         }
     }
  }

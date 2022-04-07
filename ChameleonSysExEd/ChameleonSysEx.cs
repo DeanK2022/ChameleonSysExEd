@@ -1054,9 +1054,10 @@ namespace ChameleonSysExEd
                 {
                     TChameleonCompositeAllStructsUnion casu = FromFileStream(fs);
 
-                    LoadFromStruct(casu);
+                    ChameleonSysExComplete newSysEx = new ChameleonSysExComplete();
+                    newSysEx.LoadFromStruct(casu);
                     sysExStart++;
-                    sysExList.Add(this);
+                    sysExList.Add(newSysEx);
                 }
                 fs.Close();
             }
@@ -1252,7 +1253,7 @@ namespace ChameleonSysExEd
             { 
                 arrPtr = (IntPtr)v;
             
-                Marshal.PtrToStructure(arrPtr, casu.GetType());
+                casu = (TChameleonCompositeAllStructsUnion) Marshal.PtrToStructure(arrPtr, casu.GetType());
             }
             return casu;
         }

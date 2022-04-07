@@ -257,6 +257,7 @@ namespace ChameleonSysExEd
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.lbParamValue = new System.Windows.Forms.Label();
             this.nudControllerAssignmentLowerLimit = new System.Windows.Forms.NumericUpDown();
             this.nudControllerAssignmentUpperLimit = new System.Windows.Forms.NumericUpDown();
             this.cbControllerAssignmentLowerLimit = new System.Windows.Forms.ComboBox();
@@ -292,11 +293,12 @@ namespace ChameleonSysExEd
             this.cbConfiguration = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.label67 = new System.Windows.Forms.Label();
             this.nudCurPreset = new System.Windows.Forms.NumericUpDown();
             this.openFileDialogSysEx = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDdlg = new System.Windows.Forms.SaveFileDialog();
+            this.tsSaveJustThisOne = new System.Windows.Forms.ToolStripMenuItem();
             this.tcMainTab.SuspendLayout();
             this.tpMixerGain.SuspendLayout();
             this.gbCompressor.SuspendLayout();
@@ -2047,7 +2049,7 @@ namespace ChameleonSysExEd
             // 
             this.cbSpkSimSpkType.FormattingEnabled = true;
             this.cbSpkSimSpkType.Items.AddRange(new object[] {
-            "52\"",
+            "15\"",
             "12\"",
             "10\"",
             "8\"",
@@ -2061,8 +2063,9 @@ namespace ChameleonSysExEd
             // 
             this.cbSpkSimSpkSim.FormattingEnabled = true;
             this.cbSpkSimSpkSim.Items.AddRange(new object[] {
-            "Out",
-            "In"});
+            "Off",
+            "Left",
+            "Both"});
             this.cbSpkSimSpkSim.Location = new System.Drawing.Point(75, 20);
             this.cbSpkSimSpkSim.Name = "cbSpkSimSpkSim";
             this.cbSpkSimSpkSim.Size = new System.Drawing.Size(59, 21);
@@ -4037,6 +4040,7 @@ namespace ChameleonSysExEd
             // 
             // groupBox14
             // 
+            this.groupBox14.Controls.Add(this.lbParamValue);
             this.groupBox14.Controls.Add(this.nudControllerAssignmentLowerLimit);
             this.groupBox14.Controls.Add(this.nudControllerAssignmentUpperLimit);
             this.groupBox14.Controls.Add(this.cbControllerAssignmentLowerLimit);
@@ -4055,6 +4059,15 @@ namespace ChameleonSysExEd
             this.groupBox14.TabIndex = 19;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Controller Assignment";
+            // 
+            // lbParamValue
+            // 
+            this.lbParamValue.AutoSize = true;
+            this.lbParamValue.Location = new System.Drawing.Point(458, 57);
+            this.lbParamValue.Name = "lbParamValue";
+            this.lbParamValue.Size = new System.Drawing.Size(47, 13);
+            this.lbParamValue.TabIndex = 22;
+            this.lbParamValue.Text = "label116";
             // 
             // nudControllerAssignmentLowerLimit
             // 
@@ -4685,7 +4698,201 @@ namespace ChameleonSysExEd
             "MIX DIR/DLY",
             "REV DECAY",
             "REV HF DAMP",
-            "BYPASS"});
+            "BYPASS",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "76",
+            "77",
+            "78",
+            "79",
+            "80",
+            "81",
+            "82",
+            "83",
+            "84",
+            "85",
+            "86",
+            "87",
+            "88",
+            "89",
+            "90",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "96",
+            "97",
+            "98",
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120",
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130",
+            "131",
+            "132",
+            "133",
+            "134",
+            "135",
+            "136",
+            "137",
+            "138",
+            "139",
+            "140",
+            "141",
+            "142",
+            "143",
+            "144",
+            "145",
+            "146",
+            "147",
+            "148",
+            "149",
+            "150",
+            "151",
+            "152",
+            "153",
+            "154",
+            "155",
+            "156",
+            "157",
+            "158",
+            "159",
+            "160",
+            "161",
+            "162",
+            "163",
+            "164",
+            "165",
+            "166",
+            "167",
+            "168",
+            "169",
+            "170",
+            "171",
+            "172",
+            "173",
+            "174",
+            "175",
+            "176",
+            "177",
+            "178",
+            "179",
+            "180",
+            "181",
+            "182",
+            "183",
+            "184",
+            "185",
+            "186",
+            "187",
+            "188",
+            "189",
+            "190",
+            "191",
+            "192",
+            "193",
+            "194",
+            "195",
+            "196",
+            "197",
+            "198",
+            "199",
+            "200",
+            "201",
+            "202",
+            "203",
+            "204",
+            "205",
+            "206",
+            "207",
+            "208",
+            "209",
+            "210",
+            "211",
+            "212",
+            "213",
+            "214",
+            "215",
+            "216",
+            "217",
+            "218",
+            "219",
+            "220",
+            "221",
+            "222",
+            "223",
+            "224",
+            "225",
+            "226",
+            "227",
+            "228",
+            "229",
+            "230",
+            "231",
+            "232",
+            "233",
+            "234",
+            "235",
+            "236",
+            "237",
+            "238",
+            "239",
+            "240",
+            "241",
+            "242",
+            "243",
+            "244",
+            "245",
+            "246",
+            "247",
+            "248",
+            "249",
+            "250",
+            "251",
+            "252",
+            "253",
+            "254",
+            "255"});
             this.cbControllerAssignmentParam.Location = new System.Drawing.Point(289, 56);
             this.cbControllerAssignmentParam.Name = "cbControllerAssignmentParam";
             this.cbControllerAssignmentParam.Size = new System.Drawing.Size(152, 21);
@@ -4935,6 +5142,7 @@ namespace ChameleonSysExEd
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
+            this.tsSaveJustThisOne,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
             this.exportToMIDIToolStripMenuItem,
@@ -4948,52 +5156,52 @@ namespace ChameleonSysExEd
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exportToMIDIToolStripMenuItem
             // 
             this.exportToMIDIToolStripMenuItem.Name = "exportToMIDIToolStripMenuItem";
-            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.exportToMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportToMIDIToolStripMenuItem.Text = "&Export to MIDI";
             this.exportToMIDIToolStripMenuItem.Click += new System.EventHandler(this.exportToMIDIToolStripMenuItem_Click);
             // 
             // importFromMIDIToolStripMenuItem
             // 
             this.importFromMIDIToolStripMenuItem.Name = "importFromMIDIToolStripMenuItem";
-            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.importFromMIDIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importFromMIDIToolStripMenuItem.Text = "&Import from MIDI";
             this.importFromMIDIToolStripMenuItem.Click += new System.EventHandler(this.importFromMIDIToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // optionsToolStripMenuItem
@@ -5085,15 +5293,15 @@ namespace ChameleonSysExEd
             this.label1.TabIndex = 0;
             this.label1.Text = "Title:";
             // 
-            // button1
+            // btnClose
             // 
-            this.button1.Location = new System.Drawing.Point(588, 417);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 33);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "&Close";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnClose.Location = new System.Drawing.Point(588, 417);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(69, 33);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.Text = "&Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // label67
             // 
@@ -5116,6 +5324,7 @@ namespace ChameleonSysExEd
             this.nudCurPreset.Size = new System.Drawing.Size(41, 20);
             this.nudCurPreset.TabIndex = 9;
             this.nudCurPreset.ValueChanged += new System.EventHandler(this.nudCurPreset_ValueChanged);
+            this.nudCurPreset.Enter += new System.EventHandler(this.nudCurPreset_Enter);
             // 
             // openFileDialogSysEx
             // 
@@ -5127,6 +5336,13 @@ namespace ChameleonSysExEd
             this.saveFileDdlg.DefaultExt = "*.syx";
             this.saveFileDdlg.InitialDirectory = ".\\";
             // 
+            // tsSaveJustThisOne
+            // 
+            this.tsSaveJustThisOne.Name = "tsSaveJustThisOne";
+            this.tsSaveJustThisOne.Size = new System.Drawing.Size(180, 22);
+            this.tsSaveJustThisOne.Text = "Save &Just this entry";
+            this.tsSaveJustThisOne.Click += new System.EventHandler(this.tsSaveJustThisOne_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5134,7 +5350,7 @@ namespace ChameleonSysExEd
             this.ClientSize = new System.Drawing.Size(669, 475);
             this.Controls.Add(this.label67);
             this.Controls.Add(this.nudCurPreset);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -5427,7 +5643,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusFileName;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.NumericUpDown nudCurPreset;
         private System.Windows.Forms.ComboBox cbCompressorRelease;
@@ -5530,6 +5746,8 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Label lbParamValue;
+        private System.Windows.Forms.ToolStripMenuItem tsSaveJustThisOne;
     }
 }
 
