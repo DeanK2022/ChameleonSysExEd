@@ -626,17 +626,17 @@ namespace ChameleonSysExEd
             gbTremolo.Enabled = false;
             gbWah.Enabled = false;
             
-            if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
+            if (ChamObjectHelpers.IsChorus(cbConfiguration.SelectedIndex))
                 gbChorus.Enabled = true;
-            if (ChamObjectHelpers.IsFlanger(sysEx.Control.ConfigMode))
-                gbFlanger.Enabled = false;
-            if (ChamObjectHelpers.IsPhaser(sysEx.Control.ConfigMode))
+            if (ChamObjectHelpers.IsFlanger(cbConfiguration.SelectedIndex))
+                gbFlanger.Enabled = true;
+            if (ChamObjectHelpers.IsPhaser(cbConfiguration.SelectedIndex)
                 gbPhaser.Enabled = true;
-            if (ChamObjectHelpers.IsPitchShift(sysEx.Control.ConfigMode))
-                gbPitchShift.Enabled = false;
-            if (ChamObjectHelpers.IsTremolo(sysEx.Control.ConfigMode))
+            if (ChamObjectHelpers.IsPitchShift(cbConfiguration.SelectedIndex))
+                gbPitchShift.Enabled = true;
+            if (ChamObjectHelpers.IsTremolo(cbConfiguration.SelectedIndex))
                 gbTremolo.Enabled = true;
-            if (ChamObjectHelpers.IsWah(sysEx.Control.ConfigMode))
+            if (ChamObjectHelpers.IsWah(cbConfiguration.SelectedIndex))
                 gbWah.Enabled = true;
             if (sysEx.Control.ConfigMode > 5)
                 gbCompressor.Enabled = true;
