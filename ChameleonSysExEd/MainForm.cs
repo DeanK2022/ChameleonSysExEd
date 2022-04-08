@@ -702,7 +702,9 @@ namespace ChameleonSysExEd
 
         private void exportToMIDIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportMIDIForm exportMIDIForm = new ExportMIDIForm();
+            ExportMIDIForm exportMIDIForm = new ExportMIDIForm(midiOptionOutDeviceID);
+            exportMIDIForm.sysExList = sysExList;
+            exportMIDIForm.sendDelay = midiOptionOutDelay;
             exportMIDIForm.ShowDialog();
         }
 

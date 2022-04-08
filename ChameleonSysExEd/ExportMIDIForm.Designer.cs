@@ -35,6 +35,8 @@ namespace ChameleonSysExEd
             this.lblMIDIPort = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblSend = new System.Windows.Forms.Label();
+            this.lbExportDeviceName = new System.Windows.Forms.Label();
+            this.lbSentStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnExport
@@ -45,6 +47,7 @@ namespace ChameleonSysExEd
             this.btnExport.TabIndex = 0;
             this.btnExport.Text = "&Export";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnClose
             // 
@@ -88,15 +91,35 @@ namespace ChameleonSysExEd
             this.lblSend.AutoSize = true;
             this.lblSend.Location = new System.Drawing.Point(59, 50);
             this.lblSend.Name = "lblSend";
-            this.lblSend.Size = new System.Drawing.Size(44, 13);
+            this.lblSend.Size = new System.Drawing.Size(32, 13);
             this.lblSend.TabIndex = 5;
-            this.lblSend.Text = "Send: 0";
+            this.lblSend.Text = "Sent:";
+            // 
+            // lbExportDeviceName
+            // 
+            this.lbExportDeviceName.AutoSize = true;
+            this.lbExportDeviceName.Location = new System.Drawing.Point(120, 14);
+            this.lbExportDeviceName.Name = "lbExportDeviceName";
+            this.lbExportDeviceName.Size = new System.Drawing.Size(35, 13);
+            this.lbExportDeviceName.TabIndex = 6;
+            this.lbExportDeviceName.Text = "label2";
+            // 
+            // lbSentStatus
+            // 
+            this.lbSentStatus.AutoSize = true;
+            this.lbSentStatus.Location = new System.Drawing.Point(120, 50);
+            this.lbSentStatus.Name = "lbSentStatus";
+            this.lbSentStatus.Size = new System.Drawing.Size(35, 13);
+            this.lbSentStatus.TabIndex = 7;
+            this.lbSentStatus.Text = "label2";
             // 
             // ExportMIDIForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 178);
+            this.Controls.Add(this.lbSentStatus);
+            this.Controls.Add(this.lbExportDeviceName);
             this.Controls.Add(this.lblSend);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMIDIPort);
@@ -121,5 +144,7 @@ namespace ChameleonSysExEd
         private System.Windows.Forms.Label lblMIDIPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblSend;
+        private System.Windows.Forms.Label lbExportDeviceName;
+        private System.Windows.Forms.Label lbSentStatus;
     }
 }
