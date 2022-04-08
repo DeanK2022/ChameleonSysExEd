@@ -398,8 +398,9 @@ namespace ChameleonSysExEd
             }
             if (ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()] is ParamSetItemNumeric)
             {
-                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit = (byte)(nudControllerAssignmentLowerLimit.Value);
-                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)nudControllerAssignmentUpperLimit.Value;
+                ParamSetItemNumeric psin = (ParamSetItemNumeric)ControllerParamLookup[cbControllerAssignmentParam.SelectedItem.ToString()];
+                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].LowerLimit = (byte)(nudControllerAssignmentLowerLimit.Value - psin.lowerLimitMod);
+                curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].UpperLimit = (byte)(nudControllerAssignmentUpperLimit.Value - psin.upperLimitMod);
             }
 
             curSysEx.ControllerAssignment[cbControllerAssignment.SelectedIndex].Number = (byte)cbControllerAssignmentNumber.SelectedIndex;
@@ -617,7 +618,31 @@ namespace ChameleonSysExEd
 
         private void cbConfiguration_SelectedIndexChanged(object sender, EventArgs e)
         {
+            gbChorus.Enabled = false;
+            gbCompressor.Enabled = false;
+            gbFlanger.Enabled = false;
+            gbPhaser.Enabled = false;
+            gbPitchShift.Enabled = false;
+            gbTremolo.Enabled = false;
+            gbWah.Enabled = false;
+            
+            if (ChamObjectHelpers.IsChorus(cbConfiguration.SelectedIndex))
+                gbChorus.Enabled = true;
+            if (ChamObjectHelpers.IsFlanger(cbConfiguration.SelectedIndex))
+                gbFlanger.Enabled = true;
+            if (ChamObjectHelpers.IsPhaser(cbConfiguration.SelectedIndex)
+                gbPhaser.Enabled = true;
+            if (ChamObjectHelpers.IsPitchShift(cbConfiguration.SelectedIndex))
+                gbPitchShift.Enabled = true;
+            if (ChamObjectHelpers.IsTremolo(cbConfiguration.SelectedIndex))
+                gbTremolo.Enabled = true;
+            if (ChamObjectHelpers.IsWah(cbConfiguration.SelectedIndex))
+                gbWah.Enabled = true;
+            if (sysEx.Control.ConfigMode > 5)
+                gbCompressor.Enabled = true;
+           
             cbControllerAssignmentParam.Items.Clear();
+
             if (sysEx.Control.ConfigMode > 5)//lowgain
             {
                 if (ChamObjectHelpers.IsChorus(sysEx.Control.ConfigMode))
