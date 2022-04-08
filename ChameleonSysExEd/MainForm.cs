@@ -528,6 +528,13 @@ namespace ChameleonSysExEd
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDdlg.ShowDialog();
+          
+            if (saveFileDdlg.ShowDialog() == DialogResult.OK)
+            {
+                ChameleonSysExComplete curSysx = UIToChameleonSysExComplete();
+                byte[] toWrite = curSysx.ToByteArray();
+                File.WriteAllBytes(saveFileDdlg.FileName, toWrite);
+            }
             _dirtyTracker.SetAsClean();
         }
 
@@ -630,7 +637,7 @@ namespace ChameleonSysExEd
                 gbChorus.Enabled = true;
             if (ChamObjectHelpers.IsFlanger(cbConfiguration.SelectedIndex))
                 gbFlanger.Enabled = true;
-            if (ChamObjectHelpers.IsPhaser(cbConfiguration.SelectedIndex)
+            if (ChamObjectHelpers.IsPhaser(cbConfiguration.SelectedIndex))
                 gbPhaser.Enabled = true;
             if (ChamObjectHelpers.IsPitchShift(cbConfiguration.SelectedIndex))
                 gbPitchShift.Enabled = true;
@@ -735,7 +742,7 @@ namespace ChameleonSysExEd
 
         private void nudCurPreset_ValueChanged(object sender, EventArgs e)
         {
-            sysEx = sysExList[(int)nudCurPreset.Value-1];
+            sysEx = sysExList[(int)nudCurPreset.Value];
             //cbConfiguration_SelectedIndexChanged();
             LoadFormFromComposite(sysEx);
         }
